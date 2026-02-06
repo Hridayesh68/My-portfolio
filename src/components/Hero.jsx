@@ -155,14 +155,6 @@ const Hero = ({ theme, toggleTheme }) => {
                                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                             </button>
 
-                            <a
-                                href="/GeneralCV-Hridayesh.pdf"
-                                download="GeneralCV-Hridayesh.pdf"
-                                className="group inline-flex items-center px-8 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 text-lg font-medium rounded-full hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-1"
-                            >
-                                Download CV
-                                <Download className="ml-2 group-hover:translate-y-1 transition-transform" size={20} />
-                            </a>
                         </div>
                     </div>
 

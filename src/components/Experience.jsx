@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { Github, Code, Rocket } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,6 +19,34 @@ const Experience = () => {
         loading: true,
         error: null
     });
+
+    const [leetCodeStats, setLeetCodeStats] = useState({
+        loading: true,
+        data: null
+    });
+
+    useEffect(() => {
+        const fetchLeetCode = async () => {
+            try {
+                const response = await fetch('https://leetcode-stats-api.herokuapp.com/hridayeshdebsarma6');
+                const data = await response.json();
+                if (data.status === 'success') {
+                    setLeetCodeStats({
+                        loading: false,
+                        data: [
+                            { name: 'Easy', count: data.easySolved, color: '#00b8a3' },
+                            { name: 'Medium', count: data.mediumSolved, color: '#ffc01e' },
+                            { name: 'Hard', count: data.hardSolved, color: '#ef4743' }
+                        ]
+                    });
+                }
+            } catch (error) {
+                console.error("LeetCode fetch error:", error);
+                setLeetCodeStats({ loading: false, data: null });
+            }
+        };
+        fetchLeetCode();
+    }, []);
 
     useEffect(() => {
         // Simulating data load from JSON
@@ -150,6 +178,62 @@ const Experience = () => {
                     </div>
                 </div>
 
+                {/* Coding Platforms Section */}
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* LeetCode Stats */}
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 min-h-[300px]">
+                        <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                            <Code size={20} className="text-yellow-500" /> LeetCode Statistics
+                        </h3>
+                        {leetCodeStats.loading ? (
+                            <div className="h-full flex items-center justify-center">Loading LeetCode...</div>
+                        ) : leetCodeStats.data ? (
+                            <div className="h-[250px] w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={leetCodeStats.data}>
+                                        <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                                        <XAxis dataKey="name" stroke="#888" />
+                                        <YAxis stroke="#888" />
+                                        <Tooltip
+                                            contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#fff' }}
+                                            cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                                        />
+                                        <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                                            {leetCodeStats.data.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        ) : (
+                            <div className="text-center text-gray-500">Failed to load LeetCode Data</div>
+                        )}
+                    </div>
+
+                    {/* HackerRank Badges */}
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center">
+                        <h3 className="text-xl font-bold mb-6 flex items-center gap-2 w-full text-left">
+                            <Code size={20} className="text-green-500" /> HackerRank Badges
+                        </h3>
+                        <div className="flex justify-center items-center p-4">
+                            <a
+                                href="https://www.hackerrank.com/profile/hridayeshdebsar1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transform transition-transform duration-300 hover:scale-110"
+                            >
+                                <img
+                                    src="https://hackerrank-badges.vercel.app/hridayeshdebsar1"
+                                    alt="HackerRank Badges"
+                                    className="max-w-full h-auto drop-shadow-md"
+                                    onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerText = 'Failed to load Badges'; }}
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Timeline Section */}
                 <div ref={timelineRef} className="relative">
                     <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">My Journey</h2>
@@ -182,7 +266,7 @@ const Experience = () => {
                 </div>
 
             </div>
-        </section>
+        </section >
     );
 };
 

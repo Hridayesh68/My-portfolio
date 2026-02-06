@@ -59,9 +59,13 @@ const Navbar = ({ theme, toggleTheme }) => {
                             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                         </button>
 
-                        <button className="px-4 py-2 bg-primary text-white rounded-full hover:bg-secondary transition-colors shadow-md">
+                        <a
+                            href="/GeneralCV-Hridayesh.pdf"
+                            download="GeneralCV-Hridayesh.pdf"
+                            className="px-4 py-2 bg-primary text-white rounded-full hover:bg-secondary transition-colors shadow-md flex items-center"
+                        >
                             Download CV
-                        </button>
+                        </a>
                     </div>
 
                     {/* Mobile Toggle */}
@@ -92,9 +96,13 @@ const Navbar = ({ theme, toggleTheme }) => {
                                 {link.name}
                             </button>
                         ))}
-                        <button className="w-full text-center mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary">
+                        <a
+                            href="/GeneralCV-Hridayesh.pdf"
+                            download="GeneralCV-Hridayesh.pdf"
+                            className="w-full text-center mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary block"
+                        >
                             Download CV
-                        </button>
+                        </a>
                     </div>
                 </div>
             )}

@@ -5,36 +5,50 @@ import gsap from 'gsap';
 const ProjectCard = ({ project, index }) => {
     return (
         <div
-            className={`group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${index === 0 ? 'md:col-span-2' : ''}`}
+            className={`group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform h-[350px] relative`}
         >
-            <div className={`relative overflow-hidden bg-gray-200 dark:bg-gray-800 ${index === 0 ? 'h-64 md:h-80' : 'h-48'}`}>
-                <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => { e.target.src = 'https://via.placeholder.com/400x300?text=' + project.name; }}
-                />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                    <a href={project.repo} target="_blank" rel="noopener noreferrer" className="p-3 bg-white text-black rounded-full hover:bg-primary hover:text-white transition-colors"><Github size={20} /></a>
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-3 bg-white text-black rounded-full hover:bg-primary hover:text-white transition-colors"><ExternalLink size={20} /></a>
-                </div>
-            </div>
-            <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{project.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
+            {/* Default Content (Description + Tags) - Hidden on Hover */}
+            <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-center bg-gray-50 dark:bg-gray-800 transition-opacity duration-300 opacity-100 group-hover:opacity-0">
+                <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">{project.description}</p>
+                <div className="flex flex-wrap gap-2 justify-center">
                     {project.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">
+                        <span key={tag} className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-xs font-medium rounded-full text-gray-700 dark:text-gray-300">
                             {tag}
                         </span>
                     ))}
+                </div>
+                <div className="mt-8 text-primary font-medium text-sm animate-bounce">
+                    Hover to Reveal
+                </div>
+            </div>
+
+            {/* Hover Content (Image + Name + Links) - Visible on Hover */}
+            <div className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 bg-white dark:bg-gray-900">
+                <div className="relative h-full w-full">
+                    <img
+                        src={project.image}
+                        alt={project.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => { e.target.src = 'https://via.placeholder.com/400x300?text=' + project.name; }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6">
+                        <h3 className="text-2xl font-bold mb-2 text-white">{project.name}</h3>
+                        <div className="flex gap-4 mt-2">
+                            <a href={project.repo} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-primary transition-colors hover:scale-110">
+                                <Github size={20} />
+                            </a>
+                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-primary transition-colors hover:scale-110">
+                                <ExternalLink size={20} />
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-const ModelCard = ({ model }) => {
+const ModelCard = ({ model, className }) => {
     const [currentFrame, setCurrentFrame] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const intervalRef = useRef(null);
@@ -60,20 +74,22 @@ const ModelCard = ({ model }) => {
 
     return (
         <div
-            className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+            className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${className || ''}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="relative h-64 bg-gray-800 cursor-pointer overflow-hidden group">
+            <div className={`relative bg-gray-800 cursor-pointer overflow-hidden group h-full`}>
                 <img
                     src={getFrameSrc()}
                     alt={model.name}
                     className="w-full h-full object-cover transition-transform duration-700 ease-out"
                     onError={(e) => { e.target.src = 'https://via.placeholder.com/400x400?text=' + model.name; }}
                 />
-                <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-lg text-white text-xs">
-                    {model.frames ? 'Hover to Animate' : 'Hover to Interact'}
-                </div>
+                {model.frames && (
+                    <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-lg text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                        Hover to Animate
+                    </div>
+                )}
             </div>
             <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">{model.name}</h3>
@@ -206,7 +222,11 @@ const Projects = () => {
                     ))}
 
                     {activeTab === 'models' && models.map((model) => (
-                        <ModelCard key={model.id} model={model} />
+                        <ModelCard
+                            key={model.id}
+                            model={model}
+                            className={model.name === 'Pirate Ship' ? 'md:col-span-2 md:row-span-2 h-[500px]' : 'h-64'}
+                        />
                     ))}
 
                 </div>
