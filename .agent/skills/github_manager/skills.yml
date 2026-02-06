@@ -1,0 +1,10 @@
+name: github-stats-fetcher
+description: Fetches GitHub repository statistics for portfolio display.
+commands:
+  - name: get_stats
+    command: python3 {{skill_path}}/scripts/github_stats.py {{username}}
+    description: Retrieves stars, forks, and language data for a GitHub user.
+parameters:
+  - name: username
+    type: string
+    description: The GitHub username to fetch data for.
