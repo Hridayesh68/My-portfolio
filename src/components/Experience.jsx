@@ -143,7 +143,7 @@ const Experience = () => {
                                 <div className="text-red-500 text-center">{stats.error}</div>
                             ) : (
                                 <div className="h-[250px] w-full">
-                                    <ResponsiveContainer width="100%" height="100%">
+                                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                                         <PieChart>
                                             <Pie
                                                 data={stats.languages}

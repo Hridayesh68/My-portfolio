@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useLayoutEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TechStack from './components/TechStack';
@@ -9,11 +9,12 @@ import LoadingScreen from './components/LoadingScreen';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  // Default to dark mode
   const [theme, setTheme] = useState('dark');
   const canvasRef = useRef(null);
 
-  useEffect(() => {
-    // Theme setup
+  // Apply theme class to html element
+  useLayoutEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -21,8 +22,8 @@ function App() {
     }
   }, [theme]);
 
-  // Particle Effect
-  useEffect(() => {
+  // 🎇 Particle Effect (dark-mode optimized)
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -35,8 +36,8 @@ function App() {
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     class Particle {
       constructor() {
@@ -44,13 +45,13 @@ function App() {
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 0.5;
         this.speedY = Math.random() * 1 + 0.2;
-        this.opacity = Math.random() * 0.5 + 0.2;
+        this.opacity = Math.random() * 0.5 + 0.3;
       }
 
       update() {
         this.y += this.speedY;
         if (this.y > canvas.height) {
-          this.y = 0 - this.size;
+          this.y = -this.size;
           this.x = Math.random() * canvas.width;
         }
       }
@@ -58,17 +59,12 @@ function App() {
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = theme === 'dark' ? `rgba(100, 108, 255, ${this.opacity})` : `rgba(83, 91, 242, ${this.opacity})`; // Primary color
+        ctx.fillStyle = theme === 'dark' ? `rgba(100, 108, 255, ${this.opacity})` : `rgba(83, 91, 242, ${this.opacity})`;
         ctx.fill();
       }
     }
 
-    const initParticles = () => {
-      particles = [];
-      for (let i = 0; i < 50; i++) {
-        particles.push(new Particle());
-      }
-    };
+    particles = Array.from({ length: 60 }, () => new Particle());
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -79,14 +75,13 @@ function App() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    initParticles();
     animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]); // Re-init on theme change to update color
+  }, [theme]); // Re-run when theme changes to update particle color
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
@@ -97,13 +92,18 @@ function App() {
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       {!loading && (
-        <div className="min-h-screen bg-white dark:bg-[#242424] text-gray-900 dark:text-white transition-colors duration-300">
-          <canvas ref={canvasRef} id="particle-canvas" />
+        <div className="relative min-h-screen bg-gray-50 dark:bg-[#242424] text-gray-900 dark:text-white transition-colors duration-300">
+
+          {/* 🌌 Background particles */}
+          <canvas
+            ref={canvasRef}
+            className="fixed inset-0 -z-10"
+          />
 
           <Navbar theme={theme} toggleTheme={toggleTheme} />
 
           <main>
-            <Hero theme={theme} toggleTheme={toggleTheme} />
+            <Hero />
             <TechStack />
             <Experience />
             <Projects />

@@ -1,14 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        primary: '#646cff', // Example primary
+        primary: '#646cff', // Restoring custom colors from previous config
         secondary: '#535bf2',
       },
       animation: {
@@ -17,4 +17,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

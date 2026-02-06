@@ -1,41 +1,20 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-primary: #646cff;
-  --color-secondary: #535bf2;
-  --animate-spin-slow: spin 3s linear infinite;
-
-  /* Add other theme extensions here if needed */
-}
-
-/* Custom Utilities using @utility (if needed) or just CSS */
-
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+/* Force dark mode */
+html.dark,
+html.dark body {
   background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: white;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
+/* Root height */
+#root {
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -51,15 +30,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #535bf2;
-}
-
-/* Particle Canvas */
-#particle-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
 }
