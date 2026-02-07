@@ -2,17 +2,17 @@ import { useState, useRef, useEffect } from 'react';
 import { Github, ExternalLink, Box, Layout } from 'lucide-react';
 import gsap from 'gsap';
 
+import Card from './ui/Card'; // Import the new Card component
+
 const ProjectCard = ({ project, index }) => {
     return (
-        <div
-            className={`group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform h-[350px] relative`}
-        >
+        <Card className="h-[350px]">
             {/* Default Content (Description + Tags) - Hidden on Hover */}
-            <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-center bg-gray-50 dark:bg-gray-800 transition-opacity duration-300 opacity-100 group-hover:opacity-0">
-                <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">{project.description}</p>
+            <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-center bg-transparent transition-opacity duration-300 opacity-100 group-hover:opacity-0 pointer-events-none group-hover:pointer-events-none z-0">
+                <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg">{project.description}</p>
                 <div className="flex flex-wrap gap-2 justify-center">
                     {project.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-xs font-medium rounded-full text-gray-700 dark:text-gray-300">
+                        <span key={tag} className="px-3 py-1 bg-gray-100 dark:bg-white/5 backdrop-blur-sm border border-gray-200 dark:border-white/10 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">
                             {tag}
                         </span>
                     ))}
@@ -23,28 +23,28 @@ const ProjectCard = ({ project, index }) => {
             </div>
 
             {/* Hover Content (Image + Name + Links) - Visible on Hover */}
-            <div className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 bg-white dark:bg-gray-900">
+            <div className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 bg-white/95 dark:bg-neutral-900 z-10">
                 <div className="relative h-full w-full">
                     <img
                         src={project.image}
                         alt={project.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
                         onError={(e) => { e.target.src = 'https://via.placeholder.com/400x300?text=' + project.name; }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6">
-                        <h3 className="text-2xl font-bold mb-2 text-white">{project.name}</h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/50 dark:from-black/90 dark:via-black/50 to-transparent flex flex-col justify-end p-6">
+                        <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{project.name}</h3>
                         <div className="flex gap-4 mt-2">
-                            <a href={project.repo} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-primary transition-colors hover:scale-110">
+                            <a href={project.repo} target="_blank" rel="noopener noreferrer" className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-white/10 dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white rounded-full transition-all hover:scale-110 border border-gray-200 dark:border-white/10">
                                 <Github size={20} />
                             </a>
-                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-primary transition-colors hover:scale-110">
+                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-white/10 dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white rounded-full transition-all hover:scale-110 border border-gray-200 dark:border-white/10">
                                 <ExternalLink size={20} />
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 };
 
@@ -74,27 +74,31 @@ const ModelCard = ({ model, className }) => {
 
     return (
         <div
-            className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${className || ''}`}
+            className={`h-full ${className || ''}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className={`relative bg-gray-800 cursor-pointer overflow-hidden group h-full`}>
-                <img
-                    src={getFrameSrc()}
-                    alt={model.name}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out"
-                    onError={(e) => { e.target.src = 'https://via.placeholder.com/400x400?text=' + model.name; }}
-                />
-                {model.frames && (
-                    <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-lg text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                        Hover to Animate
+            <Card className="h-full">
+                <div className="relative h-full w-full flex flex-col">
+                    <div className={`relative flex-grow bg-transparent overflow-hidden group`}>
+                        <img
+                            src={getFrameSrc()}
+                            alt={model.name}
+                            className="w-full h-full object-cover transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"
+                            onError={(e) => { e.target.src = 'https://via.placeholder.com/400x400?text=' + model.name; }}
+                        />
+                        {model.frames && (
+                            <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-lg text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity border border-white/10">
+                                Hover to Animate
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-            <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{model.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{model.description}</p>
-            </div>
+                    <div className="p-6 bg-white dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800">
+                        <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{model.name}</h3>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{model.description}</p>
+                    </div>
+                </div>
+            </Card>
         </div>
     );
 };
@@ -184,9 +188,9 @@ const Projects = () => {
     }, [activeTab]);
 
     return (
-        <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800/50">
+        <section id="projects" className="py-20">
             <div className="max-w-7xl mx-auto px-4">
-                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">My Work</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">My Work</h2>
 
                 {/* Toggle Bar */}
                 <div className="flex justify-center mb-12">

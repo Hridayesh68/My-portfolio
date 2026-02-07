@@ -44,6 +44,8 @@ const Hero = ({ theme, toggleTheme }) => {
     const imageRef = useRef(null);
     const [mainText, setMainText] = useState("Hridayesh");
 
+    const [showGlow, setShowGlow] = useState(false);
+
     useEffect(() => {
         const tl = gsap.timeline();
 
@@ -63,6 +65,7 @@ const Hero = ({ theme, toggleTheme }) => {
     };
 
     const handleTextHover = () => {
+        // ... (existing code)
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
         let iterations = 0;
         const target = "Developer";
@@ -89,19 +92,32 @@ const Hero = ({ theme, toggleTheme }) => {
         setMainText("Hridayesh");
     };
 
+    const handleImageClick = () => {
+        if (theme === 'light') {
+            setShowGlow(true);
+            setTimeout(() => setShowGlow(false), 800);
+        }
+    };
+
     return (
         <section id="hero" className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
             <Sparkles />
+
+            {/* Edge Glow Effect (Light Mode Only) */}
+            <div
+                className={`fixed inset-0 pointer-events-none z-50 transition-opacity duration-700 ease-out ${showGlow ? 'opacity-100' : 'opacity-0'}`}
+                style={{ boxShadow: 'inset 0 0 150px 40px rgba(59, 130, 246, 0.4)' }}
+            ></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
                     {/* Image Content (Left) */}
                     <div ref={imageRef} className="flex-1 relative flex justify-center md:justify-start">
-                        <div className="relative">
-                            <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl relative z-10 glass-effect">
+                        <div className="relative group cursor-pointer" onClick={handleImageClick}>
+                            <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl relative z-10 glass-effect dark:bg-transparent dark:opacity-90 transition-all duration-300">
                                 <img
-                                    src="/assets/hero-me.jpeg"
+                                    src="/assets/hero-me.jpg"
                                     alt="Hridayesh"
                                     className="w-full h-full object-cover"
                                     onError={(e) => {
@@ -114,7 +130,10 @@ const Hero = ({ theme, toggleTheme }) => {
 
                             {/* Dark Mode Toggle */}
                             <button
-                                onClick={toggleTheme}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Prevent glow trigger
+                                    toggleTheme();
+                                }}
                                 className="absolute bottom-4 right-0 z-20 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform group"
                                 aria-label="Toggle Theme"
                             >

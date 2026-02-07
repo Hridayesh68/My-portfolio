@@ -52,14 +52,14 @@ const TechStack = () => {
     ];
 
     return (
-        <section id="tech-stack" className="py-20 bg-gray-50 dark:bg-gray-800/50 overflow-hidden">
+        <section id="tech-stack" className="py-20 bg-transparent overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Tech Arsenal</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Tech Arsenal</h2>
                 <p className="text-gray-600 dark:text-gray-400">Tools and technologies I work with.</p>
             </div>
 
             {/* Infinite Marquee */}
-            <div className="relative w-full overflow-hidden py-8 bg-white dark:bg-gray-900 shadow-inner">
+            <div className="relative w-full overflow-hidden py-8 bg-transparent">
                 <div ref={marqueeRef} className="flex gap-16 items-center w-max px-8">
                     {/* Duplicate list for seamless loop */}
                     {[...technologies, ...technologies, ...technologies].map((tech, index) => (
