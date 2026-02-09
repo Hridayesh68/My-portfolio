@@ -156,16 +156,13 @@ const Achievements = () => {
                                 <h3 className="text-xl font-bold mb-6 flex items-center gap-2 w-full text-left text-gray-900 dark:text-white relative z-10">
                                     <Trophy size={20} className="text-green-500" /> HackerRank
                                 </h3>
-                                <div className="flex flex-col items-center justify-center gap-4 relative z-10 w-full">
-                                    <a href="https://www.hackerrank.com/hridayesh" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition-transform">
+                                <div className="w-full flex justify-center overflow-hidden relative z-10 p-2">
+                                    <a href="https://hackerrank-badges.vercel.app/hridayeshdebsar1" target="_blank" rel="noopener noreferrer">
                                         <img
-                                            src="https://www.hackerrank.com/wp-content/uploads/2018/08/hackerrank_logo.png"
-                                            alt="HackerRank"
-                                            className="h-16 object-contain filter brightness-0 dark:brightness-100"
+                                            src="https://hackerrank-badges.vercel.app/hridayeshdebsar1"
+                                            alt="HackerRank Badges"
+                                            className="max-w-full h-auto object-contain dark:filter dark:brightness-90 hover:scale-105 transition-transform duration-300"
                                         />
-                                    </a>
-                                    <a href="https://www.hackerrank.com/hridayesh" target="_blank" rel="noopener noreferrer" className="text-sm text-primary flex items-center gap-1 hover:underline">
-                                        View Profile <ExternalLink size={14} />
                                     </a>
                                 </div>
                             </div>

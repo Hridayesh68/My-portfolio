@@ -110,7 +110,7 @@ function App() {
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       {!loading && (
-        <div className="relative min-h-screen bg-black text-gray-900 dark:text-white transition-colors duration-300 overflow-hidden">
+        <div className="relative min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white transition-colors duration-300 overflow-hidden">
           {/* 🌌 Global Background */}
           <div className="absolute inset-0 bg-radial-soft opacity-[0.03] pointer-events-none"></div>
 

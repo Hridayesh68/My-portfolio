@@ -35,7 +35,7 @@ const LoadingScreen = ({ onComplete }) => {
     }, [onComplete]);
 
     return (
-        <div ref={containerRef} className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-white">
+        <div ref={containerRef} className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white dark:bg-black text-black dark:text-white">
             <div ref={logoRef} className="relative flex flex-col items-center">
                 <svg className="w-24 h-24 text-primary animate-pulse" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round">
                     {/* H */}
@@ -46,7 +46,7 @@ const LoadingScreen = ({ onComplete }) => {
                 {/* Optional glow effect */}
                 <div className="absolute inset-0 bg-primary/30 blur-xl rounded-full animate-pulse"></div>
             </div>
-            <h2 className="mt-8 text-2xl font-bold tracking-widest uppercase text-white50">Loading...</h2>
+            <h2 className="mt-8 text-2xl font-bold tracking-widest uppercase text-gray-500 dark:text-white50">Loading...</h2>
         </div>
     );
 };

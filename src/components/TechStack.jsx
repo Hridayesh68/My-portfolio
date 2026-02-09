@@ -70,7 +70,7 @@ const TechStack = () => {
                                 className="w-16 h-16 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
                                 onError={(e) => { e.target.src = 'https://via.placeholder.com/64?text=' + tech.name[0]; }} // Fallback
                             />
-                            <span className="text-sm font-medium text-gray-500">{tech.name}</span>
+                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{tech.name}</span>
                         </div>
                     ))}
                 </div>
