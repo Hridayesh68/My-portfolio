@@ -148,7 +148,7 @@ const Experience = () => {
 
                         {/* LEFT COLUMN */}
                         <div className="flex flex-col justify-between py-10 order-2 md:order-1 gap-24 md:gap-0">
-                            {leftCards.map((card, idx) => (
+                            {leftCards.map((card) => (
                                 <div key={card.id} className="left-card-anim flex justify-end items-center h-1/3">
                                     <div className="w-full max-w-md relative">
                                         <Card className="p-6 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-colors">
@@ -170,7 +170,7 @@ const Experience = () => {
 
                         {/* RIGHT COLUMN */}
                         <div className="flex flex-col justify-between py-10 order-1 md:order-2 gap-12 md:gap-0">
-                            {rightCards.map((card, idx) => (
+                            {rightCards.map((card) => (
                                 <div key={card.id} className="right-card-anim flex justify-start items-center">
                                     <div className="w-full max-w-md">
                                         <Card>

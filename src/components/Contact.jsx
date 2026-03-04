@@ -1,59 +1,108 @@
-import Card from './ui/Card'; // Import Card component
+import { useState, useRef, useLayoutEffect } from 'react';
+import emailjs from '@emailjs/browser';
+import { CheckCircle2, Loader2, Send } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Card from './ui/Card';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
-    return (
-        <section id="contact" className="py-20 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4">
+    const formRef = useRef(null);
+    const sectionRef = useRef(null);
+    const [status, setStatus] = useState('idle'); // idle | submitting | success | error
 
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Let's Connect</h2>
-                    <p className="text-gray-400">Have a project in mind? I'd love to hear from you.</p>
+    // GSAP Scroll Reveal and Button Hover
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            // Section elements fade/slide in
+            gsap.from('.contact-reveal', {
+                y: 50,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
+            });
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+        setStatus('submitting');
+
+        emailjs.sendForm(
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+            formRef.current,
+            import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        )
+            .then(() => {
+                setStatus('success');
+                formRef.current.reset();
+                setTimeout(() => setStatus('idle'), 5000);
+            })
+            .catch((error) => {
+                console.error("EmailJS Error:", error);
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 5000);
+            });
+    };
+
+    return (
+        <section id="contact" ref={sectionRef} className="py-20 relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 z-10 relative">
+
+                <div className="text-center mb-16 contact-reveal">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Let&apos;s Connect</h2>
+                    <p className="text-gray-600 dark:text-gray-400">Have a project in mind? I&apos;d love to hear from you.</p>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-12 items-start">
+                <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-stretch max-w-5xl mx-auto">
 
                     {/* Contact Info */}
-                    <div className="flex-1 w-full space-y-8">
-                        <Card>
-                            <div className="p-8 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm relative z-10">
-                                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Contact Info</h3>
-                                <div className="space-y-6">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 flex items-center justify-center">
-                                            <img src="/pngs/gmail-icon.png" alt="Gmail" className="w-8 h-8 object-contain" />
+                    <div className="flex-1 w-full flex contact-reveal">
+                        <Card className="w-full">
+                            <div className="p-8 bg-white/50 dark:bg-transparent relative z-10 h-full flex flex-col justify-center">
+                                <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">Contact Info</h3>
+                                <div className="space-y-8">
+                                    <div className="flex items-center gap-5 group">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
+                                            <img src="/pngs/gmail-icon.png" alt="Gmail" className="w-6 h-6 object-contain" />
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-500">Email Me</p>
-                                            <a href="mailto:contact@hridayesh.com" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">contact@hridayesh.com</a>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">Email Me</p>
+                                            <a href="mailto:hridayeshdebsarm6@gmail.com" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">hridayeshdebsarm6@gmail.com</a>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 flex items-center justify-center">
-                                            <img src="/pngs/linkedin-app-icon.png" alt="LinkedIn" className="w-8 h-8 object-contain" />
+                                    <div className="flex items-center gap-5 group">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
+                                            <img src="/pngs/linkedin-app-icon.png" alt="LinkedIn" className="w-6 h-6 object-contain filter dark:invert" />
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-500">LinkedIn</p>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">LinkedIn</p>
                                             <a href="#" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">/in/hridayesh</a>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 flex items-center justify-center">
-                                            <img src="/pngs/x-social-media-logo-icon.png" alt="X (Twitter)" className="w-8 h-8 object-contain" />
+                                    <div className="flex items-center gap-5 group">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
+                                            <img src="/pngs/x-social-media-logo-icon.png" alt="X (Twitter)" className="w-6 h-6 object-contain filter dark:invert" />
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-500">Twitter</p>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">Twitter</p>
                                             <a href="#" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">@hridayesh_dev</a>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 flex items-center justify-center">
-                                            <img src="/pngs/address-icon.png" alt="Location" className="w-8 h-8 object-contain" />
+                                    <div className="flex items-center gap-5 group">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
+                                            <img src="/pngs/address-icon.png" alt="Location" className="w-6 h-6 object-contain" />
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-500">Location</p>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">Location</p>
                                             <span className="font-medium text-gray-900 dark:text-white">India</span>
                                         </div>
                                     </div>
@@ -63,37 +112,79 @@ const Contact = () => {
                     </div>
 
                     {/* Contact Form */}
-                    <div className="flex-1 w-full">
-                        <Card>
-                            <form className="p-8 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm space-y-6 relative z-10">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
-                                    <input
-                                        type="text"
-                                        className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
-                                        placeholder="Your Name"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
-                                    <input
-                                        type="email"
-                                        className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
-                                        placeholder="your@email.com"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
-                                    <textarea
-                                        rows="4"
-                                        className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-600"
-                                        placeholder="Tell me about your project..."
-                                    ></textarea>
-                                </div>
-                                <button className="w-full py-4 bg-primary text-white font-bold rounded-lg hover:bg-secondary transition-colors shadow-md">
-                                    Send Message
-                                </button>
-                            </form>
+                    <div className="flex-[1.2] w-full flex contact-reveal">
+                        <Card className="w-full">
+                            <div className="p-8 bg-white/50 dark:bg-transparent relative z-10 h-full">
+                                <form ref={formRef} onSubmit={sendEmail} className="space-y-6 h-full flex flex-col justify-between">
+                                    <div className="space-y-6">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                                            <input
+                                                name="name"
+                                                type="text"
+                                                required
+                                                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                                                placeholder="Your Name"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                                            <input
+                                                name="email"
+                                                type="email"
+                                                required
+                                                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                                                placeholder="your@email.com"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                                            <textarea
+                                                name="message"
+                                                rows="5"
+                                                required
+                                                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                                                placeholder="Tell me about your project..."
+                                            ></textarea>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        disabled={status === 'submitting'}
+                                        className={`w-full py-4 font-bold rounded-lg transition-all shadow-md mt-6 flex justify-center items-center gap-2 group
+                                            ${status === 'submitting' ? 'bg-indigo-400 cursor-wait text-white' :
+                                                status === 'success' ? 'bg-emerald-500 text-white' :
+                                                    status === 'error' ? 'bg-red-500 text-white' :
+                                                        'bg-primary text-white hover:bg-secondary hover:shadow-lg hover:-translate-y-1'
+                                            }`}
+                                    >
+                                        {status === 'idle' && (
+                                            <>
+                                                Send Message
+                                                <Send size={18} className="group-hover:translate-x-1 transition-transform" />
+                                            </>
+                                        )}
+                                        {status === 'submitting' && (
+                                            <>
+                                                <Loader2 size={18} className="animate-spin" />
+                                                Sending...
+                                            </>
+                                        )}
+                                        {status === 'success' && (
+                                            <>
+                                                <CheckCircle2 size={18} />
+                                                ✓ Message Sent
+                                            </>
+                                        )}
+                                        {status === 'error' && (
+                                            <>
+                                                Failed to Send
+                                            </>
+                                        )}
+                                    </button>
+                                </form>
+                            </div>
                         </Card>
                     </div>
 

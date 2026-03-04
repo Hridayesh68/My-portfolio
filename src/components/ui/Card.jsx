@@ -28,7 +28,7 @@ const Card = ({ children, className = "" }) => {
     return (
         <div
             ref={cardRef}
-            className={`card-gradient group relative overflow-hidden rounded-xl bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 shadow-lg dark:shadow-none transition-all duration-500 ${className}`}
+            className={`card-gradient group relative overflow-hidden rounded-xl bg-white dark:bg-white/5 dark:backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-lg dark:shadow-none transition-all duration-500 ${className}`}
         >
             {/* glow */}
             <div
