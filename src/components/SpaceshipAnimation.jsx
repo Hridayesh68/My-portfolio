@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-const BirdAnimation = () => {
+const SpaceshipAnimation = () => {
     const containerRef = useRef(null);
-    const birdRef = useRef(null);
+    const shipRef = useRef(null);
 
     // State for positions
     const pos = useRef({ x: -200, y: -200 });
@@ -13,12 +13,12 @@ const BirdAnimation = () => {
     const lastSection = useRef(-1);
 
     const entryDirections = [
-        { x: -0.2, y: 0.5 },   // from LEFT
-        { x: 1.2, y: 0.5 },    // from RIGHT
-        { x: 0.5, y: -0.2 },   // from TOP
-        { x: 0.8, y: 1.2 },    // from BOTTOM-RIGHT
-        { x: 0.2, y: 1.2 },    // from BOTTOM-LEFT
-        { x: 1.2, y: 0.2 },    // from TOP-RIGHT
+        { x: -0.1, y: 0.5 },   // from LEFT
+        { x: 1.1, y: 0.5 },    // from RIGHT
+        { x: 0.5, y: -0.1 },   // from TOP
+        { x: 0.8, y: 1.1 },    // from BOTTOM-RIGHT
+        { x: 0.2, y: 1.1 },    // from BOTTOM-LEFT
+        { x: 1.1, y: 0.2 },    // from TOP-RIGHT
     ];
 
     const lerp = (a, b, t) => a + (b - a) * t;
@@ -27,51 +27,52 @@ const BirdAnimation = () => {
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
-        const birdContainer = containerRef.current;
-        const birdSVG = birdRef.current;
-        if (!birdContainer || !birdSVG) return;
+        const shipContainer = containerRef.current;
+        const shipSVG = shipRef.current;
+        if (!shipContainer || !shipSVG) return;
 
         // Movement Loop
         let animationFrameId;
 
-        const rotateBird = () => {
+        const rotateShip = () => {
             const dx = pos.current.x - prevPos.current.x;
             const dy = pos.current.y - prevPos.current.y;
 
             const speed = Math.hypot(dx, dy);
-            if (speed < 0.1) return; // avoid jitter when stationary
+            if (speed < 0.1) return;
 
             const angle = Math.atan2(dy, dx) * (180 / Math.PI);
             const flyingLeft = Math.abs(angle) > 90;
 
-            // Flip bird on Y axis when flying leftward
+            // Ship doesn't flip on Y like a bird, it just rotates towards target
+            // But we might want it to stay upright-ish or roll
             const scaleY = flyingLeft ? -1 : 1;
             const dispAngle = flyingLeft ? angle + 180 : angle;
 
-            // Slight bank tilt proportional to horizontal speed
-            const bank = Math.max(-18, Math.min(18, dx * 1.2));
+            // Banking effect
+            const bank = Math.max(-15, Math.min(15, dx * 1.5));
 
-            birdSVG.style.transform = `rotate(${dispAngle}deg) scaleY(${scaleY}) rotate(${bank}deg)`;
+            shipSVG.style.transform = `rotate(${dispAngle}deg) scaleY(${scaleY}) rotate(${bank}deg)`;
 
-            // Fast-flap class when speed > threshold
-            birdContainer.classList.toggle('fast', speed > 5);
+            // Fast-engine class when speed > threshold
+            shipContainer.classList.toggle('fast', speed > 5);
         };
 
         const animate = () => {
             prevPos.current = { ...pos.current };
 
             if (phase.current === 'flying-in') {
-                pos.current.x = lerp(pos.current.x, target.current.x, 0.045);
-                pos.current.y = lerp(pos.current.y, target.current.y, 0.045);
+                pos.current.x = lerp(pos.current.x, target.current.x, 0.05);
+                pos.current.y = lerp(pos.current.y, target.current.y, 0.05);
 
-                if (dist(pos.current, target.current) < 30) {
+                if (dist(pos.current, target.current) < 20) {
                     phase.current = 'drifting';
                 }
             }
 
             if (phase.current === 'drifting') {
-                const DRIFT_SPEED = 0.018;
-                const HOVER_DIST = 80;
+                const DRIFT_SPEED = 0.02;
+                const HOVER_DIST = 60;
 
                 const dx = cursor.current.x - pos.current.x;
                 const dy = cursor.current.y - pos.current.y;
@@ -86,9 +87,9 @@ const BirdAnimation = () => {
             }
 
             // Apply position
-            birdContainer.style.transform = `translate(${pos.current.x - 45}px, ${pos.current.y - 30}px)`;
+            shipContainer.style.transform = `translate(${pos.current.x - 30}px, ${pos.current.y - 20}px)`;
 
-            rotateBird();
+            rotateShip();
             animationFrameId = requestAnimationFrame(animate);
         };
 
@@ -101,7 +102,7 @@ const BirdAnimation = () => {
             target.current.y = window.innerHeight * 0.5;
 
             phase.current = 'flying-in';
-            birdContainer.style.opacity = '1';
+            shipContainer.style.opacity = '1';
         };
 
         const getCurrentSection = () => {
@@ -136,7 +137,6 @@ const BirdAnimation = () => {
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('mousemove', handleMouseMove);
 
-        // Initial entry
         handleScroll();
         animate();
 
@@ -150,72 +150,71 @@ const BirdAnimation = () => {
     return (
         <div
             ref={containerRef}
-            id="bird-container"
+            id="ship-container"
             className="pointer-events-none fixed top-0 left-0 z-[10000] opacity-0 transition-opacity duration-500"
             style={{ willChange: 'transform' }}
         >
             <svg
-                ref={birdRef}
-                id="bird"
-                viewBox="0 0 120 80"
-                className="w-[90px] h-[60px]"
+                ref={shipRef}
+                id="spaceship"
+                viewBox="0 0 80 40"
+                className="w-[60px] h-[30px]"
             >
-                {/* Bird Body */}
-                <ellipse cx="60" cy="40" rx="25" ry="15" fill="#646cff" />
-                <circle cx="80" cy="35" r="10" fill="#646cff" />
-                <polygon points="90,35 100,38 90,41" fill="#ffaa00" />
-                <ellipse cx="85" cy="33" rx="2" ry="2" fill="white" />
-                <circle cx="85" cy="33" r="1" fill="black" />
+                {/* Thruster Flame/Glow */}
+                <path id="thruster-flame" d="M15,20 L0,15 L5,20 L0,25 Z" fill="#00f2ff" />
 
-                {/* Wings */}
-                <g id="wing-left" className="origin-[60px_40px]">
-                    <path d="M60,40 Q40,10 20,40" fill="none" stroke="#646cff" strokeWidth="4" strokeLinecap="round" />
-                    <path d="M60,40 Q40,5 15,35" fill="#646cff" opacity="0.8" />
-                </g>
-                <g id="wing-right" className="origin-[60px_40px]">
-                    <path d="M60,40 Q40,70 20,40" fill="none" stroke="#646cff" strokeWidth="4" strokeLinecap="round" />
-                    <path d="M60,40 Q40,75 15,45" fill="#646cff" opacity="0.6" />
-                </g>
+                {/* Main Body */}
+                <path d="M15,10 L60,10 L75,20 L60,30 L15,30 Z" fill="#2d2d2d" stroke="#646cff" strokeWidth="1.5" />
+
+                {/* Cockpit */}
+                <path d="M45,15 L55,15 L60,20 L55,25 L45,25 Z" fill="#00f2ff" opacity="0.6" />
+
+                {/* Fins */}
+                <path d="M30,10 L45,0 L55,10 Z" fill="#3d3d3d" stroke="#646cff" strokeWidth="1" />
+                <path d="M30,30 L45,40 L55,30 Z" fill="#3d3d3d" stroke="#646cff" strokeWidth="1" />
+
+                {/* Detail Lines */}
+                <line x1="20" y1="15" x2="40" y2="15" stroke="#646cff" strokeWidth="0.5" opacity="0.5" />
+                <line x1="20" y1="25" x2="40" y2="25" stroke="#646cff" strokeWidth="0.5" opacity="0.5" />
             </svg>
-            <div id="glow" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10"></div>
+
+            {/* Engine Glow */}
+            <div id="ship-glow" className="absolute top-1/2 left-0 -translate-y-1/2 w-8 h-8 bg-cyan-400/40 rounded-full blur-xl -z-10"></div>
 
             <style>{`
-        @keyframes flapUp {
-          0%, 100% { transform: rotateX(0deg); }
-          50% { transform: rotateX(-55deg); }
+        @keyframes thrustGlow {
+          0%, 100% { transform: scale(1) translateX(0); opacity: 0.8; }
+          50% { transform: scale(1.4) translateX(-5px); opacity: 1; filter: brightness(1.5); }
         }
 
-        @keyframes flapDown {
-          0%, 100% { transform: rotateX(0deg); }
-          50% { transform: rotateX(55deg); }
+        #thruster-flame {
+          animation: thrustGlow 0.15s ease-in-out infinite;
+          transform-origin: 15px 20px;
         }
 
-        #wing-left { 
-          animation: flapUp 0.48s ease-in-out infinite;
-          transform-origin: 60px 40px;
-        }
-        
-        #wing-right { 
-          animation: flapDown 0.48s ease-in-out infinite;
-          transform-origin: 60px 40px;
+        #ship-container.fast #thruster-flame {
+          animation-duration: 0.08s;
+          fill: #ff00ff;
         }
 
-        #bird-container.fast #wing-left,
-        #bird-container.fast #wing-right {
-          animation-duration: 0.22s;
+        #ship-container.fast #ship-glow {
+          background-color: rgba(255, 0, 255, 0.4);
         }
-        
-        .dark #bird ellipse, .dark #bird circle, .dark #bird path {
-          fill: #8a2be2;
+
+        .dark #spaceship path, .dark #spaceship line {
           stroke: #8a2be2;
         }
         
-        .dark #glow {
-          background-color: rgba(138, 43, 226, 0.3);
+        .dark #thruster-flame {
+          fill: #00f2ff;
+        }
+        
+        .dark #spaceship path[fill="#2d2d2d"] {
+          fill: #1a1a1a;
         }
       `}</style>
         </div>
     );
 };
 
-export default BirdAnimation;
+export default SpaceshipAnimation;
