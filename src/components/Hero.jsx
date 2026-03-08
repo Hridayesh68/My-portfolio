@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Sun, Moon, Sparkles as SparklesIcon } from 'lucide-react';
+import { ArrowRight, Moon, Zap, Terminal, Sparkles as SparklesIcon } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -40,7 +40,7 @@ const Sparkles = () => {
     );
 };
 
-const Hero = ({ theme, toggleTheme }) => {
+const Hero = ({ theme }) => {
     const imageRef = useRef(null);
     const headingRef = useRef(null);
     const descRef = useRef(null);
@@ -180,20 +180,6 @@ const Hero = ({ theme, toggleTheme }) => {
                                 Download CV
                             </a>
                         </div>
-                    </div>
-
-                    {/* ── RIGHT (Floating Theme Toggle since avatar is gone) ── */}
-                    <div className="absolute top-24 right-4 md:right-8 z-20">
-                        <button
-                            onClick={(e) => { e.stopPropagation(); toggleTheme(); }}
-                            className="p-3 bg-white dark:bg-gray-800/80 backdrop-blur-md rounded-full shadow-lg border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform"
-                            aria-label="Toggle Theme"
-                        >
-                            {theme === 'dark'
-                                ? <Sun className="text-yellow-500" size={22} />
-                                : <Moon className="text-blue-500" size={22} />
-                            }
-                        </button>
                     </div>
 
                 </div>

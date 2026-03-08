@@ -125,26 +125,6 @@ const Projects = () => {
                     start: 'top 70%',
                 }
             });
-
-            // Horizontal Scroll pinning
-            const container = scrollContainerRef.current;
-            const scrollWidth = container.scrollWidth - window.innerWidth + 100; // adding padding buffer
-
-            // Only apply horizontal scroll if it actually overflows
-            if (scrollWidth > 0) {
-                gsap.to(container, {
-                    x: -scrollWidth,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        pin: true,
-                        scrub: 1,
-                        // End after scrolling the width of the overflow
-                        end: () => `+=${scrollWidth}`,
-                        invalidateOnRefresh: true,
-                    }
-                });
-            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -160,10 +140,10 @@ const Projects = () => {
             </div>
 
             {/* Horizontal Scroll Track */}
-            <div className="pl-4 md:pl-16 relative z-10">
-                <div ref={scrollContainerRef} className="flex gap-8 w-max pr-[20vw]">
+            <div className="relative z-10 w-full mb-12">
+                <div ref={scrollContainerRef} className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory hide-scroll-bar gap-8 px-4 md:px-16 pb-8" style={{ scrollBehavior: 'smooth' }}>
                     {projects.map((project) => (
-                        <div key={project.id} className="project-card-wrapper">
+                        <div key={project.id} className="project-card-wrapper snap-center shrink-0">
                             <ProjectCard project={project} />
                         </div>
                     ))}

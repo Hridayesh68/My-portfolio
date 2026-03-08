@@ -4,12 +4,18 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const ThreeBackground = () => {
     const canvasRef = useRef(null);
-    const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
+    const [currentTheme, setCurrentTheme] = useState(() => {
+        if (document.documentElement.classList.contains('matrix')) return 'matrix';
+        if (document.documentElement.classList.contains('neon-pink')) return 'neon-pink';
+        return 'dark';
+    });
 
     // Watch theme changes
     useEffect(() => {
         const observer = new MutationObserver(() => {
-            setIsDark(document.documentElement.classList.contains('dark'));
+            if (document.documentElement.classList.contains('matrix')) setCurrentTheme('matrix');
+            else if (document.documentElement.classList.contains('neon-pink')) setCurrentTheme('neon-pink');
+            else setCurrentTheme('dark');
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
         return () => observer.disconnect();
@@ -58,14 +64,16 @@ const ThreeBackground = () => {
         scene.add(stars);
 
         // ── Background Texture ───────────────────────────────────────
+        let spaceTexture = null;
         const loader = new THREE.TextureLoader();
         loader.load(
             '/space.jpg',
-            (texture) => { scene.background = texture; },
+            (texture) => {
+                spaceTexture = texture;
+            },
             undefined,
             () => {
-                // Fallback: deep space dark color
-                scene.background = new THREE.Color(0x030310);
+                // Ignore fallback
             }
         );
 
@@ -78,39 +86,118 @@ const ThreeBackground = () => {
         hridayesh.position.set(2, 0, -5);
         scene.add(hridayesh);
 
-        // ── Orbit Controls ────────────────────────────────────────────
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = false;
-        controls.enabled = false;
+        // ── Scroll & Drag Interaction State ───────────────────────────
+        let scrollRotation = { y: 0, z: 0 };
+        let dragRotation = { x: 0, y: 0 };
+        let isScrolling = false;
+        let scrollTimeout;
 
-        // ── Handle Resize ─────────────────────────────────────────────
-        const handleResize = () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        };
-        window.addEventListener('resize', handleResize);
-
-        // ── Scroll Animation ──────────────────────────────────────────
         const moveCamera = () => {
             const t = document.body.getBoundingClientRect().top;
-            hridayesh.rotation.y += 0.01;
-            hridayesh.rotation.z += 0.01;
-            stars.rotation.y = t * 0.0002;
+
+            scrollRotation.y = t * -0.01;
+            scrollRotation.z = t * -0.01;
+
+            hridayesh.rotation.x = dragRotation.x;
+            hridayesh.rotation.y = scrollRotation.y + dragRotation.y;
+            hridayesh.rotation.z = scrollRotation.z;
+
             camera.position.z = t * -0.01;
             camera.position.x = t * -0.0002;
             camera.rotation.y = t * -0.0002;
+
+            isScrolling = true;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => { isScrolling = false; }, 150);
         };
 
-        document.body.onscroll = moveCamera;
+        window.addEventListener('scroll', moveCamera);
         moveCamera();
+
+        // ── Mouse Drag (Global) ───────────────────────────────────────
+        let isDragging = false;
+        let previousMouse = { x: 0, y: 0 };
+
+        const onMouseDown = (e) => {
+            isDragging = true;
+            previousMouse = { x: e.clientX, y: e.clientY };
+        };
+
+        const onMouseMove = (e) => {
+            if (!isDragging || isScrolling) return;
+
+            const delta = {
+                x: e.clientX - previousMouse.x,
+                y: e.clientY - previousMouse.y,
+            };
+
+            dragRotation.y += delta.x * 0.005;
+            dragRotation.x += delta.y * 0.005;
+
+            hridayesh.rotation.x = dragRotation.x;
+            hridayesh.rotation.y = scrollRotation.y + dragRotation.y;
+
+            previousMouse = { x: e.clientX, y: e.clientY };
+        };
+
+        const onMouseUp = () => {
+            isDragging = false;
+        };
+
+        window.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+        window.addEventListener('mouseleave', onMouseUp);
+
+        // Touch support
+        const onTouchStart = (e) => {
+            isDragging = true;
+            previousMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        };
+
+        const onTouchMove = (e) => {
+            if (!isDragging || isScrolling) return;
+            // Removed e.preventDefault() here to allow scrolling on mobile, 
+            // but dragging horizontal should rotate cube
+            const delta = {
+                x: e.touches[0].clientX - previousMouse.x,
+                y: e.touches[0].clientY - previousMouse.y,
+            };
+
+            dragRotation.y += delta.x * 0.005;
+            dragRotation.x += delta.y * 0.005;
+
+            hridayesh.rotation.x = dragRotation.x;
+            hridayesh.rotation.y = scrollRotation.y + dragRotation.y;
+
+            previousMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        };
+
+        const onTouchEnd = () => { isDragging = false; };
+
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchmove', onTouchMove, { passive: true });
+        window.addEventListener('touchend', onTouchEnd);
 
         // ── Animation Loop ────────────────────────────────────────────
         let animationId;
         const animate = () => {
             animationId = requestAnimationFrame(animate);
-            hridayesh.rotation.y += 0.003;
             stars.rotation.x += 0.0003;
+
+            // Dynamic theme adjustments
+            stars.visible = true;
+            if (currentTheme === 'matrix') {
+                scene.background = new THREE.Color(0x0a0f0a);
+                starMaterial.color.setHex(0x00ff41);
+            } else if (currentTheme === 'neon-pink') {
+                scene.background = new THREE.Color(0x1a0b2e);
+                starMaterial.color.setHex(0xff2a85);
+            } else {
+                scene.background = spaceTexture || new THREE.Color(0x000000);
+                starMaterial.color.setHex(0xffffff);
+            }
+
             renderer.render(scene, camera);
         };
         animate();
@@ -119,11 +206,20 @@ const ThreeBackground = () => {
         return () => {
             cancelAnimationFrame(animationId);
             window.removeEventListener('resize', handleResize);
-            document.body.onscroll = null;
+            window.removeEventListener('scroll', moveCamera);
+
+            window.removeEventListener('mousedown', onMouseDown);
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+            window.removeEventListener('mouseleave', onMouseUp);
+
+            window.removeEventListener('touchstart', onTouchStart);
+            window.removeEventListener('touchmove', onTouchMove);
+            window.removeEventListener('touchend', onTouchEnd);
+
             renderer.dispose();
             starGeometry.dispose();
             starMaterial.dispose();
-            controls.dispose();
         };
     }, []);
 
@@ -139,7 +235,7 @@ const ThreeBackground = () => {
                 height: '100%',
                 zIndex: 0,
                 pointerEvents: 'none',
-                opacity: isDark ? 1 : 0,
+                opacity: 1, // Always visible now!
                 transition: 'opacity 0.5s ease',
             }}
         />

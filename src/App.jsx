@@ -31,18 +31,14 @@ function App() {
   // Apply theme class to html element
   useLayoutEffect(() => {
     const root = document.documentElement;
-    root.classList.remove('light', 'dark', 'neon', 'light-mode');
+    root.classList.remove('light', 'dark', 'neon', 'neon-pink', 'matrix', 'light-mode');
     root.classList.add(theme);
+
+    // Ensure tailwind sees them all as dark mode
+    root.classList.add('dark');
+
     localStorage.setItem('theme', theme);
   }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => {
-      if (prev === 'light') return 'dark';
-      if (prev === 'dark') return 'neon';
-      return 'light';
-    });
-  };
 
   const mainRef = useRef(null);
 
@@ -53,30 +49,41 @@ function App() {
       const panels = gsap.utils.toArray('.stacked-panel');
 
       panels.forEach((panel, i) => {
+        const isTall = () => panel.offsetHeight > window.innerHeight + 50;
+
         // Pin the panel
         ScrollTrigger.create({
           trigger: panel,
-          start: "top top",
+          start: () => (isTall() ? "bottom bottom" : "top top"),
           pin: true,
           pinSpacing: false,
+          invalidateOnRefresh: true,
         });
 
         // Scale down and fade effect when the next panel comes over
         if (i < panels.length - 1) {
           gsap.to(panel, {
-            scale: 0.92,
-            opacity: 0.4,
+            scale: 0.95,
+            opacity: 0.5,
             ease: "none",
             scrollTrigger: {
               trigger: panels[i + 1],
               start: "top bottom",
               end: "top top",
               scrub: true,
+              onEnter: () => gsap.set(panel, { transformOrigin: isTall() ? "center bottom" : "center top" }),
+              onEnterBack: () => gsap.set(panel, { transformOrigin: isTall() ? "center bottom" : "center top" }),
             }
           });
         }
       });
+      ScrollTrigger.refresh();
     }, mainRef);
+
+    // Give images a moment to load before refreshing scroll triggers
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
 
     return () => ctx.revert();
   }, [loading]);
@@ -96,11 +103,11 @@ function App() {
             <ThreeBackground />
           </Suspense>
 
-          <Navbar theme={theme} toggleTheme={toggleTheme} />
+          <Navbar theme={theme} setTheme={setTheme} />
 
           <main ref={mainRef}>
-            <div className="stacked-panel w-full min-h-screen bg-white/40 dark:bg-black/40 backdrop-blur-sm flex flex-col justify-center border-b border-black/5 dark:border-white/5 shadow-2xl origin-top">
-              <Hero theme={theme} toggleTheme={toggleTheme} />
+            <div className="stacked-panel w-full min-h-screen bg-gradient-to-r from-white/70 via-white/30 to-transparent dark:from-black/70 dark:via-black/30 dark:to-transparent flex flex-col justify-center border-b border-black/5 dark:border-white/5 shadow-2xl origin-top">
+              <Hero theme={theme} />
             </div>
             <div className="stacked-panel w-full min-h-screen bg-white/60 dark:bg-black/60 backdrop-blur-sm border-b border-black/5 dark:border-white/5 shadow-2xl origin-top flex flex-col justify-center pt-16">
               <TechStack />

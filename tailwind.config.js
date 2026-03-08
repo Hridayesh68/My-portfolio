@@ -8,8 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#646cff', // Restoring custom colors from previous config
-        secondary: '#535bf2',
+        primary: 'var(--primary, #646cff)',
+        secondary: 'var(--secondary, #535bf2)',
         'white50': '#d9ecff',
         'black50': '#1c1c21',
         'black100': '#0e0e10',
