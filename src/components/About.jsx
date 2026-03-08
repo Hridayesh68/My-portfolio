@@ -68,7 +68,7 @@ const About = () => {
                             <div className="w-full xl:w-1/3 flex flex-col items-center shrink-0">
                                 <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border-4 border-white dark:border-neutral-800 shadow-xl mb-6">
                                     <img
-                                        src="/avatar-placeholder.png"
+                                        src="/assets/hridayesh-pic.jpeg"
                                         alt="Hridayesh"
                                         onError={(e) => { e.target.src = 'https://ui-avatars.com/api/?name=Hridayesh&size=256&background=646cff&color=fff' }}
                                         className="w-full h-full object-cover"
@@ -93,12 +93,23 @@ const About = () => {
                             {/* Bio & Details */}
                             <div className="w-full xl:w-2/3 space-y-8">
                                 <div>
-                                    <h4 className="text-xl font-bold mb-3 text-gray-900 dark:text-white flex items-center gap-2">
-                                        <User size={20} className="text-primary" /> Bio
-                                    </h4>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                        I am a passionate Full-Stack Developer with a keen interest in bridging the gap between design and solid engineering. With a strong foundation in modern web technologies, I love creating dynamic, highly interactive user experiences that are both beautiful and performant. Whether it's crafting 3D web environments or optimizing backend architectures, I thrive on solving complex technical problems and continuously pushing the boundaries.
-                                    </p>
+                                    <div className="text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
+                                        <p>
+                                            I&apos;m Hridayesh Debsarma, a Computer Science and Engineering student at Lovely Professional University with a passion for building things that actually work — not just look good on paper.
+                                        </p>
+                                        <p>
+                                            My work lives at the intersection of data science, machine learning, and web development. I&apos;ve built everything from interactive Power BI dashboards that track EV adoption trends nationwide, to AI-powered resume analyzers that parse PDFs, score skill matches with TF-IDF, and fire off automated email notifications — all from scratch.
+                                        </p>
+                                        <p>
+                                            I believe good engineering is equal parts logic and creativity. Whether I&apos;m optimising a scikit-learn inference pipeline, designing a clean Streamlit UI, or grinding through DSA problems at midnight, I bring the same obsessive attention to detail to everything I build.
+                                        </p>
+                                        <p>
+                                            Outside of projects, I&apos;ve solved 200+ coding problems across LeetCode, CodeChef and HackerRank — not for the badges (though I have those too), but because sharpening the fundamentals is what separates engineers who ship from engineers who stall.
+                                        </p>
+                                        <p>
+                                            Currently exploring the edge where generative AI meets practical tooling — and always open to collaborating on something ambitious.
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
