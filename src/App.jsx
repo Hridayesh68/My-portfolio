@@ -8,7 +8,7 @@ import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import About from './components/About';
 import LoadingScreen from './components/LoadingScreen';
-import CursorFollower from './components/CursorFollower';
+import BirdAnimation from './components/BirdAnimation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -91,7 +91,7 @@ function App() {
   return (
     <>
       {/* Custom cursor — always rendered */}
-      <CursorFollower />
+      <BirdAnimation />
 
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
