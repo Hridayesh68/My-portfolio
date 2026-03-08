@@ -1,0 +1,59 @@
+[33mcommit a4afa6ca2bc24ea56117c7b47bd556e6b46c7a6c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Sat Mar 7 23:24:25 2026 +0530
+
+    theme fix
+
+[33mcommit e8b31f4d671834c4f42cc416904f37a19238b5cd[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Thu Mar 5 00:45:13 2026 +0530
+
+    fixed project files for 3d
+
+[33mcommit e7fca449ab833da034d7ef41bfa2c1a16baa0a27[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Wed Mar 4 15:25:49 2026 +0530
+
+    change before adding 3d
+
+[33mcommit 0b02f0a3d71a80ffcb928158fb18b4a2472de483[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Mon Feb 9 23:43:14 2026 +0530
+
+    fixed light dark
+
+[33mcommit b73283319bc9d96e19db2c3c59ac9ce651ffbc16[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Sun Feb 8 03:56:09 2026 +0530
+
+    enhanced darkmode and added timeline
+
+[33mcommit 32ea784b0b5b40ae297256ec640702808621f81d[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Fri Feb 6 16:11:02 2026 +0530
+
+    dark mode issue fixed
+
+[33mcommit db1fd77d87f496182c874ab0778b77ca70b00fc5[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Fri Feb 6 15:12:53 2026 +0530
+
+    added leetcode and hackerrank statistics
+
+[33mcommit 5800685bb92736ea93448367bb5e04dd13c1f2e2[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Fri Feb 6 14:06:18 2026 +0530
+
+    Remove tracked env files and respect gitignore
+
+[33mcommit 6c67482d3791ece2d0ca0fc99ee3bd33e8553032[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Fri Feb 6 13:57:02 2026 +0530
+
+    chore: update gitignore and remove untracked files
+
+[33mcommit 294c2e31c89add4477ce1a4a8f6cb8f4f2faee20[m
+Author: Hridayesh Debsarma <hridayeshdebsarma6@gmail.com>
+Date:   Fri Feb 6 11:45:57 2026 +0530
+
+    first commit

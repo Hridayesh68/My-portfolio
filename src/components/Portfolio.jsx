@@ -8,8 +8,8 @@ import Models from './Models';
 gsap.registerPlugin(ScrollTrigger);
 
 const Portfolio = () => {
-    const [activeTab, setActiveTab] = useState('Certificates');
-    const tabs = ['All', 'Certificates', 'Projects', '3D Models'];
+    const [activeTab, setActiveTab] = useState('All');
+    const tabs = ['All', '3D Models', 'Projects', 'Certificates'];
     const containerRef = useRef(null);
 
     useEffect(() => {

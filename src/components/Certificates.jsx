@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef, useLayoutEffect } from 'react';
+import { ExternalLink } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card from './ui/Card';
@@ -34,119 +34,63 @@ const certificates = [
     }
 ];
 
-const Certificates = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
-    const sectionRef = useRef(null);
-    const trackRef = useRef(null);
-    const autoplayRef = useRef(null);
+const CertCard = ({ cert }) => {
+    return (
+        <a href={cert.link} target="_blank" rel="noopener noreferrer" className="group cursor-pointer h-full animate-float block" style={{ animationDelay: `${cert.id * 0.2}s` }}>
+            <Card className="h-full border-2 border-transparent group-hover:border-primary/50 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_10px_30px_rgba(138,43,226,0.3)]">
+                <div className="relative h-64 overflow-hidden rounded-t-xl bg-gray-100 dark:bg-black/50">
+                    <img
+                        src={cert.image}
+                        alt={cert.title}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                        onError={(e) => { e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(cert.title)}`; }}
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="bg-white/20 p-3 rounded-full backdrop-blur-md text-white transform scale-50 group-hover:scale-100 transition-transform duration-300 delay-100">
+                            <ExternalLink size={24} />
+                        </div>
+                    </div>
+                </div>
+                <div className="p-6 bg-white dark:bg-transparent">
+                    <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors">{cert.title}</h3>
+                </div>
+            </Card>
+        </a>
+    );
+};
 
-    // Scroll reveal
+const Certificates = () => {
+    const sectionRef = useRef(null);
+
     useLayoutEffect(() => {
         let ctx = gsap.context(() => {
             gsap.from('.cert-header', {
                 y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
                 scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
             });
-            gsap.from('.cert-carousel', {
-                scale: 0.95, opacity: 0, duration: 1, ease: 'power3.out',
+            gsap.from('.cert-card-item', {
+                y: 60, opacity: 0, stagger: 0.15, duration: 0.8, ease: 'back.out(1.2)',
                 scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' }
             });
         }, sectionRef);
         return () => ctx.revert();
     }, []);
 
-    // Autoplay logic
-    useEffect(() => {
-        if (!isHovered) {
-            autoplayRef.current = setInterval(() => {
-                handleNext();
-            }, 4000); // Slide every 4 seconds
-        }
-        return () => clearInterval(autoplayRef.current);
-    }, [currentIndex, isHovered]);
-
-    const handlePrev = () => {
-        setCurrentIndex((prev) => (prev === 0 ? certificates.length - 1 : prev - 1));
-    };
-
-    const handleNext = () => {
-        setCurrentIndex((prev) => (prev === certificates.length - 1 ? 0 : prev + 1));
-    };
-
     return (
         <section id="certificates" ref={sectionRef} className="py-24 relative overflow-hidden">
-            <div className="max-w-6xl mx-auto px-4 z-10 relative">
+            <div className="max-w-7xl mx-auto px-4 z-10 relative">
 
                 <div className="cert-header text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Certifications</h2>
                     <div className="w-16 h-1.5 bg-primary mx-auto rounded-full"></div>
                 </div>
 
-                <div
-                    className="cert-carousel relative group"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                >
-                    {/* Carousel Track */}
-                    <div className="overflow-hidden rounded-2xl shadow-2xl relative bg-gray-100 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10">
-                        <div
-                            ref={trackRef}
-                            className="flex transition-transform duration-700 ease-in-out h-[300px] md:h-[500px]"
-                            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                        >
-                            {certificates.map((cert) => (
-                                <div key={cert.id} className="w-full flex-shrink-0 relative overflow-hidden group/card">
-                                    <img
-                                        src={cert.image}
-                                        alt={cert.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 scale-100 group-hover/card:scale-105"
-                                        onError={(e) => { e.target.src = `https://via.placeholder.com/800x600?text=${encodeURIComponent(cert.title)}`; }}
-                                    />
-                                    {/* Overlay on hover */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 translate-y-4 group-hover/card:translate-y-0 transition-transform duration-300">
-                                            {cert.title}
-                                        </h3>
-                                        <a
-                                            href={cert.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-secondary text-white px-6 py-3 rounded-lg font-medium w-max transform translate-y-4 group-hover/card:translate-y-0 transition-all duration-300 hover:scale-105"
-                                        >
-                                            <ExternalLink size={18} />
-                                            View Certificate
-                                        </a>
-                                    </div>
-                                </div>
-                            ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {certificates.map((cert) => (
+                        <div key={cert.id} className="cert-card-item">
+                            <CertCard cert={cert} />
                         </div>
-
-                        {/* Controls */}
-                        <button
-                            onClick={handlePrev}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/80 dark:bg-black/50 text-gray-900 dark:text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-black hover:scale-110 shadow-lg"
-                        >
-                            <ChevronLeft size={24} />
-                        </button>
-                        <button
-                            onClick={handleNext}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/80 dark:bg-black/50 text-gray-900 dark:text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-black hover:scale-110 shadow-lg"
-                        >
-                            <ChevronRight size={24} />
-                        </button>
-
-                        {/* Indicators */}
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                            {certificates.map((_, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setCurrentIndex(idx)}
-                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-primary w-8' : 'bg-white/50 hover:bg-white'}`}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                    ))}
                 </div>
 
             </div>

@@ -4,32 +4,59 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const technologies = [
-    { name: 'Android Studio', src: '/tech-stack/Android-Studio.svg' },
-    { name: 'Android', src: '/tech-stack/Android.svg' },
-    { name: 'Blender', src: '/tech-stack/Blender.svg' },
-    { name: 'C#', src: '/tech-stack/CSharp.svg' },
-    { name: 'C++', src: '/tech-stack/Cpp.svg' },
-    { name: 'CSS3', src: '/tech-stack/CSS3.svg' },
-    { name: 'Dart', src: '/tech-stack/Dart.svg' },
-    { name: 'Docker', src: '/tech-stack/Docker.svg' },
-    { name: 'Firebase', src: '/tech-stack/Firebase.svg' },
-    { name: 'Flutter', src: '/tech-stack/Flutter.svg' },
-    { name: 'HTML5', src: '/tech-stack/HTML5.svg' },
-    { name: 'JavaScript', src: '/tech-stack/JavaScript.svg' },
-    { name: 'Linux', src: '/tech-stack/Linux.svg' },
-    { name: 'MongoDB', src: '/tech-stack/MongoDB.svg' },
-    { name: 'MySQL', src: '/tech-stack/MySQL.svg' },
-    { name: 'PyTorch', src: '/tech-stack/PyTorch.svg' },
-    { name: 'Python', src: '/tech-stack/Python.svg' },
-    { name: 'React', src: '/tech-stack/React.svg' },
-    { name: 'Three.js', src: '/tech-stack/ThreeJS.svg' },
-    { name: 'Ubuntu', src: '/tech-stack/Ubuntu.svg' },
-    { name: 'Unity', src: '/tech-stack/Unity.svg' },
-    { name: 'Unreal Engine', src: '/tech-stack/Unreal-Engine.svg' },
-    { name: 'Vercel', src: '/tech-stack/Vercel.svg' },
-    { name: 'Vite', src: '/tech-stack/Vite.svg' },
+const skillCategories = [
+    {
+        id: 'frameworks',
+        title: 'Frameworks & Libraries',
+        items: ['React', 'Three.js', 'Flutter', 'PyTorch', 'Unity', 'Unreal Engine', 'Vite'],
+        animationClass: 'framework-item'
+    },
+    {
+        id: 'tools',
+        title: 'Tools & Platforms',
+        items: ['Android Studio', 'Blender', 'Docker', 'Firebase', 'Vercel'],
+        animationClass: 'tool-item'
+    },
+    {
+        id: 'cs-fundamentals',
+        title: 'Operating Systems',
+        items: ['Linux', 'Ubuntu'],
+        animationClass: 'cs-item'
+    },
+    {
+        id: 'languages',
+        title: 'Languages & Databases',
+        items: ['JavaScript', 'Python', 'C++', 'C#', 'Dart', 'HTML5', 'CSS3', 'MongoDB', 'MySQL', 'Android'],
+        animationClass: 'lang-item'
+    }
 ];
+
+const techIcons = {
+    'React': '/tech-stack/React.svg',
+    'Three.js': '/tech-stack/ThreeJS.svg',
+    'Flutter': '/tech-stack/Flutter.svg',
+    'PyTorch': '/tech-stack/PyTorch.svg',
+    'Unity': '/tech-stack/Unity.svg',
+    'Unreal Engine': '/tech-stack/Unreal-Engine.svg',
+    'Vite': '/tech-stack/Vite.svg',
+    'Docker': '/tech-stack/Docker.svg',
+    'Android Studio': '/tech-stack/Android-Studio.svg',
+    'Blender': '/tech-stack/Blender.svg',
+    'Vercel': '/tech-stack/Vercel.svg',
+    'Firebase': '/tech-stack/Firebase.svg',
+    'Linux': '/tech-stack/Linux.svg',
+    'Ubuntu': '/tech-stack/Ubuntu.svg',
+    'JavaScript': '/tech-stack/JavaScript.svg',
+    'Python': '/tech-stack/Python.svg',
+    'C++': '/tech-stack/Cpp.svg',
+    'C#': '/tech-stack/CSharp.svg',
+    'Dart': '/tech-stack/Dart.svg',
+    'HTML5': '/tech-stack/HTML5.svg',
+    'CSS3': '/tech-stack/CSS3.svg',
+    'MongoDB': '/tech-stack/MongoDB.svg',
+    'MySQL': '/tech-stack/MySQL.svg',
+    'Android': '/tech-stack/Android.svg',
+};
 
 const platforms = [
     { name: 'LeetCode', url: 'https://leetcode.com/u/hridayeshdebsarma6/', icon: '/platforms/leetcode.svg' },
@@ -43,32 +70,61 @@ const TechStack = () => {
     const sectionRef = useRef(null);
     const platformsRef = useRef(null);
 
-    // Infinite marquee
-    useEffect(() => {
-        const marquee = marqueeRef.current;
-        const tl = gsap.timeline({ repeat: -1 });
-        tl.to(marquee, { xPercent: -50, duration: 25, ease: 'none' })
-            .set(marquee, { xPercent: 0 });
-    }, []);
-
-    // Staggered scroll reveal for platforms
+    // Staggered scroll reveal using IntersectionObserver safe from Pin conflicts
     useLayoutEffect(() => {
-        const ctx = gsap.context(() => {
-            // Section heading
-            gsap.from('.tech-heading', {
-                y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
-                scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
-            });
+        let played = false;
 
-            // Platform cards stagger
-            gsap.from('.platform-card', {
-                y: 50, opacity: 0, scale: 0.9,
-                stagger: 0.12, duration: 0.7, ease: 'back.out(1.4)',
-                scrollTrigger: { trigger: platformsRef.current, start: 'top 85%' }
-            });
+        const ctx = gsap.context(() => {
+            // Instantly hide the elements before the observer plays the timeline
+            gsap.set('.tech-heading, .framework-item, .tool-item, .cs-item, .lang-item, .platform-card', { opacity: 0 });
         }, sectionRef);
 
-        return () => ctx.revert();
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !played) {
+                played = true;
+                ctx.add(() => {
+                    const tl = gsap.timeline();
+                    tl.fromTo('.tech-heading',
+                        { y: 40, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }
+                    )
+                        // 1. Frameworks & Libraries — slide in from left to right, staggered
+                        .fromTo('.framework-item',
+                            { x: -120, opacity: 0 },
+                            { x: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power2.out' },
+                            '-=0.2')
+                        // 2. Tools & Platforms — scale up from 0 with fade
+                        .fromTo('.tool-item',
+                            { scale: 0, opacity: 0 },
+                            { scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(2)' },
+                            '-=0.2')
+                        // 3. Core CS Fundamentals — flip in on X axis (rotateX)
+                        .fromTo('.cs-item',
+                            { rotationX: 90, opacity: 0 },
+                            { rotationX: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power3.out' },
+                            '-=0.2')
+                        // 4. Programming Languages — drop from top with bounce
+                        .fromTo('.lang-item',
+                            { y: -80, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'bounce.out' },
+                            '-=0.2')
+                        // Platform cards stagger
+                        .fromTo('.platform-card',
+                            { y: 50, opacity: 0, scale: 0.9 },
+                            { y: 0, opacity: 1, scale: 1, stagger: 0.1, duration: 0.6, ease: 'back.out(1.4)' },
+                            '-=0.4');
+                });
+            }
+        }, { threshold: 0.15 });
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            observer.disconnect();
+            ctx.revert();
+        };
     }, []);
 
     return (
@@ -82,25 +138,32 @@ const TechStack = () => {
                 </p>
             </div>
 
-            {/* Infinite Marquee */}
-            <div className="relative w-full overflow-hidden py-8 bg-transparent">
-                {/* Fade edges */}
-                <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white dark:from-black to-transparent" />
-                <div className="absolute right-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-l from-white dark:from-black to-transparent" />
-
-                <div ref={marqueeRef} className="flex gap-16 items-center w-max px-8">
-                    {[...technologies, ...technologies].map((tech, index) => (
-                        <div key={index} className="flex flex-col items-center gap-2 min-w-[90px] group">
-                            <img
-                                src={tech.src}
-                                alt={tech.name}
-                                className="w-14 h-14 object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-125 transition-all duration-300"
-                                onError={(e) => { e.target.src = 'https://via.placeholder.com/56?text=' + tech.name[0]; }}
-                            />
-                            <span className="text-xs font-medium text-gray-500 dark:text-gray-400 group-hover:text-primary transition-colors text-center">{tech.name}</span>
+            <div className="max-w-4xl mx-auto px-4 space-y-16">
+                {skillCategories.map((category) => (
+                    <div key={category.id} id={category.id} className="skill-category">
+                        <h3 className="text-xl font-bold mb-6 text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center md:text-left">
+                            {category.title}
+                        </h3>
+                        <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                            {category.items.map((item) => (
+                                <span
+                                    key={item}
+                                    className={`${category.animationClass} flex items-center gap-2 bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 px-5 py-2.5 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200 backdrop-blur-md shadow-sm hover:scale-105 hover:bg-black/10 dark:hover:bg-white/20 transition-all cursor-default`}
+                                >
+                                    {techIcons[item] && (
+                                        <img
+                                            src={techIcons[item]}
+                                            alt={item}
+                                            className="w-5 h-5 object-contain filter dark:brightness-110"
+                                            onError={(e) => { e.target.style.display = 'none'; }}
+                                        />
+                                    )}
+                                    {item}
+                                </span>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
 
             {/* Platform Hub */}

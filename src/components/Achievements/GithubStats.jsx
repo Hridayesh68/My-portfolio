@@ -66,13 +66,33 @@ const GithubStats = () => {
                                 <Github size={20} className="text-primary" /> Contribution Heatmap
                             </h3>
                             <div className="w-full overflow-x-auto custom-scrollbar">
-                                <div className="min-w-[700px] bg-white dark:bg-white pt-4 pb-2 px-4 rounded-xl shadow-inner border border-gray-100 dark:border-transparent filter dark:brightness-90">
-                                    <img
-                                        src="https://ghchart.rshah.org/646cff/Hridayesh68"
-                                        alt="Hridayesh's GitHub Heatmap"
-                                        className="w-full h-auto"
-                                    />
-                                </div>
+                                {stats.heatmapData && stats.heatmapData.length > 0 ? (
+                                    <div className="flex gap-1 min-w-max p-2 bg-white/30 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5">
+                                        {stats.heatmapData.map((week, i) => (
+                                            <div key={i} className="flex flex-col gap-1">
+                                                {week.contributionDays.map((day, j) => (
+                                                    <div
+                                                        key={j}
+                                                        className={`w-3 h-3 rounded-sm cursor-help transition-all hover:scale-125 hover:ring-2 ring-primary/50 relative group ${day.contributionCount === 0 ? 'bg-black/5 dark:bg-white/10' : ''}`}
+                                                        style={day.contributionCount > 0 ? { backgroundColor: day.color } : {}}
+                                                    >
+                                                        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 border border-gray-700 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 shadow-xl">
+                                                            {day.contributionCount} commit{day.contributionCount !== 1 ? 's' : ''} on {new Date(day.date).toDateString()}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="min-w-[700px] bg-white dark:bg-white pt-4 pb-2 px-4 rounded-xl shadow-inner border border-gray-100 dark:border-transparent filter dark:brightness-90">
+                                        <img
+                                            src="https://ghchart.rshah.org/646cff/Hridayesh68"
+                                            alt="Hridayesh's GitHub Heatmap"
+                                            className="w-full h-auto"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </Card>

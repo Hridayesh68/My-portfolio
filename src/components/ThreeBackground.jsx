@@ -86,6 +86,14 @@ const ThreeBackground = () => {
         hridayesh.position.set(2, 0, -5);
         scene.add(hridayesh);
 
+        // ── Handle Resize ─────────────────────────────────────────────
+        const handleResize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+        window.addEventListener('resize', handleResize);
+
         // ── Scroll & Drag Interaction State ───────────────────────────
         let scrollRotation = { y: 0, z: 0 };
         let dragRotation = { x: 0, y: 0 };
