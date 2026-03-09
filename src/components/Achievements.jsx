@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import statsData from '../data/github-stats.json';
 import Card from './ui/Card';
+import { GitHubCalendar } from 'react-github-calendar';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,9 +118,87 @@ const Achievements = () => {
                 }
             } catch { /* fall through */ }
 
-            setLc(prev => ({ ...prev, loading: false, error: true }));
+            // Fallback: Static Data if both APIs fail
+            setLc({
+                loading: false,
+                total: '200+', // Indicate it's a fallback estimate
+                easy: null,    // Don't show zeroes for breakdown if we don't know exact
+                medium: null,
+                hard: null,
+                error: false,
+                isFallback: true
+            });
         };
         tryFetch();
+    }, []);
+
+    /* ── GitHub Heatmap (GraphQL with Token) ── */
+    const [heatmapData, setHeatmapData] = useState([]);
+
+    useEffect(() => {
+        const fetchHeatmap = async () => {
+            const token = import.meta.env.VITE_GITHUB_TOKEN;
+            if (!token) return;
+
+            const query = `
+                query {
+                    user(login: "Hridayesh68") {
+                        contributionsCollection {
+                            contributionCalendar {
+                                totalContributions
+                                weeks {
+                                    contributionDays {
+                                        contributionCount
+                                        date
+                                        contributionLevel
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            `;
+
+            try {
+                const res = await fetch('https://api.github.com/graphql', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query })
+                });
+
+                const json = await res.json();
+                if (json.data?.user?.contributionsCollection?.contributionCalendar?.weeks) {
+                    const weeks = json.data.user.contributionsCollection.contributionCalendar.weeks;
+
+                    // Flatten and format to react-github-calendar explicitly expected structure
+                    // The v5 `data` prop expects: Array<{ date: string, count: number, level: 0|1|2|3|4 }>
+                    const formattedData = weeks.flatMap(week =>
+                        week.contributionDays.map(day => {
+                            // Map GitHub GraphQL contributionLevel to numeric level 0-4
+                            let level = 0;
+                            if (day.contributionLevel === 'FIRST_QUARTILE') level = 1;
+                            if (day.contributionLevel === 'SECOND_QUARTILE') level = 2;
+                            if (day.contributionLevel === 'THIRD_QUARTILE') level = 3;
+                            if (day.contributionLevel === 'FOURTH_QUARTILE') level = 4;
+
+                            return {
+                                date: day.date,
+                                count: day.contributionCount,
+                                level: level
+                            };
+                        })
+                    );
+                    setHeatmapData(formattedData);
+                }
+            } catch (err) {
+                console.error("Failed to fetch custom GitHub heatmap data:", err);
+            }
+        };
+
+        fetchHeatmap();
     }, []);
 
     /* ── Section entrance animations ── */
@@ -234,7 +313,7 @@ const Achievements = () => {
                                             <div className="flex-1">
                                                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Total Solved</p>
                                                 <div className="text-5xl font-black text-gray-900 dark:text-white">
-                                                    <AnimatedCount target={lc.total} />
+                                                    {typeof lc.total === 'number' ? <AnimatedCount target={lc.total} /> : lc.total}
                                                 </div>
                                             </div>
                                             {/* Progress ring visual */}
@@ -243,11 +322,25 @@ const Achievements = () => {
                                             </div>
                                         </div>
 
-                                        {/* Easy / Medium / Hard */}
-                                        <div className="grid grid-cols-3 gap-3">
-                                            <DiffBadge label="Easy" count={lc.easy} color="text-emerald-500" bg="bg-emerald-500/10 dark:bg-emerald-500/10" />
-                                            <DiffBadge label="Medium" count={lc.medium} color="text-yellow-500" bg="bg-yellow-500/10" />
-                                            <DiffBadge label="Hard" count={lc.hard} color="text-red-500" bg="bg-red-500/10" />
+                                        {/* Easy / Medium / Hard Breakdown (Only if not fallback) */}
+                                        {!lc.isFallback && (
+                                            <div className="grid grid-cols-3 gap-3">
+                                                <DiffBadge label="Easy" count={lc.easy} color="text-emerald-500" bg="bg-emerald-500/10 dark:bg-emerald-500/10" />
+                                                <DiffBadge label="Medium" count={lc.medium} color="text-yellow-500" bg="bg-yellow-500/10" />
+                                                <DiffBadge label="Hard" count={lc.hard} color="text-red-500" bg="bg-red-500/10" />
+                                            </div>
+                                        )}
+
+                                        {/* Additional Milestones */}
+                                        <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-white/10 mt-auto">
+                                            <div className="flex flex-col">
+                                                <span className="text-xl font-bold text-gray-900 dark:text-white">5+</span>
+                                                <span className="text-xs text-gray-500 dark:text-gray-400">Contests</span>
+                                            </div>
+                                            <div className="flex flex-col text-right">
+                                                <span className="text-xl font-bold text-gray-900 dark:text-white">Top 20%</span>
+                                                <span className="text-xs text-gray-500 dark:text-gray-400">Global Rank</span>
+                                            </div>
                                         </div>
                                     </div>
                                 )}
@@ -276,6 +369,39 @@ const Achievements = () => {
                     </div>
 
                 </div>
+
+                {/* ── GitHub Heatmap (Full Width) ── */}
+                <div className="achievement-card mt-8">
+                    <Card>
+                        <div className="p-8 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm flex flex-col items-center justify-center overflow-x-auto">
+                            <h3 className="text-xl font-bold mb-6 flex items-center gap-2 w-full text-left text-gray-900 dark:text-white">
+                                <Github size={20} className="text-gray-900 dark:text-white" /> Contribution Heatmap
+                            </h3>
+                            <div className="w-full flex justify-center min-w-[800px] text-gray-900 dark:text-gray-200">
+                                {heatmapData.length > 0 ? (
+                                    <GitHubCalendar
+                                        username="Hridayesh68"
+                                        data={heatmapData}
+                                        colorScheme="dark"
+                                        blockSize={14}
+                                        blockMargin={5}
+                                        fontSize={14}
+                                        theme={{
+                                            light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+                                            dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+                                        }}
+                                    />
+                                ) : (
+                                    <div className="py-10 flex items-center justify-center text-gray-500">
+                                        <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin mr-2" />
+                                        Loading Map...
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </Card>
+                </div>
+
             </div>
         </section>
     );

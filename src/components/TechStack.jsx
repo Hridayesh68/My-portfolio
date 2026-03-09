@@ -62,7 +62,7 @@ const platforms = [
     { name: 'LeetCode', url: 'https://leetcode.com/u/hridayeshdebsarma6/', icon: '/platforms/leetcode.svg' },
     { name: 'HackerRank', url: 'https://hackerrank.com/hridayesh', icon: '/platforms/hackerrank.svg' },
     { name: 'CodeChef', url: 'https://codechef.com/users/hridayesh', icon: '/platforms/codechef.svg' },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/hridayesh', icon: '/platforms/linkedin.svg' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/hridayesh-debsarma/', icon: '/platforms/linkedin.svg' },
 ];
 
 const TechStack = () => {
@@ -148,14 +148,14 @@ const TechStack = () => {
                             {category.items.map((item) => (
                                 <div
                                     key={item}
-                                    className={`${category.animationClass} group flex items-center justify-center bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 w-14 h-14 rounded-2xl backdrop-blur-md shadow-sm hover:scale-110 hover:bg-black/10 dark:hover:bg-white/20 transition-all cursor-default`}
+                                    className={`${category.animationClass} group flex items-center justify-center bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 w-16 h-16 md:w-20 md:h-20 rounded-2xl backdrop-blur-md shadow-sm hover:scale-110 hover:bg-black/10 dark:hover:bg-white/20 transition-all cursor-default`}
                                 >
                                     {techIcons[item] && (
                                         <div className="icon-float" style={{ animationDelay: `${Math.random() * 2}s` }}>
                                             <img
                                                 src={techIcons[item]}
                                                 alt={item}
-                                                className="w-8 h-8 object-contain filter dark:brightness-110 transition-transform duration-300 group-hover:scale-110"
+                                                className="w-10 h-10 md:w-12 md:h-12 object-contain filter dark:brightness-110 transition-transform duration-300 group-hover:scale-110"
                                                 onError={(e) => { e.target.style.display = 'none'; }}
                                             />
                                         </div>
