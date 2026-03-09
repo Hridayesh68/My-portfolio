@@ -497,4 +497,20 @@ section {
   ::-webkit-scrollbar-thumb:hover {
     background: #535bf2;
   }
+
+  @keyframes iconBob {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .icon-float {
+    animation: iconBob 3s ease-in-out infinite;
+  }
 }

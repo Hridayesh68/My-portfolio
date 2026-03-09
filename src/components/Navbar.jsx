@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Palette, Home, Code2, Briefcase, Award, Folder, Mail, User, ChevronRight } from 'lucide-react';
+import { Palette, Home, Code2, Briefcase, Award, Folder, Mail, User, ChevronRight, Menu, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
@@ -8,6 +8,8 @@ gsap.registerPlugin(ScrollToPlugin);
 const Navbar = ({ theme, setTheme }) => {
     const [scrolled, setScrolled] = useState(false);
     const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+    const [isMinimized, setIsMinimized] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const themeMenuRef = useRef(null);
 
     useEffect(() => {
@@ -29,9 +31,18 @@ const Navbar = ({ theme, setTheme }) => {
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 150);
+            setIsOpen(false);
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) setIsOpen(false);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     const scrollToSection = (id) => {
@@ -53,71 +64,100 @@ const Navbar = ({ theme, setTheme }) => {
             <div
                 className={`pointer-events-auto fixed transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
                 ${scrolled
-                        ? 'right-4 top-1/2 -translate-y-1/2 flex-col w-16 rounded-2xl md:right-8'
-                        : 'bottom-6 left-1/2 -translate-x-1/2 flex-row w-[90%] max-w-lg rounded-full h-16 md:bottom-8'
+                        ? `right-4 top-1/2 -translate-y-1/2 flex-col rounded-2xl md:right-8 ${isMinimized ? 'hidden md:flex md:w-12 md:h-12 overflow-hidden' : `w-16 ${isOpen ? 'h-auto py-4' : 'h-16 md:h-auto'}`}`
+                        : `bottom-6 left-1/2 -translate-x-1/2 flex-row rounded-full h-16 md:bottom-8 md:w-[90%] md:max-w-lg ${isOpen ? 'w-[90%] max-w-[20rem] flex-wrap justify-center h-auto py-2' : 'w-16 md:w-[90%] md:px-2'}`
                     } 
                 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-white/5 shadow-2xl flex items-center justify-around md:justify-center p-2 md:gap-4`}
             >
-                {/* Nav Links */}
-                {navLinks.map((link) => {
-                    const Icon = link.icon;
-                    return (
-                        <button
-                            key={link.name}
-                            onClick={() => scrollToSection(link.id)}
-                            className="group relative flex items-center justify-center p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110 active:scale-95"
-                            title={link.name}
-                        >
-                            <Icon size={20} className="relative z-10" />
-                            {/* Tooltip for side state */}
-                            {scrolled && (
-                                <span className="absolute right-full mr-4 px-2 py-1 rounded bg-black/80 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                                    {link.name}
-                                </span>
-                            )}
-                        </button>
-                    );
-                })}
-
-                {/* Divider (only in side state) */}
-                {scrolled && <div className="w-8 h-[1px] bg-white/10 my-2" />}
-
-                {/* Theme Toggle */}
-                <div className="relative" ref={themeMenuRef}>
+                {/* Mobile Hamburger Button */}
+                {!isMinimized && (
                     <button
-                        onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
-                        className="p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110"
-                        title="Theme"
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="md:hidden flex items-center justify-center p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110"
+                        title="Menu"
                     >
-                        <Palette size={20} />
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
+                )}
 
-                    {isThemeMenuOpen && (
-                        <div className={`absolute ${scrolled ? 'bottom-0 right-full mr-4' : 'bottom-full left-1/2 -translate-x-1/2 mb-4'} w-32 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-white/10 py-1 overflow-hidden transition-all duration-300`}>
-                            {themes.map((t) => (
+                {/* Minimize/Expand Toggle (Side state only) */}
+                {scrolled && (
+                    <button
+                        onClick={() => setIsMinimized(!isMinimized)}
+                        className="hidden md:flex p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110 mb-2"
+                        title={isMinimized ? "Expand" : "Minimize"}
+                    >
+                        <ChevronRight
+                            size={20}
+                            className={`transition-transform duration-500 ${isMinimized ? 'rotate-180' : 'rotate-0'}`}
+                        />
+                    </button>
+                )}
+
+                {!isMinimized && (
+                    <>
+                        {/* Nav Links */}
+                        {navLinks.map((link) => {
+                            const Icon = link.icon;
+                            return (
                                 <button
-                                    key={t.id}
-                                    onClick={() => {
-                                        setTheme(t.id);
-                                        setIsThemeMenuOpen(false);
-                                    }}
-                                    className={`w-full text-left px-4 py-2 text-xs transition-colors hover:bg-primary/10 ${theme === t.id ? 'text-primary font-bold bg-primary/5' : 'text-gray-600 dark:text-gray-400'}`}
+                                    key={link.name}
+                                    onClick={() => { scrollToSection(link.id); setIsOpen(false); }}
+                                    className={`${isOpen ? 'flex' : 'hidden'} md:flex group relative items-center justify-center p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110 active:scale-95`}
+                                    title={link.name}
                                 >
-                                    {t.name}
+                                    <Icon size={20} className="relative z-10" />
+                                    {/* Tooltip for side state */}
+                                    {scrolled && (
+                                        <span className="absolute right-full mr-4 px-2 py-1 rounded bg-black/80 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                            {link.name}
+                                        </span>
+                                    )}
                                 </button>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                            );
+                        })}
 
-                {/* Contact Button */}
-                <button
-                    onClick={() => scrollToSection('#contact')}
-                    className={`p-3 text-white bg-primary rounded-full hover:bg-secondary transition-all hover:scale-110 shadow-lg shadow-primary/20 ${scrolled ? 'mt-2' : ''}`}
-                    title="Contact Me"
-                >
-                    <Mail size={20} />
-                </button>
+                        {/* Divider (only in side state) */}
+                        {scrolled && <div className="w-8 h-[1px] bg-white/10 my-2" />}
+
+                        {/* Theme Toggle */}
+                        <div className="relative" ref={themeMenuRef}>
+                            <button
+                                onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
+                                className="p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110"
+                                title="Theme"
+                            >
+                                <Palette size={20} />
+                            </button>
+
+                            {isThemeMenuOpen && (
+                                <div className={`absolute ${scrolled ? 'bottom-0 right-full mr-4' : 'bottom-full left-1/2 -translate-x-1/2 mb-4'} w-32 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-white/10 py-1 overflow-hidden transition-all duration-300`}>
+                                    {themes.map((t) => (
+                                        <button
+                                            key={t.id}
+                                            onClick={() => {
+                                                setTheme(t.id);
+                                                setIsThemeMenuOpen(false);
+                                            }}
+                                            className={`w-full text-left px-4 py-2 text-xs transition-colors hover:bg-primary/10 ${theme === t.id ? 'text-primary font-bold bg-primary/5' : 'text-gray-600 dark:text-gray-400'}`}
+                                        >
+                                            {t.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Contact Button */}
+                        <button
+                            onClick={() => { scrollToSection('#contact'); setIsOpen(false); }}
+                            className={`${isOpen ? 'block' : 'hidden'} md:block p-3 text-white bg-primary rounded-full hover:bg-secondary transition-all hover:scale-110 shadow-lg shadow-primary/20 ${scrolled ? 'mt-0 md:mt-2' : ''}`}
+                            title="Contact Me"
+                        >
+                            <Mail size={20} />
+                        </button>
+                    </>
+                )}
             </div>
 
             {/* Logo/Name (Visible only when not scrolled or integrated into dock?) 

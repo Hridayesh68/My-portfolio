@@ -78,7 +78,7 @@ const ThreeBackground = () => {
         );
 
         // ── Avatar Cube ───────────────────────────────────────────────
-        const hridayeshTexture = loader.load('/assets/hridayesh.jpg');
+        const hridayeshTexture = loader.load('/assets/hridayesh-black.png');
         const hridayesh = new THREE.Mesh(
             new THREE.BoxGeometry(3, 3, 3),
             new THREE.MeshBasicMaterial({ map: hridayeshTexture })
@@ -189,9 +189,20 @@ const ThreeBackground = () => {
 
         // ── Animation Loop ────────────────────────────────────────────
         let animationId;
+        const clock = new THREE.Clock();
+
         const animate = () => {
             animationId = requestAnimationFrame(animate);
             stars.rotation.x += 0.0003;
+
+            const elapsedTime = clock.getElapsedTime();
+            const isMobile = window.innerWidth < 768;
+
+            // Apply responsive tilt and bobbing effect
+            // The tilt offset ensures the avatar isn't clipped on narrow screens
+            hridayesh.rotation.x = dragRotation.x + (isMobile ? -0.25 : 0);
+            hridayesh.rotation.y = scrollRotation.y + dragRotation.y + (isMobile ? 0.3 : 0);
+            hridayesh.position.y = Math.sin(elapsedTime * 1.2) * 0.15;
 
             // Dynamic theme adjustments
             stars.visible = true;

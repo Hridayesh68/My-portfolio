@@ -146,20 +146,21 @@ const TechStack = () => {
                         </h3>
                         <div className="flex flex-wrap justify-center md:justify-start gap-3">
                             {category.items.map((item) => (
-                                <span
+                                <div
                                     key={item}
-                                    className={`${category.animationClass} flex items-center gap-2 bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 px-5 py-2.5 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200 backdrop-blur-md shadow-sm hover:scale-105 hover:bg-black/10 dark:hover:bg-white/20 transition-all cursor-default`}
+                                    className={`${category.animationClass} group flex items-center justify-center bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 w-14 h-14 rounded-2xl backdrop-blur-md shadow-sm hover:scale-110 hover:bg-black/10 dark:hover:bg-white/20 transition-all cursor-default`}
                                 >
                                     {techIcons[item] && (
-                                        <img
-                                            src={techIcons[item]}
-                                            alt={item}
-                                            className="w-5 h-5 object-contain filter dark:brightness-110"
-                                            onError={(e) => { e.target.style.display = 'none'; }}
-                                        />
+                                        <div className="icon-float" style={{ animationDelay: `${Math.random() * 2}s` }}>
+                                            <img
+                                                src={techIcons[item]}
+                                                alt={item}
+                                                className="w-8 h-8 object-contain filter dark:brightness-110 transition-transform duration-300 group-hover:scale-110"
+                                                onError={(e) => { e.target.style.display = 'none'; }}
+                                            />
+                                        </div>
                                     )}
-                                    {item}
-                                </span>
+                                </div>
                             ))}
                         </div>
                     </div>
