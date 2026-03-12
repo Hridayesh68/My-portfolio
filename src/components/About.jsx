@@ -166,6 +166,29 @@ const About = () => {
 
 
                         </div>
+
+                        {/* Contact Info Footer */}
+                        <div className="bg-gray-50 dark:bg-white/5 border-t border-gray-200 dark:border-white/10 p-6 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                    <Mail size={24} />
+                                </div>
+                                <div className="text-center sm:text-left">
+                                    <h4 className="text-lg font-bold text-gray-900 dark:text-white">Let&apos;s Connect</h4>
+                                    <a href="mailto:hridayeshdebsarm6@gmail.com" className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                                        hridayeshdebsarm6@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="flex gap-4">
+                                <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-white/10 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors shadow-sm">
+                                    <Github size={20} />
+                                </a>
+                                <a href="#" target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-white/10 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors shadow-sm">
+                                    <Linkedin size={20} />
+                                </a>
+                            </div>
+                        </div>
                     </Card>
                 </div>
             </div>

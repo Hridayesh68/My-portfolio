@@ -213,6 +213,15 @@ const Achievements = () => {
         return () => ctx.revert();
     }, []);
 
+    /* ── Refresh ScrollTrigger when dynamic data loads ── */
+    useEffect(() => {
+        // Allow DOM to update sizes after state change before refreshing calculations
+        const timer = setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 200);
+        return () => clearTimeout(timer);
+    }, [ghRepos, lc.loading, heatmapData.length]);
+
     const COLORS = ['#646cff', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
     return (
@@ -361,6 +370,7 @@ const Achievements = () => {
                                             src="https://hackerrank-badges.vercel.app/hridayeshdebsar1"
                                             alt="HackerRank Badges"
                                             className="max-w-full h-auto object-contain hover:scale-105 transition-transform duration-300"
+                                            onLoad={() => ScrollTrigger.refresh()}
                                         />
                                     </a>
                                 </div>

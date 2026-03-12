@@ -148,7 +148,7 @@ const TechStack = () => {
                             {category.items.map((item) => (
                                 <div
                                     key={item}
-                                    className={`${category.animationClass} group flex items-center justify-center bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 w-16 h-16 md:w-20 md:h-20 rounded-2xl backdrop-blur-md shadow-sm hover:scale-110 hover:bg-black/10 dark:hover:bg-white/20 transition-all cursor-default`}
+                                    className={`${category.animationClass} group relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 hover:scale-110 transition-all cursor-default`}
                                 >
                                     {techIcons[item] && (
                                         <div className="icon-float" style={{ animationDelay: `${Math.random() * 2}s` }}>
@@ -160,6 +160,9 @@ const TechStack = () => {
                                             />
                                         </div>
                                     )}
+                                    <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap pointer-events-none z-10">
+                                        {item}
+                                    </span>
                                 </div>
                             ))}
                         </div>

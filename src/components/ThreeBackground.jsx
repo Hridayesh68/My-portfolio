@@ -77,11 +77,17 @@ const ThreeBackground = () => {
             }
         );
 
-        // ── Avatar Cube ───────────────────────────────────────────────
+        // ── Avatar Card ───────────────────────────────────────────────
         const hridayeshTexture = loader.load('/assets/hridayesh-black.png');
+        hridayeshTexture.colorSpace = THREE.SRGBColorSpace; // Fix webgl green tint
+
         const hridayesh = new THREE.Mesh(
-            new THREE.BoxGeometry(3, 3, 3),
-            new THREE.MeshBasicMaterial({ map: hridayeshTexture })
+            new THREE.PlaneGeometry(3, 4, 32, 32), // Fix aspect ratio stretching + smooth tilt
+            new THREE.MeshBasicMaterial({
+                map: hridayeshTexture,
+                transparent: true,
+                side: THREE.DoubleSide
+            })
         );
         hridayesh.position.set(2, 0, -5);
         scene.add(hridayesh);
@@ -202,7 +208,9 @@ const ThreeBackground = () => {
             // The tilt offset ensures the avatar isn't clipped on narrow screens
             hridayesh.rotation.x = dragRotation.x + (isMobile ? -0.25 : 0);
             hridayesh.rotation.y = scrollRotation.y + dragRotation.y + (isMobile ? 0.3 : 0);
-            hridayesh.position.y = Math.sin(elapsedTime * 1.2) * 0.15;
+            hridayesh.position.y = Math.sin(elapsedTime * 1.2) * 0.15 + (isMobile ? -0.8 : 0);
+            hridayesh.position.x = isMobile ? 0 : 2;
+            hridayesh.position.z = isMobile ? -6 : -5;
 
             // Dynamic theme adjustments
             stars.visible = true;

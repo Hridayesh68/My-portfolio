@@ -43,30 +43,30 @@ const Sparkles = () => {
 
 // ── Cycling roles config ──────────────────────────────────────
 const ROLES = [
-    { text: 'Data thinker.',     color: 'text-primary'    },
-    { text: '3D Developer.',     color: 'text-purple-500' },
-    { text: 'Web Developer.',    color: 'text-emerald-500'},
-    { text: 'ML Engineer.',      color: 'text-rose-500'   },
+    { text: 'Data thinker.', color: 'text-primary' },
+    { text: '3D Developer.', color: 'text-purple-500' },
+    { text: 'Web Developer.', color: 'text-emerald-500' },
+    { text: 'ML Engineer.', color: 'text-rose-500' },
 ];
 
 const CYCLE_INTERVAL = 2800;   // ms between each role change
-const ANIM_DURATION  = 0.45;   // seconds for gsap transitions
+const ANIM_DURATION = 0.45;   // seconds for gsap transitions
 
 // ── Hero ──────────────────────────────────────────────────────
 const Hero = ({ theme }) => {
-    const headingRef  = useRef(null);
-    const descRef     = useRef(null);
-    const btnRef      = useRef(null);
-    const badgeRef    = useRef(null);
-    const sectionRef  = useRef(null);
+    const headingRef = useRef(null);
+    const descRef = useRef(null);
+    const btnRef = useRef(null);
+    const badgeRef = useRef(null);
+    const sectionRef = useRef(null);
 
     // The animated role word sits in its own span so we can
     // tween it independently without reflowing the whole heading
-    const roleRef     = useRef(null);
+    const roleRef = useRef(null);
 
-    const [roleIndex, setRoleIndex]   = useState(0);
+    const [roleIndex, setRoleIndex] = useState(0);
     const [displayRole, setDisplayRole] = useState(ROLES[0]);
-    const [showGlow, setShowGlow]     = useState(false);
+    const [showGlow, setShowGlow] = useState(false);
 
     // ── Page-load entrance animation ─────────────────────────
     useEffect(() => {
@@ -77,21 +77,21 @@ const Hero = ({ theme }) => {
                 { y: -20, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.6 }
             )
-            .fromTo(headingRef.current,
-                { y: 60, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.8 },
-                '-=0.3'
-            )
-            .fromTo(descRef.current,
-                { y: 40, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.7 },
-                '-=0.4'
-            )
-            .fromTo(btnRef.current,
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.6 },
-                '-=0.3'
-            );
+                .fromTo(headingRef.current,
+                    { y: 60, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.8 },
+                    '-=0.3'
+                )
+                .fromTo(descRef.current,
+                    { y: 40, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.7 },
+                    '-=0.4'
+                )
+                .fromTo(btnRef.current,
+                    { y: 30, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.6 },
+                    '-=0.3'
+                );
         }, sectionRef);
 
         return () => ctx.revert();
@@ -144,7 +144,7 @@ const Hero = ({ theme }) => {
         <section
             id="hero"
             ref={sectionRef}
-            className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden"
+            className="min-h-[100dvh] flex items-start md:items-center justify-center pt-28 md:pt-20 relative overflow-hidden"
         >
             <Sparkles />
 
@@ -158,58 +158,63 @@ const Hero = ({ theme }) => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
                     {/* ── Left: text content ── */}
-                    <div className="flex-1 text-center md:text-left space-y-8 relative z-10 max-w-2xl mt-12 md:mt-24">
+                    <div className="flex-1 flex flex-col text-center md:text-left relative z-10 max-w-2xl mt-4 md:mt-24 min-h-[70dvh] md:min-h-0">
 
-                        {/* Badge */}
-                        <div
-                            ref={badgeRef}
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium"
-                        >
-                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                            Available for opportunities
-                        </div>
+                        <div className="space-y-6 md:space-y-8">
+                            {/* Badge */}
+                            <div
+                                ref={badgeRef}
+                                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium"
+                            >
+                                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                                Available for opportunities
+                            </div>
 
-                        {/* Heading — role word is isolated in its own span */}
-                        <h1
-                            ref={headingRef}
-                            className="text-4xl md:text-6xl font-extrabold tracking-tight"
-                        >
-                            CS Engineer.{' '}
-                            {/*
+                            {/* Heading — role word is isolated in its own span */}
+                            <h1
+                                ref={headingRef}
+                                className="text-4xl md:text-6xl font-extrabold tracking-tight"
+                            >
+                                CS Engineer.{' '}
+                                {/*
                               overflow-hidden clips the slide animation so the
                               outgoing/incoming text doesn't bleed outside the line.
                               inline-block + min-w keeps the heading width stable.
                             */}
-                            <span
-                                className="inline-block overflow-hidden align-bottom"
-                                style={{ minWidth: '14rem' }}
-                            >
                                 <span
-                                    ref={roleRef}
-                                    className={`inline-block ${displayRole.color} transition-colors duration-300`}
+                                    className="inline-block overflow-hidden align-bottom"
+                                    style={{ minWidth: '14rem' }}
                                 >
-                                    {displayRole.text}
+                                    <span
+                                        ref={roleRef}
+                                        className={`inline-block ${displayRole.color} transition-colors duration-300`}
+                                    >
+                                        {displayRole.text}
+                                    </span>
                                 </span>
-                            </span>
 
-                            <br />
-                            <span className="text-primary">Problem solver.</span>
-                        </h1>
+                                <br />
+                                <span className="text-primary">Problem solver.</span>
+                            </h1>
 
-                        {/* Description */}
-                        <p
-                            ref={descRef}
-                            className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto md:mx-0"
-                        >
-                            Computer Science undergrad at Lovely Professional University —
-                            crafting AI-powered web apps, data dashboards, and machine
-                            learning pipelines that turn raw data into real decisions.
-                        </p>
+                            {/* Description */}
+                            <p
+                                ref={descRef}
+                                className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto md:mx-0"
+                            >
+                                Computer Science undergrad at Lovely Professional University —
+                                crafting AI-powered web apps, data dashboards, and machine
+                                learning pipelines that turn raw data into real decisions.
+                            </p>
+                        </div>
+
+                        {/* Spacer for mobile to push buttons down */}
+                        <div className="flex-grow min-h-[35vh] md:min-h-0"></div>
 
                         {/* CTA buttons */}
                         <div
                             ref={btnRef}
-                            className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start"
+                            className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pb-12 md:pb-0"
                         >
                             <button
                                 onClick={scrollToProjects}
