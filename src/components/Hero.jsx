@@ -234,6 +234,25 @@ const Hero = ({ theme }) => {
                         </div>
                     </div>
 
+                    {/* ── Right: avatar image ── */}
+                    <div className="flex-1 flex justify-center md:justify-end items-center relative z-10 w-full mt-10 md:mt-0">
+                        <div className="relative group">
+                            {/* The glowing themed border */}
+                            <div className="absolute inset-[-4px] rounded-full bg-primary opacity-50 blur-lg group-hover:opacity-100 transition-opacity duration-500"></div>
+                            
+                            {/* The static circular image constraint */}
+                            <div className="relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary transition-all duration-500 shadow-2xl group-hover:scale-[1.02]">
+                                <img 
+                                    src="/assets/hridayesh-formal.jpeg" 
+                                    alt="Hridayesh Pandey" 
+                                    className="w-full h-full object-cover object-top"
+                                    onClick={handleImageClick}
+                                    draggable="false"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

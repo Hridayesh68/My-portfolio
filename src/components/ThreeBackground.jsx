@@ -77,20 +77,7 @@ const ThreeBackground = () => {
             }
         );
 
-        // ── Avatar Card ───────────────────────────────────────────────
-        const hridayeshTexture = loader.load('/assets/hridayesh-formal.png');
-        hridayeshTexture.colorSpace = THREE.SRGBColorSpace; // Fix webgl green tint
-
-        const hridayesh = new THREE.Mesh(
-            new THREE.PlaneGeometry(3, 4, 32, 32), // Fix aspect ratio stretching + smooth tilt
-            new THREE.MeshBasicMaterial({
-                map: hridayeshTexture,
-                transparent: true,
-                side: THREE.DoubleSide
-            })
-        );
-        hridayesh.position.set(2, 0, -5);
-        scene.add(hridayesh);
+        // ── Avatar Card (Removed for Static Image) ────────────────────
 
         // ── Handle Resize ─────────────────────────────────────────────
         const handleResize = () => {
@@ -111,10 +98,6 @@ const ThreeBackground = () => {
 
             scrollRotation.y = t * -0.01;
             scrollRotation.z = t * -0.01;
-
-            hridayesh.rotation.x = dragRotation.x;
-            hridayesh.rotation.y = scrollRotation.y + dragRotation.y;
-            hridayesh.rotation.z = scrollRotation.z;
 
             camera.position.z = t * -0.01;
             camera.position.x = t * -0.0002;
@@ -148,9 +131,6 @@ const ThreeBackground = () => {
             dragRotation.y += delta.x * 0.005;
             dragRotation.x += delta.y * 0.005;
 
-            hridayesh.rotation.x = dragRotation.x;
-            hridayesh.rotation.y = scrollRotation.y + dragRotation.y;
-
             previousMouse = { x: e.clientX, y: e.clientY };
         };
 
@@ -181,9 +161,6 @@ const ThreeBackground = () => {
             dragRotation.y += delta.x * 0.005;
             dragRotation.x += delta.y * 0.005;
 
-            hridayesh.rotation.x = dragRotation.x;
-            hridayesh.rotation.y = scrollRotation.y + dragRotation.y;
-
             previousMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         };
 
@@ -201,18 +178,7 @@ const ThreeBackground = () => {
             animationId = requestAnimationFrame(animate);
             stars.rotation.x += 0.0003;
 
-            const elapsedTime = clock.getElapsedTime();
             const isMobile = window.innerWidth < 768;
-
-            // Apply responsive tilt and bobbing effect
-            // The tilt offset ensures the avatar isn't clipped on narrow screens
-            hridayesh.rotation.x = dragRotation.x + (isMobile ? -0.25 : 0);
-            hridayesh.rotation.y = scrollRotation.y + dragRotation.y + (isMobile ? 0.3 : 0);
-            hridayesh.position.y = Math.sin(elapsedTime * 1.2) * 0.15 + (isMobile ? -2.2 : 0);
-            hridayesh.position.x = isMobile ? 0 : 2;
-            hridayesh.position.z = isMobile ? -6 : -5;
-
-            // Dynamic theme adjustments
             stars.visible = true;
             if (currentTheme === 'matrix') {
                 scene.background = new THREE.Color(0x0a0f0a);
