@@ -158,7 +158,7 @@ const Hero = ({ theme }) => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
                     {/* ── Left: text content ── */}
-                    <div className="flex-1 flex flex-col text-center md:text-left relative z-10 max-w-2xl mt-4 md:mt-24 min-h-[70dvh] md:min-h-0">
+                    <div className="flex-1 flex flex-col text-center md:text-left relative z-10 max-w-2xl mt-0 md:mt-24 min-h-[70dvh] md:min-h-0 pt-10 md:pt-0">
 
                         <div className="space-y-6 md:space-y-8">
                             {/* Badge */}
@@ -214,7 +214,7 @@ const Hero = ({ theme }) => {
                         {/* CTA buttons */}
                         <div
                             ref={btnRef}
-                            className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pb-12 md:pb-0"
+                            className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pb-24 md:pb-0"
                         >
                             <button
                                 onClick={scrollToProjects}

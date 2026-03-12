@@ -1,4 +1,5 @@
 import { useEffect, useRef, useLayoutEffect } from 'react';
+import { MessageSquare, Users, Lightbulb, Clock, RefreshCw, Award, Target, Rocket, HeartHandshake } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -59,10 +60,20 @@ const techIcons = {
 };
 
 const platforms = [
-    { name: 'LeetCode', url: 'https://leetcode.com/u/hridayeshdebsarma6/', icon: '/platforms/leetcode.svg' },
-    { name: 'HackerRank', url: 'https://hackerrank.com/hridayesh', icon: '/platforms/hackerrank.svg' },
-    { name: 'CodeChef', url: 'https://codechef.com/users/hridayesh', icon: '/platforms/codechef.svg' },
+    { name: 'GitHub', url: 'https://github.com/Hridayesh68', icon: '/platforms/github.png' },
+    { name: 'Vercel', url: 'https://vercel.com/', icon: '/tech-stack/Vercel.svg' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/hridayesh-debsarma/', icon: '/platforms/linkedin.svg' },
+    { name: 'HackerRank', url: 'https://hackerrank.com/hridayesh', icon: '/platforms/hackerrank.svg' },
+    { name: 'VS Code', url: 'https://code.visualstudio.com/', icon: '/platforms/vs code.jpg' },
+    { name: 'LeetCode', url: 'https://leetcode.com/u/hridayeshdebsarma6/', icon: '/platforms/leetcode.png' },
+    { name: 'Render', url: 'https://render.com', icon: '/platforms/render.png' },
+];
+
+const softSkills = [
+    { name: 'Communication', icon: <MessageSquare size={32} /> },
+    { name: 'Team Leadership', icon: <Users size={32} /> },
+    { name: 'Problem Solving', icon: <Lightbulb size={32} /> },
+    { name: 'Adaptability', icon: <RefreshCw size={32} /> }
 ];
 
 const TechStack = () => {
@@ -76,7 +87,7 @@ const TechStack = () => {
 
         const ctx = gsap.context(() => {
             // Instantly hide the elements before the observer plays the timeline
-            gsap.set('.tech-heading, .framework-item, .tool-item, .cs-item, .lang-item, .platform-card', { opacity: 0 });
+            gsap.set('.tech-heading, .framework-item, .tool-item, .cs-item, .lang-item, .soft-skill-item, .platform-card', { opacity: 0 });
         }, sectionRef);
 
         const observer = new IntersectionObserver((entries) => {
@@ -108,6 +119,11 @@ const TechStack = () => {
                             { y: -80, opacity: 0 },
                             { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'bounce.out' },
                             '-=0.2')
+                        // 5. Soft Skills — slide up and fade
+                        .fromTo('.soft-skill-item',
+                            { y: 50, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power2.out' },
+                            '-=0.4')
                         // Platform cards stagger
                         .fromTo('.platform-card',
                             { y: 50, opacity: 0, scale: 0.9 },
@@ -170,28 +186,50 @@ const TechStack = () => {
                 ))}
             </div>
 
+            {/* Soft Skills Section */}
+            <div className="max-w-4xl mx-auto px-4 mt-20">
+                <h3 className="text-xl font-bold mb-8 text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center md:text-left">
+                    Soft Skills
+                </h3>
+                <div className="flex flex-wrap justify-center md:justify-start gap-12 md:gap-16 mt-4">
+                    {softSkills.map((skill) => (
+                        <div
+                            key={skill.name}
+                            className="soft-skill-item group relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 hover:scale-110 transition-all cursor-default"
+                        >
+                            <div className="icon-float text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-300">
+                                {skill.icon}
+                            </div>
+                            <span className="absolute -bottom-6 text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap pointer-events-none z-10">
+                                {skill.name}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
             {/* Platform Hub */}
             <div ref={platformsRef} className="max-w-4xl mx-auto mt-16 px-4">
-                <h3 className="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-                    Coding Platforms
+                <h3 className="text-2xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+                    Platforms
                 </h3>
-                <div className="flex flex-wrap justify-center gap-6 md:gap-12">
+                <div className="flex flex-wrap justify-center gap-12 md:gap-16">
                     {platforms.map((platform) => (
                         <a
                             key={platform.name}
                             href={platform.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="platform-card flex flex-col items-center group"
+                            className="platform-card flex flex-col items-center group transition-all duration-300 hover:-translate-y-3"
                         >
-                            <div className="w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-gray-800 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-xl group-hover:shadow-primary/20 border border-gray-100 dark:border-gray-700">
+                            <div className="flex items-center justify-center">
                                 {platform.icon ? (
-                                    <img src={platform.icon} alt={platform.name} className="w-8 h-8 md:w-10 md:h-10" />
+                                    <img src={platform.icon} alt={platform.name} className="w-14 h-14 md:w-16 md:h-16 object-contain filter drop-shadow-lg group-hover:drop-shadow-[0_10px_15px_rgba(99,102,241,0.3)] transition-all" />
                                 ) : (
-                                    <span className="font-bold text-xl text-primary">{platform.name[0]}</span>
+                                    <span className="font-bold text-3xl text-primary">{platform.name[0]}</span>
                                 )}
                             </div>
-                            <span className="mt-3 font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors text-sm">
+                            <span className="mt-4 font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors text-sm">
                                 {platform.name}
                             </span>
                         </a>

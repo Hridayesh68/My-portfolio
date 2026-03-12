@@ -63,9 +63,9 @@ const MILESTONES = [
         year: '2024',
         label: '2024',
         title: 'Backend Engineering',
-        subtitle: 'Node.js, MySQL & API design',
-        desc: 'Built robust REST APIs with Express.js, designed relational database schemas with MySQL, and developed ML inference pipelines with Python and scikit-learn.',
-        tags: ['Express', 'MySQL', 'Python', 'scikit-learn'],
+        subtitle: 'Backend Developer · Node.js, MySQL & API design',
+        desc: 'Built robust REST APIs with Express.js, designed relational database schemas with MySQL, and developed ML inference pipelines with Python and scikit-learn. Worked as a backend developer delivering scalable server-side solutions.',
+        tags: ['Express', 'MySQL', 'Python', 'scikit-learn', 'REST APIs'],
         icon: <Database size={18} />,
         stat: { value: '200+', label: 'Problems Solved' },
         color: 'from-emerald-500 to-green-500',
@@ -73,6 +73,22 @@ const MILESTONES = [
         borderColor: 'border-emerald-500/30',
         bgColor: 'bg-emerald-500/5',
     },
+    {
+        id: 'm5',
+        year: '2024',
+        label: '2024',
+        title: 'Data Analytics & Models',
+        subtitle: 'Dashboards, ML models & EV insights',
+        desc: 'Built interactive Power BI dashboards with DAX measures, KPI cards, drill-through reports, and Power Query pipelines. Analysed EV adoption trends across 50+ data points. Developed ML models using scikit-learn for predictive analytics.',
+        tags: ['Power BI', 'DAX', 'Python', 'scikit-learn', 'Excel'],
+        icon: <ChartIcon />,
+        stat: { value: '50+', label: 'Data Points' },
+        color: 'from-yellow-500 to-amber-500',
+        accentColor: 'text-yellow-400',
+        borderColor: 'border-yellow-500/30',
+        bgColor: 'bg-yellow-500/5',
+    },
+
     {
         id: 'm4',
         year: '2023',
@@ -137,20 +153,36 @@ const SKILLS_LEFT = [
         accentColor: 'text-yellow-400',
         borderColor: 'border-yellow-500/20',
     },
+    {
+        id: 'sl4',
+        title: 'Summer Training – Mastering DSA',
+        subtitle: 'Lovely Professional University · Internship',
+        desc: 'Created a task-management web application using core DSA concepts to optimize task handling and improve performance. Gained strong foundations in Data Structures and Algorithms — arrays, stacks, queues, linked lists, trees, graphs, sorting, and searching. Delivered intuitive front-end features with efficient backend logic for a clean, scalable, user-friendly experience.',
+        icon: <Terminal size={18} />,
+        tools: [
+            { src: '/tech-stack/React.svg', fallback: '/tech-stack/React.svg', name: 'React' },
+            { src: '/tech-stack/Node.svg', fallback: '/tech-stack/JavaScript.svg', name: 'Node.js' }
+        ],
+        tag: "May'25–Jul'25",
+        highlight: 'Certified Training',
+        color: 'from-fuchsia-500/20 to-pink-500/10',
+        accentColor: 'text-fuchsia-400',
+        borderColor: 'border-fuchsia-500/20',
+    },
 ];
 
 const TECH_DOTS = [
-    { id: 't1', name: 'React',  img: '/pngs/react-js-icon.png',               fallback: '/tech-stack/React.svg'  },
-    { id: 't2', name: 'C++',    img: '/tech-stack/Cpp.svg',                   fallback: '/tech-stack/Cpp.svg'    },
+    { id: 't1', name: 'React', img: '/pngs/react-js-icon.png', fallback: '/tech-stack/React.svg' },
+    { id: 't2', name: 'C++', img: '/tech-stack/Cpp.svg', fallback: '/tech-stack/Cpp.svg' },
     { id: 't3', name: 'Python', img: '/pngs/python-programming-language-icon.png', fallback: '/tech-stack/Python.svg' },
 ];
 
 // ── Component ─────────────────────────────────────────────────
 const Experience = () => {
-    const sectionRef   = useRef(null);
-    const timelineRef  = useRef(null);
-    const rgbLineRef   = useRef(null);
-    const headerRef    = useRef(null);
+    const sectionRef = useRef(null);
+    const timelineRef = useRef(null);
+    const rgbLineRef = useRef(null);
+    const headerRef = useRef(null);
     const [activeCard, setActiveCard] = useState(null);
 
     useLayoutEffect(() => {
@@ -291,7 +323,11 @@ const Experience = () => {
                         <div className="flex flex-col gap-10 md:gap-0 md:justify-between py-10 order-2 md:order-1">
                             {SKILLS_LEFT.map(card => (
                                 <div key={card.id} className="left-card-anim flex justify-end">
-                                    <div className="w-full max-w-sm group">
+                                    <div
+                                        className="w-full max-w-sm group"
+                                        onMouseEnter={() => setActiveCard(card.id)}
+                                        onMouseLeave={() => setActiveCard(null)}
+                                    >
                                         <div
                                             className={`
                                                 relative rounded-2xl p-6
@@ -321,9 +357,15 @@ const Experience = () => {
                                             <p className={`text-xs font-medium mt-0.5 mb-3 ${card.accentColor}`}>
                                                 {card.subtitle}
                                             </p>
-                                            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+                                            <div
+                                                className={`
+                                                    text-sm text-gray-600 dark:text-gray-400 leading-relaxed
+                                                    overflow-hidden transition-all duration-500
+                                                    ${activeCard === card.id ? 'max-h-40 opacity-100 mb-5' : 'max-h-0 opacity-0 mb-0'}
+                                                `}
+                                            >
                                                 {card.desc}
-                                            </p>
+                                            </div>
 
                                             {/* Tool icons + highlight */}
                                             <div className="flex items-center justify-between">
@@ -406,14 +448,20 @@ const Experience = () => {
                                                     className={`
                                                         text-sm text-gray-600 dark:text-gray-400 leading-relaxed
                                                         overflow-hidden transition-all duration-500
-                                                        ${activeCard === card.id ? 'max-h-24 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}
+                                                        ${activeCard === card.id ? 'max-h-56 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}
                                                     `}
                                                 >
                                                     {card.desc}
                                                 </div>
 
-                                                {/* Tags */}
-                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                {/* Tags — appears on hover */}
+                                                <div
+                                                    className={`
+                                                        flex flex-wrap gap-2
+                                                        overflow-hidden transition-all duration-500
+                                                        ${activeCard === card.id ? 'max-h-24 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}
+                                                    `}
+                                                >
                                                     {card.tags.map(tag => (
                                                         <span
                                                             key={tag}
@@ -461,10 +509,10 @@ const Experience = () => {
                 {/* ── Bottom stats bar ── */}
                 <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                        { value: '200+', label: 'Problems Solved', color: 'text-cyan-400'   },
-                        { value: '5⭐',  label: 'HackerRank Rating', color: 'text-yellow-400' },
-                        { value: '6+',   label: 'Projects Shipped', color: 'text-violet-400' },
-                        { value: '3+',   label: 'Certifications',   color: 'text-emerald-400' },
+                        { value: '200+', label: 'Problems Solved', color: 'text-cyan-400' },
+                        { value: '5⭐', label: 'HackerRank Rating', color: 'text-yellow-400' },
+                        { value: '6+', label: 'Projects Shipped', color: 'text-violet-400' },
+                        { value: '3+', label: 'Certifications', color: 'text-emerald-400' },
                     ].map((stat, i) => (
                         <div
                             key={i}

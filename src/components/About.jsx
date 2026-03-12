@@ -94,21 +94,12 @@ const About = () => {
                             <div className="w-full xl:w-2/3 space-y-8">
                                 <div>
                                     <div className="text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
-                                        <p>
-                                            I&apos;m Hridayesh Debsarma, a Computer Science and Engineering student at Lovely Professional University with a passion for building things that actually work — not just look good on paper.
-                                        </p>
-                                        <p>
-                                            My work lives at the intersection of data science, machine learning, and web development. I&apos;ve built everything from interactive Power BI dashboards that track EV adoption trends nationwide, to AI-powered resume analyzers that parse PDFs, score skill matches with TF-IDF, and fire off automated email notifications — all from scratch.
-                                        </p>
-                                        <p>
-                                            I believe good engineering is equal parts logic and creativity. Whether I&apos;m optimising a scikit-learn inference pipeline, designing a clean Streamlit UI, or grinding through DSA problems at midnight, I bring the same obsessive attention to detail to everything I build.
-                                        </p>
-                                        <p>
-                                            Outside of projects, I&apos;ve solved 200+ coding problems across LeetCode, CodeChef and HackerRank — not for the badges (though I have those too), but because sharpening the fundamentals is what separates engineers who ship from engineers who stall.
-                                        </p>
-                                        <p>
-                                            Currently exploring the edge where generative AI meets practical tooling — and always open to collaborating on something ambitious.
-                                        </p>
+                                        <ul className="list-disc list-inside space-y-3">
+                                            <li><strong className="text-gray-900 dark:text-white">CS Undergrad:</strong> Student at Lovely Professional University with a passion for building practical, impact-driven software.</li>
+                                            <li><strong className="text-gray-900 dark:text-white">Full-Stack & ML:</strong> Building AI-powered web apps, interactive Power BI dashboards, and ML inference pipelines from scratch.</li>
+                                            <li><strong className="text-gray-900 dark:text-white">Algorithm Enthusiast:</strong> Solved 200+ coding problems across LeetCode, CodeChef, and HackerRank to sharpen core engineering foundations.</li>
+                                            <li><strong className="text-gray-900 dark:text-white">Always Exploring:</strong> Currently diving into generative AI workflows and always open to ambitious collaborations.</li>
+                                        </ul>
                                     </div>
                                 </div>
 

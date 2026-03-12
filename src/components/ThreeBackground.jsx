@@ -208,7 +208,7 @@ const ThreeBackground = () => {
             // The tilt offset ensures the avatar isn't clipped on narrow screens
             hridayesh.rotation.x = dragRotation.x + (isMobile ? -0.25 : 0);
             hridayesh.rotation.y = scrollRotation.y + dragRotation.y + (isMobile ? 0.3 : 0);
-            hridayesh.position.y = Math.sin(elapsedTime * 1.2) * 0.15 + (isMobile ? -0.8 : 0);
+            hridayesh.position.y = Math.sin(elapsedTime * 1.2) * 0.15 + (isMobile ? -2.2 : 0);
             hridayesh.position.x = isMobile ? 0 : 2;
             hridayesh.position.z = isMobile ? -6 : -5;
 
