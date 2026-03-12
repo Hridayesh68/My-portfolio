@@ -61,9 +61,9 @@ const techIcons = {
 
 const platforms = [
     { name: 'GitHub', url: 'https://github.com/Hridayesh68', icon: '/platforms/github.png' },
-    { name: 'Vercel', url: 'https://vercel.com/', icon: '/tech-stack/Vercel.svg' },
+    { name: 'Vercel', url: 'https://vercel.com/', icon: '/platforms/vercel.png' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/hridayesh-debsarma/', icon: '/platforms/linkedin.svg' },
-    { name: 'HackerRank', url: 'https://hackerrank.com/hridayesh', icon: '/platforms/hackerrank.svg' },
+    { name: 'HackerRank', url: 'https://hackerrank.com/hridayesh', icon: '/platforms/hackerrank.jpg' },
     { name: 'VS Code', url: 'https://code.visualstudio.com/', icon: '/platforms/vs code.jpg' },
     { name: 'LeetCode', url: 'https://leetcode.com/u/hridayeshdebsarma6/', icon: '/platforms/leetcode.png' },
     { name: 'Render', url: 'https://render.com', icon: '/platforms/render.png' },

@@ -78,7 +78,7 @@ const ThreeBackground = () => {
         );
 
         // ── Avatar Card ───────────────────────────────────────────────
-        const hridayeshTexture = loader.load('/assets/hridayesh-black.png');
+        const hridayeshTexture = loader.load('/assets/hridayesh-formal.png');
         hridayeshTexture.colorSpace = THREE.SRGBColorSpace; // Fix webgl green tint
 
         const hridayesh = new THREE.Mesh(
