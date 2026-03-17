@@ -119,6 +119,24 @@ const Projects = () => {
             repo: 'https://github.com/Hridayesh68',
             demo: 'https://resume-analyzer-three-beige.vercel.app/',
             tags: ['NLP', 'React', 'Python']
+        },
+        {
+            id: 4,
+            name: 'Flight Route Optimizer',
+            description: 'Interactive tool calculates optimal flight paths based on distance and price using Dijkstra\'s algorithm.',
+            image: '/assets/projects/flight route optimizer.png',
+            repo: 'https://github.com/Hridayesh68/Flight-Optimizer-DSA',
+            demo: 'https://flight-route-optimizer-ten.vercel.app/',
+            tags: ['React', 'Algorithms', 'Leaflet']
+        },
+        {
+            id: 5,
+            name: 'Organizo',
+            description: 'Modern task management app featuring a clean UI for organizing daily workflows and team collaborations.',
+            image: 'public/assets/projects/organizo.png',
+            repo: 'https://github.com/Hridayesh68/Taskmanagement-web-app',
+            demo: 'https://taskmanagement-web-app.vercel.app/',
+            tags: ['React', 'Tailwind CSS', 'Productivity']
         }
     ];
 

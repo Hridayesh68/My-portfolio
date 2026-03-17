@@ -67,6 +67,7 @@ const Hero = ({ theme }) => {
     const [roleIndex, setRoleIndex] = useState(0);
     const [displayRole, setDisplayRole] = useState(ROLES[0]);
     const [showGlow, setShowGlow] = useState(false);
+    const [isShaking, setIsShaking] = useState(false);
 
     // ── Page-load entrance animation ─────────────────────────
     useEffect(() => {
@@ -138,6 +139,8 @@ const Hero = ({ theme }) => {
             setShowGlow(true);
             setTimeout(() => setShowGlow(false), 800);
         }
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 600);
     };
 
     return (
@@ -209,7 +212,7 @@ const Hero = ({ theme }) => {
                         </div>
 
                         {/* Spacer for mobile to push buttons down */}
-                        <div className="flex-grow min-h-[35vh] md:min-h-0"></div>
+                        <div className="flex-grow min-h-[8vh] md:min-h-0"></div>
 
                         {/* CTA buttons */}
                         <div
@@ -235,18 +238,21 @@ const Hero = ({ theme }) => {
                     </div>
 
                     {/* ── Right: avatar image ── */}
-                    <div className="flex-1 flex justify-center md:justify-end items-center relative z-10 w-full mt-10 md:mt-0">
+                    <div className="flex-1 flex justify-center md:justify-end items-center relative z-10 w-full mt-4 md:mt-0">
                         <div className="relative group">
                             {/* The glowing themed border */}
                             <div className="absolute inset-[-4px] rounded-full bg-primary opacity-50 blur-lg group-hover:opacity-100 transition-opacity duration-500"></div>
                             
                             {/* The static circular image constraint */}
-                            <div className="relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary transition-all duration-500 shadow-2xl group-hover:scale-[1.02]">
+                            <div
+                                className={`relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary transition-all duration-500 shadow-2xl group-hover:scale-[1.02] cursor-pointer ${isShaking ? 'animate-shake' : ''}`}
+                                onClick={handleImageClick}
+                                style={isShaking ? { animation: 'shake 0.6s ease-in-out' } : {}}
+                            >
                                 <img 
                                     src="/assets/hridayesh-formal.jpeg" 
                                     alt="Hridayesh Pandey" 
                                     className="w-full h-full object-cover object-top"
-                                    onClick={handleImageClick}
                                     draggable="false"
                                 />
                             </div>

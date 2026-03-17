@@ -129,8 +129,25 @@ function App() {
             </div>
           </main>
 
-          <footer className="py-8 text-center text-gray-500 dark:text-gray-600 text-sm border-t border-gray-100 dark:border-gray-800">
-            © {new Date().getFullYear()} Hridayesh. All rights reserved.
+          <footer className="py-12 text-center border-t border-gray-100 dark:border-gray-800/50">
+            <p className="text-gray-500 dark:text-gray-400 text-sm tracking-widest uppercase mb-2">
+              Designed and developed by
+            </p>
+            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 mb-6">
+              Hridayesh
+            </h3>
+            <p className="text-xs text-gray-400 dark:text-gray-600 mb-4">
+              Built with React · Three.js · GSAP · Vite · Tailwind CSS
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-gray-400 dark:text-gray-600 mb-4">
+              <span>🎨 UI &amp; Motion — GSAP ScrollTrigger</span>
+              <span>🌌 3D Background — Three.js</span>
+              <span>⚡ Bundler — Vite</span>
+              <span>🎯 Icons — Lucide React</span>
+            </div>
+            <p className="text-xs text-gray-400 dark:text-gray-600">
+              © {new Date().getFullYear()} Hridayesh Debsarma · All rights reserved.
+            </p>
           </footer>
         </div>
       )}

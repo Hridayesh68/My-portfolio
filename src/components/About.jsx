@@ -81,7 +81,7 @@ const About = () => {
                                     <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-gray-100 dark:bg-white/5 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors">
                                         <Github size={20} />
                                     </a>
-                                    <a href="#" target="_blank" rel="noreferrer" className="p-3 bg-gray-100 dark:bg-white/5 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors">
+                                    <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noreferrer" className="p-3 bg-gray-100 dark:bg-white/5 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors">
                                         <Linkedin size={20} />
                                     </a>
                                     <a href="mailto:hridayeshdebsarm6@gmail.com" className="p-3 bg-gray-100 dark:bg-white/5 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors">
@@ -175,10 +175,15 @@ const About = () => {
                                 <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-white/10 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors shadow-sm">
                                     <Github size={20} />
                                 </a>
-                                <a href="#" target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-white/10 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors shadow-sm">
+                                <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-white/10 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors shadow-sm">
                                     <Linkedin size={20} />
                                 </a>
                             </div>
+                        </div>
+                        <div className="p-4 text-center border-t border-gray-100 dark:border-white/5 opacity-50">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                Designed and developed by <span className="text-primary font-semibold">Hridayesh</span>
+                            </p>
                         </div>
                     </Card>
                 </div>

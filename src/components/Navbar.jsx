@@ -65,7 +65,7 @@ const Navbar = ({ theme, setTheme }) => {
                 className={`pointer-events-auto fixed transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
                 ${scrolled
                         ? `right-4 top-1/2 -translate-y-1/2 flex-col rounded-2xl md:right-8 ${isMinimized ? 'hidden md:flex md:w-12 md:h-12 overflow-hidden' : `w-16 ${isOpen ? 'h-auto py-4' : 'h-16 md:h-auto'}`}`
-                        : `bottom-6 left-1/2 -translate-x-1/2 flex-row rounded-full h-16 md:bottom-8 md:w-[90%] md:max-w-lg ${isOpen ? 'w-[90%] max-w-[20rem] flex-wrap justify-center h-auto py-2' : 'w-16 md:w-[90%] md:px-2'}`
+                        : `bottom-6 right-4 flex-row rounded-full h-16 md:bottom-8 md:right-8 ${isOpen ? 'flex-wrap justify-center h-auto py-2 w-[90%] max-w-[20rem] right-1/2 translate-x-1/2 md:right-8 md:translate-x-0 md:w-auto' : 'w-16 md:w-auto md:px-2'}`
                     } 
                 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-white/5 shadow-2xl flex items-center justify-around md:justify-center p-2 md:gap-4`}
             >

@@ -73,7 +73,16 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <p className="text-sm text-gray-500 dark:text-gray-400">Email Me</p>
-                                            <a href="mailto:hridayeshdebsarm6@gmail.com" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">hridayeshdebsarm6@gmail.com</a>
+                                            <a
+                                                href="mailto:hridayeshdebsarm6@gmail.com"
+                                                onClick={() => {
+                                                    const emailInput = document.querySelector('form input[name="email"]');
+                                                    if (emailInput) emailInput.focus();
+                                                }}
+                                                className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors"
+                                            >
+                                                hridayeshdebsarm6@gmail.com
+                                            </a>
                                         </div>
                                     </div>
 
@@ -83,17 +92,17 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <p className="text-sm text-gray-500 dark:text-gray-400">LinkedIn</p>
-                                            <a href="#" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">/in/hridayesh</a>
+                                            <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">/in/hridayesh-debsarma</a>
                                         </div>
                                     </div>
 
                                     <div className="flex items-center gap-5 group">
                                         <div className="w-12 h-12 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
-                                            <img src="/pngs/x-social-media-logo-icon.png" alt="X (Twitter)" className="w-6 h-6 object-contain filter dark:invert" />
+                                            <img src="/pngs/address-icon.png" alt="Phone" className="w-6 h-6 object-contain" />
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">Twitter</p>
-                                            <a href="#" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">@hridayesh_dev</a>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+                                            <a href="tel:+919064048182" className="font-medium text-gray-900 dark:text-white hover:text-primary transition-colors">+91 9064048182</a>
                                         </div>
                                     </div>
 

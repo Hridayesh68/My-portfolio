@@ -34,11 +34,11 @@ const skillCategories = [
 
 const techIcons = {
     'React': '/tech-stack/React.svg',
-    'Three.js': '/tech-stack/ThreeJS.svg',
+    'Three.js': '/pngs/threejs.png', 
     'Flutter': '/tech-stack/Flutter.svg',
     'PyTorch': '/tech-stack/PyTorch.svg',
     'Unity': '/tech-stack/Unity.svg',
-    'Unreal Engine': '/tech-stack/Unreal-Engine.svg',
+    'Unreal Engine': '/pngs/unreal.png',
     'Vite': '/tech-stack/Vite.svg',
     'Docker': '/tech-stack/Docker.svg',
     'Android Studio': '/tech-stack/Android-Studio.svg',

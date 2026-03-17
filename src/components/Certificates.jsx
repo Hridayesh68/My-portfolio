@@ -21,9 +21,8 @@ const certificates = [
     },
     {
         id: 3,
-        title: 'Cloud Computing',
-        // Using hackathon image as fallback since a dedicated cloud image wasn't found in dir
-        image: '/assets/certificates/webka hackathon.png',
+        title: 'Cloud Computing (NPTEL)',
+        image: '/assets/certificates/Cloud_computing.png',
         link: 'https://drive.google.com/file/d/1_9oPMONZ7iU4BtZbqNoBeF0d69CfWVh0/view?usp=sharing'
     },
     {
