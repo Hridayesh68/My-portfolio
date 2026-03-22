@@ -146,10 +146,10 @@ const TechStack = memo(() => {
     return (
         <section id="tech-stack" ref={sectionRef} className="py-20 bg-transparent overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
-                <h2 className="tech-heading text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="tech-heading text-3xl md:text-4xl font-bold mb-4 text-[var(--text)]">
                     Tech Arsenal
                 </h2>
-                <p className="tech-heading text-gray-600 dark:text-gray-400">
+                <p className="tech-heading text-[var(--text-muted)]">
                     Tools and technologies I work with.
                 </p>
             </div>
@@ -157,7 +157,7 @@ const TechStack = memo(() => {
             <div className="max-w-4xl mx-auto px-4 space-y-16">
                 {skillCategories.map((category) => (
                     <div key={category.id} id={category.id} className="skill-category">
-                        <h3 className="text-xl font-bold mb-6 text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center md:text-left">
+                        <h3 className="text-xl font-bold mb-6 text-[var(--text-muted)] uppercase tracking-widest text-center md:text-left">
                             {category.title}
                         </h3>
                         <div className="flex flex-wrap justify-center md:justify-start gap-3">
@@ -171,12 +171,12 @@ const TechStack = memo(() => {
                                             <img
                                                 src={techIcons[item]}
                                                 alt={item}
-                                                className="w-10 h-10 md:w-12 md:h-12 object-contain filter dark:brightness-110 transition-transform duration-300 group-hover:scale-110"
+                                                className="w-10 h-10 md:w-12 md:h-12 object-contain filter brightness-110 transition-transform duration-300 group-hover:scale-110"
                                                 onError={(e) => { e.target.style.display = 'none'; }}
                                             />
                                         </div>
                                     )}
-                                    <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap pointer-events-none z-10">
+                                    <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10">
                                         {item}
                                     </span>
                                 </div>
@@ -188,7 +188,7 @@ const TechStack = memo(() => {
 
             {/* Soft Skills Section */}
             <div className="max-w-4xl mx-auto px-4 mt-20">
-                <h3 className="text-xl font-bold mb-8 text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center md:text-left">
+                <h3 className="text-xl font-bold mb-8 text-[var(--text-muted)] uppercase tracking-widest text-center md:text-left">
                     Soft Skills
                 </h3>
                 <div className="flex flex-wrap justify-center md:justify-start gap-12 md:gap-16 mt-4">
@@ -197,10 +197,10 @@ const TechStack = memo(() => {
                             key={skill.name}
                             className="soft-skill-item group relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 hover:scale-110 transition-all cursor-default"
                         >
-                            <div className="icon-float text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-300">
+                            <div className="icon-float text-[var(--text-dim)] group-hover:text-[var(--primary)] transition-colors duration-300">
                                 {skill.icon}
                             </div>
-                            <span className="absolute -bottom-6 text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap pointer-events-none z-10">
+                            <span className="absolute -bottom-6 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10">
                                 {skill.name}
                             </span>
                         </div>
@@ -210,7 +210,7 @@ const TechStack = memo(() => {
 
             {/* Platform Hub */}
             <div ref={platformsRef} className="max-w-4xl mx-auto mt-16 px-4">
-                <h3 className="text-2xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+                <h3 className="text-2xl font-bold text-center mb-12 text-[var(--text)]">
                     Platforms
                 </h3>
                 <div className="flex flex-wrap justify-center gap-12 md:gap-16">
@@ -229,7 +229,7 @@ const TechStack = memo(() => {
                                     <span className="font-bold text-3xl text-primary">{platform.name[0]}</span>
                                 )}
                             </div>
-                            <span className="mt-4 font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors text-sm">
+                            <span className="mt-4 font-medium text-[var(--text-muted)] group-hover:text-[var(--primary)] transition-colors text-sm">
                                 {platform.name}
                             </span>
                         </a>

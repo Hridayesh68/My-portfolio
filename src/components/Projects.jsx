@@ -21,7 +21,7 @@ const ProjectCard = memo(({ project }) => {
 
     return (
         <div ref={cardRef} className="w-[85vw] md:w-[60vw] lg:w-[40vw] flex-shrink-0 h-[450px] group" style={{ willChange: 'transform' }}>
-            <div className="relative h-full w-full rounded-xl overflow-hidden cursor-pointer bg-neutral-900 border border-white/10 shadow-lg">
+            <div className="relative h-full w-full rounded-xl overflow-hidden cursor-pointer bg-[var(--bg-surface)]/60 backdrop-blur-md border border-[var(--border)] shadow-lg">
 
                 {/* ── Default: Project Image ── */}
                 <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-0">
@@ -33,16 +33,16 @@ const ProjectCard = memo(({ project }) => {
                     />
                     {/* Always-visible project name at bottom when not hovering */}
                     <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10">
-                        <h3 className="text-2xl font-bold text-white drop-shadow-md">{project.name}</h3>
+                        <h3 className="text-2xl font-bold text-[var(--text)] drop-shadow-md">{project.name}</h3>
                     </div>
                 </div>
 
                 {/* ── Hover Overlay: Info Panel ── */}
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 bg-neutral-900 dark:bg-neutral-900/95
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 bg-[var(--bg-surface)]/90 backdrop-blur-md
                     opacity-0 group-hover:opacity-100
                     transition-all duration-500 ease-out z-20">
 
-                    <h3 className="text-3xl font-bold text-white mb-6 drop-shadow-md">{project.name}</h3>
+                    <h3 className="text-3xl font-bold text-[var(--text)] mb-6 drop-shadow-md">{project.name}</h3>
 
                     {/* Description */}
                     <p className="text-gray-300 text-lg font-medium mb-6 leading-relaxed max-w-sm">
@@ -54,7 +54,7 @@ const ProjectCard = memo(({ project }) => {
                         {project.tags.map(tag => (
                             <span
                                 key={tag}
-                                className="px-3 py-1 bg-white/10 border border-white/20 text-sm font-medium rounded-full text-white"
+                                className="px-3 py-1 bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--border)] text-sm font-medium rounded-full"
                             >
                                 {tag}
                             </span>
@@ -67,7 +67,7 @@ const ProjectCard = memo(({ project }) => {
                             href={project.repo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-5 py-2.5 bg-white/20 hover:bg-white/30 text-white rounded-full transition-all hover:scale-105 border border-white/20 text-sm font-semibold"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--bg-surface)] text-[var(--text)] rounded-full transition-all hover:scale-105 border border-[var(--border-glow)] text-sm font-semibold"
                         >
                             <Github size={18} /> Code
                         </a>
@@ -75,7 +75,7 @@ const ProjectCard = memo(({ project }) => {
                             href={project.demo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-full transition-all hover:scale-105 shadow-lg text-sm font-semibold"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-hi text-[var(--text)] rounded-full transition-all hover:scale-105 shadow-lg text-sm font-semibold"
                         >
                             <ExternalLink size={18} /> Live Demo
                         </a>
@@ -187,7 +187,7 @@ const Projects = memo(() => {
     return (
         <section id="projects" ref={sectionRef} className="py-24 overflow-hidden relative">
             <div className="max-w-7xl mx-auto px-4 mb-16 relative z-10">
-                <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
+                <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-[var(--text)] tracking-tight">
                     Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Works</span>
                 </h2>
                 <div className="w-20 h-1.5 bg-primary mt-6 rounded-full" />

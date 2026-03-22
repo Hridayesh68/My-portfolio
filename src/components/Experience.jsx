@@ -265,13 +265,13 @@ const Experience = memo(() => {
                     <span className="text-xs font-semibold tracking-[0.3em] uppercase text-primary/70 mb-4">
                         Journey &amp; Expertise
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-center text-gray-900 dark:text-white tracking-tight">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[var(--text)] tracking-tight">
                         Experience &amp;{' '}
                         <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
                             Tech Stack
                         </span>
                     </h2>
-                    <p className="text-gray-500 dark:text-gray-400 mt-5 text-center max-w-xl text-base leading-relaxed">
+                    <p className="text-[var(--text-muted)] mt-5 text-center max-w-xl text-base leading-relaxed">
                         From CS fundamentals to full-stack architecture — a timeline of
                         everything built, learned, and shipped.
                     </p>
@@ -287,7 +287,7 @@ const Experience = memo(() => {
                 <div ref={timelineRef} className="relative flex justify-center pb-20">
 
                     {/* Centre bar */}
-                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-200/40 dark:bg-white/8 z-0">
+                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-[var(--primary)]/30 z-0">
                         <div
                             ref={rgbLineRef}
                             className="rgb-line origin-top w-full"
@@ -342,16 +342,16 @@ const Experience = memo(() => {
                                         >
                                             {/* Top row */}
                                             <div className="flex items-start justify-between mb-4">
-                                                <div className={`p-2 rounded-xl bg-white/10 ${card.accentColor}`}>
+                                                <div className={`p-2 rounded-xl bg-[var(--bg-elevated)] ${card.accentColor}`}>
                                                     {card.icon}
                                                 </div>
-                                                <span className={`text-xs font-mono font-semibold px-2 py-1 rounded-full bg-white/10 ${card.accentColor}`}>
+                                                <span className={`text-xs font-mono font-semibold px-2 py-1 rounded-full bg-[var(--bg-elevated)] ${card.accentColor}`}>
                                                     {card.tag}
                                                 </span>
                                             </div>
 
                                             {/* Title */}
-                                            <h3 className="font-bold text-gray-900 dark:text-white text-lg leading-tight">
+                                            <h3 className="font-bold text-[var(--text)] text-lg leading-tight">
                                                 {card.title}
                                             </h3>
                                             <p className={`text-xs font-medium mt-0.5 mb-3 ${card.accentColor}`}>
@@ -359,7 +359,7 @@ const Experience = memo(() => {
                                             </p>
                                             <div
                                                 className={`
-                                                    text-sm text-gray-600 dark:text-gray-400 leading-relaxed
+                                                    text-sm text-[var(--text-muted)] leading-relaxed
                                                     overflow-hidden transition-all duration-500
                                                     ${activeCard === card.id ? 'max-h-40 opacity-100 mb-5' : 'max-h-0 opacity-0 mb-0'}
                                                 `}
@@ -371,7 +371,7 @@ const Experience = memo(() => {
                                             <div className="flex items-center justify-between">
                                                 <div className="flex gap-2">
                                                     {card.tools.map((t, i) => (
-                                                        <div key={i} className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center" title={t.name}>
+                                                        <div key={i} className="w-8 h-8 rounded-lg bg-[var(--bg-elevated)] flex items-center justify-center" title={t.name}>
                                                             <img
                                                                 src={t.src}
                                                                 alt={t.name}
@@ -388,7 +388,7 @@ const Experience = memo(() => {
                                             </div>
 
                                             {/* Hover connector arrow */}
-                                            <div className="absolute -right-3 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-white/10 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div className="absolute -right-3 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-[var(--bg-surface)] border border-[var(--border)] shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <ChevronRight size={12} className="text-gray-400" />
                                             </div>
                                         </div>
@@ -425,7 +425,7 @@ const Experience = memo(() => {
                                                     <div className="flex items-center gap-2">
                                                         <span className={`
                                                             text-xs font-bold tracking-widest px-3 py-1 rounded-full
-                                                            bg-gradient-to-r ${card.color} text-white
+                                                            bg-gradient-to-r ${card.color} text-[var(--bg-surface)]
                                                         `}>
                                                             {card.label}
                                                         </span>
@@ -436,7 +436,7 @@ const Experience = memo(() => {
                                                 </div>
 
                                                 {/* Title + subtitle */}
-                                                <h3 className="text-xl font-bold text-gray-900 dark:text-white leading-tight">
+                                                <h3 className="text-xl font-bold text-[var(--text)] leading-tight">
                                                     {card.title}
                                                 </h3>
                                                 <p className={`text-sm mt-1 mb-3 ${card.accentColor} font-medium`}>
@@ -446,7 +446,7 @@ const Experience = memo(() => {
                                                 {/* Description — appears on hover */}
                                                 <div
                                                     className={`
-                                                        text-sm text-gray-600 dark:text-gray-400 leading-relaxed
+                                                        text-sm text-[var(--text-muted)] leading-relaxed
                                                         overflow-hidden transition-all duration-500
                                                         ${activeCard === card.id ? 'max-h-56 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}
                                                     `}
@@ -468,7 +468,7 @@ const Experience = memo(() => {
                                                             className={`
                                                                 tag-pill text-xs px-2.5 py-1 rounded-full font-medium
                                                                 border ${card.borderColor}
-                                                                ${card.accentColor} bg-white/5
+                                                                ${card.accentColor} bg-[var(--bg-elevated)]
                                                             `}
                                                         >
                                                             {tag}
@@ -479,13 +479,13 @@ const Experience = memo(() => {
                                                 {/* Stat */}
                                                 <div className={`
                                                     flex items-center justify-between pt-4
-                                                    border-t border-white/10
+                                                    border-t border-[var(--border)]
                                                 `}>
                                                     <div>
                                                         <span className={`text-2xl font-black ${card.accentColor}`}>
                                                             {card.stat.value}
                                                         </span>
-                                                        <span className="text-xs text-gray-500 dark:text-gray-500 ml-2">
+                                                        <span className="text-xs text-[var(--text-dim)] ml-2">
                                                             {card.stat.label}
                                                         </span>
                                                     </div>
@@ -518,12 +518,12 @@ const Experience = memo(() => {
                             key={i}
                             className="
                                 flex flex-col items-center justify-center py-6 px-4 rounded-2xl
-                                border border-white/8 bg-white/3 dark:bg-white/2
+                                border border-[var(--border)] bg-[var(--bg-surface)]/50
                                 backdrop-blur-sm hover:border-primary/30 transition-colors
                             "
                         >
                             <span className={`text-3xl font-black ${stat.color}`}>{stat.value}</span>
-                            <span className="text-xs text-gray-500 dark:text-gray-500 mt-1 text-center">
+                            <span className="text-xs text-[var(--text-dim)] mt-1 text-center">
                                 {stat.label}
                             </span>
                         </div>

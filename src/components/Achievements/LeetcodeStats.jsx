@@ -6,7 +6,7 @@ import { fetchLeetcodeStats } from '../../services/leetcodeService';
 const DiffBadge = ({ label, count, color, bg }) => (
     <div className={`flex flex-col items-center px-4 py-3 rounded-xl ${bg} border border-[#ffffff10]`}>
         <span className={`text-2xl font-bold ${color}`}>{count ?? '—'}</span>
-        <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 mt-1 uppercase tracking-wider">{label}</span>
+        <span className="text-xs font-semibold text-[var(--text-muted)] mt-1 uppercase tracking-wider">{label}</span>
     </div>
 );
 
@@ -15,10 +15,10 @@ const ProgressBar = ({ label, count, total, colorClass }) => {
     return (
         <div className="w-full mb-4">
             <div className="flex justify-between text-sm mb-1">
-                <span className="font-medium text-gray-700 dark:text-gray-300">{label}</span>
-                <span className="font-bold text-gray-900 dark:text-white">{count} / {total}</span>
+                <span className="font-medium text-[var(--text-muted)]">{label}</span>
+                <span className="font-bold text-[var(--text)]">{count} / {total}</span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2.5">
+            <div className="w-full bg-[var(--bg-surface)] rounded-full h-2.5">
                 <div className={`h-2.5 rounded-full ${colorClass} transition-all duration-1000 ease-out`} style={{ width: `${percentage}%` }}></div>
             </div>
         </div>
@@ -94,14 +94,14 @@ const LeetcodeStats = () => {
 
                 {/* Summary Card */}
                 <Card className="h-full">
-                    <div className="p-6 md:p-8 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm h-full flex flex-col justify-center">
+                    <div className="p-6 md:p-8 bg-[var(--bg-surface)]/50 backdrop-blur-sm h-full flex flex-col justify-center">
                         <div className="flex items-center gap-6 mb-8">
                             <div className="w-20 h-20 rounded-full border-4 border-yellow-500 flex items-center justify-center shrink-0 shadow-lg shadow-yellow-500/20">
                                 <Code size={32} className="text-yellow-500" />
                             </div>
                             <div>
-                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-1">Total Solved</h3>
-                                <p className="text-5xl font-black text-gray-900 dark:text-white">{stats.total}</p>
+                                <h3 className="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-widest mb-1">Total Solved</h3>
+                                <p className="text-5xl font-black text-[var(--text)]">{stats.total}</p>
                             </div>
                         </div>
 
@@ -115,8 +115,8 @@ const LeetcodeStats = () => {
 
                 {/* Progress Breakdown Card */}
                 <Card className="h-full">
-                    <div className="p-6 md:p-8 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm h-full flex flex-col justify-center">
-                        <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
+                    <div className="p-6 md:p-8 bg-[var(--bg-surface)]/50 backdrop-blur-sm h-full flex flex-col justify-center">
+                        <h3 className="text-xl font-bold mb-6 text-[var(--text)] flex items-center gap-2">
                             <Target size={20} className="text-primary" /> Difficulty Breakdown
                         </h3>
 
@@ -127,12 +127,12 @@ const LeetcodeStats = () => {
                             <ProgressBar label="Hard" count={stats.hard} total={700} colorClass="bg-red-500" />
                         </div>
 
-                        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10 flex justify-between items-center text-sm font-medium">
-                            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                        <div className="mt-8 pt-6 border-t border-[var(--border)] flex justify-between items-center text-sm font-medium">
+                            <div className="flex items-center gap-2 text-[var(--text-muted)]">
                                 <Award size={16} className="text-primary" />
                                 Global Rank
                             </div>
-                            <span className="text-gray-900 dark:text-white font-bold px-3 py-1 bg-gray-100 dark:bg-white/10 rounded-full">
+                            <span className="text-[var(--text)] font-bold px-3 py-1 bg-[var(--bg-surface)] rounded-full">
                                 Top 15%
                             </span>
                         </div>

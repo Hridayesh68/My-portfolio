@@ -130,7 +130,7 @@ const Models = memo(() => {
             <div className="max-w-6xl mx-auto px-4 z-10 relative">
 
                 <div className="model-header text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">3D Models & Art</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--text)]">3D Models & Art</h2>
                     <div className="w-16 h-1.5 bg-secondary mx-auto rounded-full"></div>
                 </div>
 
@@ -140,18 +140,18 @@ const Models = memo(() => {
                     onMouseLeave={() => setIsHovered(false)}
                 >
                     {/* Carousel Track */}
-                    <div className="overflow-hidden rounded-2xl shadow-2xl relative bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-md border border-gray-200 dark:border-white/10">
+                    <div className="overflow-hidden rounded-2xl shadow-2xl relative bg-[var(--bg-surface)]/50 backdrop-blur-md border border-[var(--border)]">
                         <div
                             ref={trackRef}
                             className="flex transition-transform duration-700 ease-in-out h-[300px] md:h-[500px]"
                             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                         >
                             {models.map((model, idx) => (
-                                <div key={model.id} className="w-full flex-shrink-0 relative overflow-hidden group/card bg-black/5 dark:bg-black/40">
+                                <div key={model.id} className="w-full flex-shrink-0 relative overflow-hidden group/card bg-black/40">
                                     <ModelCarouselImage model={model} isHovered={isHovered && idx === currentIndex} />
                                     {/* Overlay on hover */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 translate-y-4 group-hover/card:translate-y-0 transition-transform duration-300">
+                                        <h3 className="text-2xl md:text-3xl font-bold text-[var(--text)] mb-2 translate-y-4 group-hover/card:translate-y-0 transition-transform duration-300">
                                             {model.name}
                                         </h3>
                                         <p className="text-gray-300 mb-4 translate-y-4 group-hover/card:translate-y-0 transition-transform duration-300 line-clamp-2">
@@ -159,7 +159,7 @@ const Models = memo(() => {
                                         </p>
                                         <button
                                             onClick={() => setSelectedModel(model)}
-                                            className="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-primary text-white px-6 py-3 rounded-lg font-medium w-max transform translate-y-4 group-hover/card:translate-y-0 transition-all duration-300 hover:scale-105"
+                                            className="inline-flex items-center justify-center gap-2 bg-[var(--primary)] hover:bg-[var(--primary-hi)] text-[var(--bg-surface)] px-6 py-3 rounded-lg font-medium w-max transform translate-y-4 group-hover/card:translate-y-0 transition-all duration-300 hover:scale-105"
                                         >
                                             <Maximize2 size={18} />
                                             View Details
@@ -172,13 +172,13 @@ const Models = memo(() => {
                         {/* Controls */}
                         <button
                             onClick={handlePrev}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/80 dark:bg-black/50 text-gray-900 dark:text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-black hover:scale-110 shadow-lg"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text)] backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-[var(--bg-surface)] hover:scale-110 shadow-lg"
                         >
                             <ChevronLeft size={24} />
                         </button>
                         <button
                             onClick={handleNext}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/80 dark:bg-black/50 text-gray-900 dark:text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-black hover:scale-110 shadow-lg"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text)] backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-[var(--bg-surface)] hover:scale-110 shadow-lg"
                         >
                             <ChevronRight size={24} />
                         </button>
@@ -189,7 +189,7 @@ const Models = memo(() => {
                                 <button
                                     key={idx}
                                     onClick={() => setCurrentIndex(idx)}
-                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-secondary w-8' : 'bg-white/50 hover:bg-white'}`}
+                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-secondary w-8' : 'bg-[var(--border)] hover:bg-[var(--primary)]'}`}
                                 />
                             ))}
                         </div>
@@ -200,20 +200,20 @@ const Models = memo(() => {
 
             {/* Modal Viewer */}
             {selectedModel && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300">
-                    <div className="relative max-w-5xl w-full bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[var(--bg)]/90 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="relative max-w-5xl w-full bg-[var(--bg-surface)] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
                         <button
                             onClick={() => setSelectedModel(null)}
-                            className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-colors"
+                            className="absolute top-4 right-4 z-10 p-2 bg-[var(--bg-elevated)] hover:bg-[var(--bg-surface)] text-[var(--text)] rounded-full backdrop-blur-md transition-colors"
                         >
                             <X size={24} />
                         </button>
-                        <div className="w-full h-[60vh] md:h-[70vh] bg-black/10 dark:bg-black/50 flex items-center justify-center">
+                        <div className="w-full h-[60vh] md:h-[70vh] bg-black/50 flex items-center justify-center">
                             <ModelCarouselImage model={selectedModel} isHovered={true} />
                         </div>
                         <div className="p-6 md:p-8">
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{selectedModel.name}</h3>
-                            <p className="text-gray-600 dark:text-gray-300">{selectedModel.description}</p>
+                            <h3 className="text-2xl font-bold text-[var(--text)] mb-2">{selectedModel.name}</h3>
+                            <p className="text-[var(--text-muted)]">{selectedModel.description}</p>
                         </div>
                     </div>
                 </div>

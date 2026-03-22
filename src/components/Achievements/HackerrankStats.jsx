@@ -18,16 +18,16 @@ const HackerrankStats = () => {
 
                 {/* Badges Display */}
                 <Card className="h-full">
-                    <div className="p-8 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm h-full flex flex-col justify-center items-center">
+                    <div className="p-8 bg-[var(--bg-surface)]/50 backdrop-blur-sm h-full flex flex-col justify-center items-center">
                         <div className="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 text-green-500 shadow-inner border border-green-500/20">
                             <Trophy size={32} />
                         </div>
-                        <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white text-center">Achievements Badges</h3>
-                        <p className="text-gray-500 dark:text-gray-400 text-center text-sm mb-6 max-w-sm">
+                        <h3 className="text-2xl font-bold mb-2 text-[var(--text)] text-center">Achievements Badges</h3>
+                        <p className="text-[var(--text-muted)] text-center text-sm mb-6 max-w-sm">
                             Showcasing problem-solving milestones achieved across different domains on HackerRank.
                         </p>
 
-                        <div className="w-full flex justify-center bg-gray-50 dark:bg-black/30 p-6 rounded-xl border border-gray-100 dark:border-white/5 hover:scale-105 transition-transform duration-500 shadow-md">
+                        <div className="w-full flex justify-center bg-[var(--bg-surface)]/30 p-6 rounded-xl border border-[var(--border)] hover:scale-105 transition-transform duration-500 shadow-md">
                             <a href={stats.profileUrl} target="_blank" rel="noopener noreferrer">
                                 <img
                                     src={stats.badgeUrl}
@@ -42,8 +42,8 @@ const HackerrankStats = () => {
                 {/* Verified Skills & Certifications */}
                 <div className="space-y-6">
                     <Card>
-                        <div className="p-6 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
-                            <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+                        <div className="p-6 bg-[var(--bg-surface)]/50 backdrop-blur-sm">
+                            <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-[var(--text)]">
                                 <CheckCircle size={20} className="text-primary" /> Verified Skills
                             </h3>
                             <div className="flex flex-wrap gap-2">
@@ -57,14 +57,14 @@ const HackerrankStats = () => {
                     </Card>
 
                     <Card>
-                        <div className="p-6 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
-                            <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+                        <div className="p-6 bg-[var(--bg-surface)]/50 backdrop-blur-sm">
+                            <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-[var(--text)]">
                                 <Medal size={20} className="text-yellow-500" /> Platform Certifications
                             </h3>
                             <div className="space-y-3">
                                 {stats.certifications.map((cert, i) => (
-                                    <div key={i} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg border border-gray-100 dark:border-white/5">
-                                        <span className="font-medium text-gray-900 dark:text-white">{cert.name}</span>
+                                    <div key={i} className="flex items-center justify-between p-3 bg-[var(--bg-elevated)] rounded-lg border border-[var(--border)]">
+                                        <span className="font-medium text-[var(--text)]">{cert.name}</span>
                                         <TrendingUp size={16} className="text-gray-400" />
                                     </div>
                                 ))}

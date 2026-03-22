@@ -28,11 +28,11 @@ const Card = ({ children, className = "" }) => {
     return (
         <div
             ref={cardRef}
-            className={`card-gradient group relative overflow-hidden rounded-xl bg-white dark:bg-white/5 dark:backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-lg dark:shadow-none transition-all duration-500 ${className}`}
+            className={`card-gradient group relative overflow-hidden rounded-xl bg-[var(--bg-surface)] border border-[var(--border)] transition-all duration-500 ${className}`}
         >
             {/* glow */}
             <div
-                className="pointer-events-none absolute inset-0 blur-xl saturate-200 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-blue-500/10 dark:bg-white/10"
+                className="pointer-events-none absolute inset-0 blur-xl saturate-200 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-[rgba(217,119,6,0.12)]"
             ></div>
 
             {/* content */}

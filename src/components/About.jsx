@@ -52,21 +52,21 @@ const About = memo(() => {
             <div className="max-w-7xl mx-auto px-4 relative z-10">
 
                 <div className="flex flex-col items-center mb-16 about-reveal">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center text-[var(--text)]">
                         About Me
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400 mt-4 text-center max-w-2xl">
+                    <p className="text-[var(--text-muted)] mt-4 text-center max-w-2xl">
                         A glimpse into who I am and what drives me.
                     </p>
                 </div>
 
                 <div className="about-reveal">
                     <Card className="w-full">
-                        <div className="p-8 md:p-12 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-md flex flex-col xl:flex-row gap-12 items-center xl:items-start">
+                        <div className="p-8 md:p-12 bg-[var(--bg-surface)]/50 backdrop-blur-md flex flex-col xl:flex-row gap-12 items-center xl:items-start">
 
                             {/* Profile Image & Quick Links */}
                             <div className="w-full xl:w-1/3 flex flex-col items-center shrink-0">
-                                <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border-4 border-white dark:border-neutral-800 shadow-xl mb-6">
+                                <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border-4 border-[var(--border)] shadow-xl mb-6">
                                     <img
                                         src="/assets/hridayesh-pic.jpeg"
                                         alt="Hridayesh"
@@ -74,17 +74,17 @@ const About = memo(() => {
                                         className="w-full h-full object-cover"
                                     />
                                 </div>
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white text-center">Hridayesh</h3>
+                                <h3 className="text-2xl font-bold text-[var(--text)] text-center">Hridayesh</h3>
                                 <p className="text-primary font-medium text-center mb-6">Full Stack Developer</p>
 
-                                <div className="flex gap-4 border-t border-gray-200 dark:border-white/10 pt-6 w-full justify-center">
-                                    <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-gray-100 dark:bg-white/5 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors">
+                                <div className="flex gap-4 border-t border-[var(--border)] pt-6 w-full justify-center">
+                                    <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-[var(--bg-surface)] border border-[var(--border)] rounded-xl hover:bg-[var(--primary)] hover:text-[var(--bg-surface)] text-[var(--text-muted)] transition-colors">
                                         <Github size={20} />
                                     </a>
-                                    <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noreferrer" className="p-3 bg-gray-100 dark:bg-white/5 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors">
+                                    <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noreferrer" className="p-3 bg-[var(--bg-surface)] border border-[var(--border)] rounded-xl hover:bg-[var(--primary)] hover:text-[var(--bg-surface)] text-[var(--text-muted)] transition-colors">
                                         <Linkedin size={20} />
                                     </a>
-                                    <a href="mailto:hridayeshdebsarm6@gmail.com" className="p-3 bg-gray-100 dark:bg-white/5 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors">
+                                    <a href="mailto:hridayeshdebsarm6@gmail.com" className="p-3 bg-[var(--bg-surface)] border border-[var(--border)] rounded-xl hover:bg-[var(--primary)] hover:text-[var(--bg-surface)] text-[var(--text-muted)] transition-colors">
                                         <Mail size={20} />
                                     </a>
                                 </div>
@@ -93,12 +93,12 @@ const About = memo(() => {
                             {/* Bio & Details */}
                             <div className="w-full xl:w-2/3 space-y-8">
                                 <div>
-                                    <div className="text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
+                                    <div className="text-[var(--text-muted)] space-y-4 leading-relaxed">
                                         <ul className="list-disc list-inside space-y-3">
-                                            <li><strong className="text-gray-900 dark:text-white">CS Undergrad:</strong> Student at Lovely Professional University with a passion for building practical, impact-driven software.</li>
-                                            <li><strong className="text-gray-900 dark:text-white">Full-Stack & ML:</strong> Building AI-powered web apps, interactive Power BI dashboards, and ML inference pipelines from scratch.</li>
-                                            <li><strong className="text-gray-900 dark:text-white">Algorithm Enthusiast:</strong> Solved 200+ coding problems across LeetCode, CodeChef, and HackerRank to sharpen core engineering foundations.</li>
-                                            <li><strong className="text-gray-900 dark:text-white">Always Exploring:</strong> Currently diving into generative AI workflows and always open to ambitious collaborations.</li>
+                                            <li><strong className="text-[var(--text)]">CS Undergrad:</strong> Student at Lovely Professional University with a passion for building practical, impact-driven software.</li>
+                                            <li><strong className="text-[var(--text)]">Full-Stack & ML:</strong> Building AI-powered web apps, interactive Power BI dashboards, and ML inference pipelines from scratch.</li>
+                                            <li><strong className="text-[var(--text)]">Algorithm Enthusiast:</strong> Solved 200+ coding problems across LeetCode, CodeChef, and HackerRank to sharpen core engineering foundations.</li>
+                                            <li><strong className="text-[var(--text)]">Always Exploring:</strong> Currently diving into generative AI workflows and always open to ambitious collaborations.</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@ const About = memo(() => {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                     {/* Skills */}
                                     <div>
-                                        <h4 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
+                                        <h4 className="text-xl font-bold mb-4 text-[var(--text)] flex items-center gap-2">
                                             <Code size={20} className="text-primary" /> Technical Skills
                                         </h4>
                                         <div className="flex flex-wrap gap-2">
@@ -120,12 +120,12 @@ const About = memo(() => {
 
                                     {/* Interests */}
                                     <div>
-                                        <h4 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
+                                        <h4 className="text-xl font-bold mb-4 text-[var(--text)] flex items-center gap-2">
                                             <Sparkles size={20} className="text-primary" /> Interests
                                         </h4>
                                         <div className="flex flex-wrap gap-2">
                                             {interests.map(interest => (
-                                                <span key={interest} className="px-3 py-1.5 bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium border border-gray-200 dark:border-white/10">
+                                                <span key={interest} className="px-3 py-1.5 bg-[var(--bg-surface)] text-[var(--text-muted)] rounded-md text-sm font-medium border border-[var(--border)]">
                                                     {interest}
                                                 </span>
                                             ))}
@@ -134,17 +134,17 @@ const About = memo(() => {
                                 </div>
 
                                 {/* Education */}
-                                <div className="mt-8 pt-8 border-t border-gray-200 dark:border-white/10">
-                                    <h4 className="text-xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
+                                <div className="mt-8 pt-8 border-t border-[var(--border)]">
+                                    <h4 className="text-xl font-bold mb-6 text-[var(--text)] flex items-center gap-2">
                                         <GraduationCap size={20} className="text-primary" /> Education
                                     </h4>
                                     <div className="space-y-6">
                                         {education.map((edu, i) => (
                                             <div key={i} className="relative pl-6 border-l-2 border-primary/30">
                                                 <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1.5 ring-4 ring-white dark:ring-neutral-900"></div>
-                                                <h5 className="font-bold text-gray-900 dark:text-white text-lg">{edu.degree}</h5>
+                                                <h5 className="font-bold text-[var(--text)] text-lg">{edu.degree}</h5>
                                                 <p className="text-primary font-medium">{edu.institution}</p>
-                                                <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                                <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-[var(--text-muted)]">
                                                     <span>{edu.date}</span>
                                                     <span className="opacity-50">•</span>
                                                     <span>{edu.location}</span>
@@ -159,29 +159,29 @@ const About = memo(() => {
                         </div>
 
                         {/* Contact Info Footer */}
-                        <div className="bg-gray-50 dark:bg-white/5 border-t border-gray-200 dark:border-white/10 p-6 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div className="bg-[var(--bg-surface)] border-t border-[var(--border)] p-6 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                                     <Mail size={24} />
                                 </div>
                                 <div className="text-center sm:text-left">
-                                    <h4 className="text-lg font-bold text-gray-900 dark:text-white">Let&apos;s Connect</h4>
-                                    <a href="mailto:hridayeshdebsarm6@gmail.com" className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                                    <h4 className="text-lg font-bold text-[var(--text)]">Let&apos;s Connect</h4>
+                                    <a href="mailto:hridayeshdebsarm6@gmail.com" className="text-[var(--text-muted)] hover:text-primary transition-colors">
                                         hridayeshdebsarm6@gmail.com
                                     </a>
                                 </div>
                             </div>
                             <div className="flex gap-4">
-                                <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-white/10 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors shadow-sm">
+                                <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-transparent/10 rounded-xl hover:bg-[var(--primary)] hover:text-[var(--bg-surface)] text-[var(--text-muted)] transition-colors shadow-sm">
                                     <Github size={20} />
                                 </a>
-                                <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noreferrer" className="p-3 bg-white dark:bg-white/10 rounded-xl hover:bg-primary hover:text-white text-gray-700 dark:text-gray-300 transition-colors shadow-sm">
+                                <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noreferrer" className="p-3 bg-transparent/10 rounded-xl hover:bg-[var(--primary)] hover:text-[var(--bg-surface)] text-[var(--text-muted)] transition-colors shadow-sm">
                                     <Linkedin size={20} />
                                 </a>
                             </div>
                         </div>
-                        <div className="p-4 text-center border-t border-gray-100 dark:border-white/5 opacity-50">
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="p-4 text-center border-t border-[var(--border)] opacity-50">
+                            <p className="text-xs text-[var(--text-muted)]">
                                 Designed and developed by <span className="text-primary font-semibold">Hridayesh</span>
                             </p>
                         </div>

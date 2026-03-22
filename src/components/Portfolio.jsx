@@ -30,14 +30,14 @@ const Portfolio = memo(() => {
     return (
         <div ref={containerRef} className="pt-24 pb-12 w-full">
             <div className="max-w-7xl mx-auto px-4 relative z-20 mb-12 flex flex-col items-center">
-                <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-2 bg-gray-100 dark:bg-white/5 backdrop-blur-md rounded-2xl border border-gray-200 dark:border-white/10 shadow-lg">
+                <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-2 bg-[var(--bg-surface)] backdrop-blur-md rounded-2xl border border-[var(--border)] shadow-lg">
                     {tabs.map(tab => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
                             className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${activeTab === tab
-                                ? 'bg-primary text-white shadow-md scale-105'
-                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10'
+                                ? 'bg-[var(--primary)] text-[var(--bg-surface)] shadow-md scale-105'
+                                : 'text-[var(--text-muted)] hover:bg-[var(--bg-elevated)]'
                                 }`}
                         >
                             {tab}

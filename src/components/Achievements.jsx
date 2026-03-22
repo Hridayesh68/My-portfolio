@@ -52,7 +52,7 @@ const AnimatedCount = memo(({ target, prefix = '', suffix = '', className = '' }
 const DiffBadge = memo(({ label, count, color, bg }) => (
     <div className={`flex flex-col items-center px-4 py-3 rounded-xl ${bg}`}>
         <span className={`text-2xl font-bold ${color}`}>{count ?? '—'}</span>
-        <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">{label}</span>
+        <span className="text-xs text-[var(--text-muted)] mt-1">{label}</span>
     </div>
 ));
 
@@ -249,10 +249,10 @@ const Achievements = memo(() => {
 
                 {/* Header */}
                 <div className="flex flex-col items-center mb-16 relative z-10">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center text-[var(--text)]">
                         Achievements &amp; Stats
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400 mt-4 text-center max-w-2xl">
+                    <p className="text-[var(--text-muted)] mt-4 text-center max-w-2xl">
                         A snapshot of my coding activity and problem-solving journey.
                     </p>
                 </div>
@@ -262,14 +262,14 @@ const Achievements = memo(() => {
                     {/* ── GitHub Repos ── */}
                     <div className="achievement-card">
                         <Card className="h-full">
-                            <div className="p-6 flex flex-col items-center justify-center h-full bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm min-h-[220px]">
+                            <div className="p-6 flex flex-col items-center justify-center h-full bg-[var(--bg-surface)] backdrop-blur-sm min-h-[220px]">
                                 <div className="p-4 bg-primary/10 rounded-full mb-4 text-primary">
                                     <Github size={40} />
                                 </div>
-                                <h3 className="text-4xl font-bold text-gray-900 dark:text-white">
+                                <h3 className="text-4xl font-bold text-[var(--text)]">
                                     <AnimatedCount target={ghRepos} />
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-400 mt-1">GitHub Repositories</p>
+                                <p className="text-[var(--text-muted)] mt-1">GitHub Repositories</p>
                             </div>
                         </Card>
                     </div>
@@ -277,8 +277,8 @@ const Achievements = memo(() => {
                     {/* ── Language Proficiency ── */}
                     <div className="achievement-card md:col-span-2 min-h-[300px]">
                         <Card className="h-full">
-                            <div className="p-6 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm h-full flex flex-col">
-                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+                            <div className="p-6 bg-[var(--bg-surface)] backdrop-blur-sm h-full flex flex-col">
+                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-[var(--text)]">
                                     <Code size={20} /> Language Proficiency
                                 </h3>
                                 <div className="flex-1 min-h-[250px]">
@@ -296,8 +296,8 @@ const Achievements = memo(() => {
                                                 ))}
                                             </Pie>
                                             <Tooltip
-                                                contentStyle={{ backgroundColor: '#171717', border: '1px solid #333', borderRadius: '8px' }}
-                                                itemStyle={{ color: '#fff' }}
+                                                contentStyle={{ backgroundColor: 'var(--bg-surface)', border: '1px solid var(--bg-elevated)', borderRadius: '8px' }}
+                                                itemStyle={{ color: 'var(--text, #fde8c0)' }}
                                                 formatter={(val) => [`${val}%`]}
                                             />
                                             <Legend />
@@ -311,8 +311,8 @@ const Achievements = memo(() => {
                     {/* ── LeetCode Stats ── */}
                     <div className="achievement-card md:col-span-2 min-h-[260px]">
                         <Card className="h-full">
-                            <div className="p-6 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm h-full flex flex-col">
-                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+                            <div className="p-6 bg-[var(--bg-surface)] backdrop-blur-sm h-full flex flex-col">
+                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-[var(--text)]">
                                     <Code size={20} className="text-yellow-500" /> LeetCode Statistics
                                 </h3>
 
@@ -338,8 +338,8 @@ const Achievements = memo(() => {
                                     <div className="flex-1 flex flex-col justify-center gap-6">
                                         <div className="flex items-center gap-4">
                                             <div className="flex-1">
-                                                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Total Solved</p>
-                                                <div className="text-5xl font-black text-gray-900 dark:text-white">
+                                                <p className="text-sm text-[var(--text-muted)] mb-1">Total Solved</p>
+                                                <div className="text-5xl font-black text-[var(--text)]">
                                                     {typeof lc.total === 'number' ? <AnimatedCount target={lc.total} /> : lc.total}
                                                 </div>
                                             </div>
@@ -356,14 +356,14 @@ const Achievements = memo(() => {
                                             </div>
                                         )}
 
-                                        <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-white/10 mt-auto">
+                                        <div className="flex items-center justify-between pt-4 border-t border-[var(--border)] mt-auto">
                                             <div className="flex flex-col">
-                                                <span className="text-xl font-bold text-gray-900 dark:text-white">5+</span>
-                                                <span className="text-xs text-gray-500 dark:text-gray-400">Contests</span>
+                                                <span className="text-xl font-bold text-[var(--text)]">5+</span>
+                                                <span className="text-xs text-[var(--text-muted)]">Contests</span>
                                             </div>
                                             <div className="flex flex-col text-right">
-                                                <span className="text-xl font-bold text-gray-900 dark:text-white">Top 20%</span>
-                                                <span className="text-xs text-gray-500 dark:text-gray-400">Global Rank</span>
+                                                <span className="text-xl font-bold text-[var(--text)]">Top 20%</span>
+                                                <span className="text-xs text-[var(--text-muted)]">Global Rank</span>
                                             </div>
                                         </div>
                                     </div>
@@ -375,8 +375,8 @@ const Achievements = memo(() => {
                     {/* ── HackerRank ── */}
                     <div className="achievement-card md:col-span-1">
                         <Card className="h-full">
-                            <div className="p-6 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm h-full flex flex-col justify-center items-center">
-                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 w-full text-left text-gray-900 dark:text-white">
+                            <div className="p-6 bg-[var(--bg-surface)] backdrop-blur-sm h-full flex flex-col justify-center items-center">
+                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 w-full text-left text-[var(--text)]">
                                     <Trophy size={20} className="text-green-500" /> HackerRank
                                 </h3>
                                 <div className="w-full flex justify-center overflow-hidden p-2">
@@ -398,11 +398,11 @@ const Achievements = memo(() => {
                 {/* ── GitHub Heatmap (Full Width) ── */}
                 <div className="achievement-card mt-8">
                     <Card>
-                        <div className="p-8 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm flex flex-col items-center justify-center overflow-x-auto">
-                            <h3 className="text-xl font-bold mb-6 flex items-center gap-2 w-full text-left text-gray-900 dark:text-white">
-                                <Github size={20} className="text-gray-900 dark:text-white" /> Contribution Heatmap
+                        <div className="p-8 bg-[var(--bg-surface)] backdrop-blur-sm flex flex-col items-center justify-center overflow-x-auto">
+                            <h3 className="text-xl font-bold mb-6 flex items-center gap-2 w-full text-left text-[var(--text)]">
+                                <Github size={20} className="text-[var(--text)]" /> Contribution Heatmap
                             </h3>
-                            <div className="w-full flex justify-center min-w-[800px] text-gray-900 dark:text-gray-200">
+                            <div className="w-full flex justify-center min-w-[800px] text-[var(--text)]">
                                 {heatmapData.length > 0 ? (
                                     <GitHubCalendar
                                         username="Hridayesh68"

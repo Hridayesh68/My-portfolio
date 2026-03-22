@@ -96,7 +96,7 @@ function App() {
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       {!loading && (
-        <div className="relative z-10 min-h-screen text-gray-900 dark:text-white transition-colors duration-300 overflow-hidden bg-transparent">
+        <div className="relative z-10 min-h-screen text-[var(--text)] transition-colors duration-300 overflow-hidden bg-transparent">
 
           {/* 🌌 Three.js 3D Background — lazy loaded */}
           <Suspense fallback={null}>
@@ -106,34 +106,34 @@ function App() {
           <Navbar theme={theme} setTheme={setTheme} />
 
           <main ref={mainRef}>
-            <div className="stacked-panel w-full min-h-screen bg-gradient-to-r from-white/70 via-white/30 to-transparent dark:from-black/70 dark:via-black/30 dark:to-transparent flex flex-col justify-center border-b border-black/5 dark:border-white/5 shadow-2xl origin-top">
+            <div className="stacked-panel w-full min-h-screen bg-transparent flex flex-col justify-center border-b border-[var(--border)] shadow-2xl origin-top">
               <Hero theme={theme} />
             </div>
-            <div className="stacked-panel w-full min-h-screen bg-white/60 dark:bg-black/60 backdrop-blur-sm border-b border-black/5 dark:border-white/5 shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
               <TechStack />
             </div>
-            <div id="experience" className="stacked-panel w-full min-h-screen bg-white/70 dark:bg-black/70 backdrop-blur-md border-b border-black/5 dark:border-white/5 shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div id="experience" className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
               <Experience />
             </div>
-            <div id="achievements" className="stacked-panel w-full min-h-screen bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div id="achievements" className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
               <Achievements />
             </div>
-            <div id="projects" className="stacked-panel w-full min-h-screen bg-white/90 dark:bg-black/90 backdrop-blur-xl border-b border-black/5 dark:border-white/5 shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div id="projects" className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
               <Portfolio />
             </div>
-            <div className="stacked-panel w-full min-h-screen bg-white dark:bg-neutral-900 shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div className="stacked-panel w-full min-h-screen bg-transparent shadow-2xl origin-top flex flex-col justify-center pt-16">
               <Contact />
             </div>
-            <div className="stacked-panel w-full min-h-screen bg-white dark:bg-black shadow-2xl origin-top flex flex-col justify-center pt-16 z-10 pb-24">
+            <div className="stacked-panel w-full min-h-screen bg-transparent shadow-2xl origin-top flex flex-col justify-center pt-16 z-10 pb-24">
               <About />
             </div>
           </main>
 
-          <footer className="py-12 text-center border-t border-gray-100 dark:border-gray-800/50">
-            <p className="text-gray-500 dark:text-gray-400 text-sm tracking-widest uppercase mb-2">
+          <footer className="py-12 text-center border-t border-[var(--border)]">
+            <p className="text-[var(--text-muted)] text-sm tracking-widest uppercase mb-2">
               Designed and developed by
             </p>
-            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 mb-6">
+            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-hi mb-6">
               Hridayesh
             </h3>
             <p className="text-xs text-gray-400 dark:text-gray-600 mb-4">

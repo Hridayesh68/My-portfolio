@@ -193,7 +193,7 @@ const Hero = ({ theme }) => {
                             {/* Description */}
                             <p
                                 ref={descRef}
-                                className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto md:mx-0"
+                                className="text-lg md:text-xl text-[var(--text-muted)] max-w-xl mx-auto md:mx-0"
                             >
                                 Computer Science undergrad at Lovely Professional University —
                                 crafting AI-powered web apps, data dashboards, and machine
@@ -211,7 +211,7 @@ const Hero = ({ theme }) => {
                         >
                             <button
                                 onClick={scrollToProjects}
-                                className="group inline-flex items-center px-8 py-3 bg-primary text-white text-lg font-medium rounded-full hover:bg-secondary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                                className="group inline-flex items-center px-8 py-3 bg-[var(--primary)] text-[var(--bg-surface)] hover:text-[var(--text)] text-lg font-medium rounded-full hover:bg-secondary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                             >
                                 View My Work
                                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -220,7 +220,7 @@ const Hero = ({ theme }) => {
                             <a
                                 href="/GeneralCV-Hridayesh.pdf"
                                 download="GeneralCV-Hridayesh.pdf"
-                                className="inline-flex items-center gap-2 px-8 py-3 border-2 border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1"
+                                className="inline-flex items-center gap-2 px-8 py-3 border-2 border-[var(--border-glow)] text-[var(--primary)] rounded-full font-medium hover:bg-[var(--primary)] hover:border-[var(--primary)] hover:text-[var(--bg-surface)] transition-all transform hover:-translate-y-1"
                             >
                                 Download Resume
                             </a>

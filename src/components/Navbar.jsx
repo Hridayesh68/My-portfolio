@@ -67,13 +67,13 @@ const Navbar = ({ theme, setTheme }) => {
                         ? `right-4 top-1/2 -translate-y-1/2 flex-col rounded-2xl md:right-8 ${isMinimized ? 'hidden md:flex md:w-12 md:h-12 overflow-hidden' : `w-16 ${isOpen ? 'h-auto py-4' : 'h-16 md:h-auto'}`}`
                         : `bottom-6 right-4 flex-row rounded-full h-16 md:bottom-8 md:right-8 ${isOpen ? 'flex-wrap justify-center h-auto py-2 w-[90%] max-w-[20rem] right-1/2 translate-x-1/2 md:right-8 md:translate-x-0 md:w-auto' : 'w-16 md:w-auto md:px-2'}`
                     } 
-                bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-white/5 shadow-2xl flex items-center justify-around md:justify-center p-2 md:gap-4`}
+                bg-[var(--bg-surface)] backdrop-blur-md border border-[var(--border)] shadow-2xl flex items-center justify-around md:justify-center p-2 md:gap-4`}
             >
                 {/* Mobile Hamburger Button */}
                 {!isMinimized && (
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="md:hidden flex items-center justify-center p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110"
+                        className="md:hidden flex items-center justify-center p-3 text-[var(--text-muted)] hover:text-[var(--primary)] transition-all hover:scale-110"
                         title="Menu"
                     >
                         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -84,7 +84,7 @@ const Navbar = ({ theme, setTheme }) => {
                 {scrolled && (
                     <button
                         onClick={() => setIsMinimized(!isMinimized)}
-                        className="hidden md:flex p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110 mb-2"
+                        className="hidden md:flex p-3 text-[var(--text-muted)] hover:text-[var(--primary)] transition-all hover:scale-110 mb-2"
                         title={isMinimized ? "Expand" : "Minimize"}
                     >
                         <ChevronRight
@@ -103,13 +103,13 @@ const Navbar = ({ theme, setTheme }) => {
                                 <button
                                     key={link.name}
                                     onClick={() => { scrollToSection(link.id); setIsOpen(false); }}
-                                    className={`${isOpen ? 'flex' : 'hidden'} md:flex group relative items-center justify-center p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110 active:scale-95`}
+                                    className={`${isOpen ? 'flex' : 'hidden'} md:flex group relative items-center justify-center p-3 text-[var(--text-muted)] hover:text-[var(--primary)] transition-all hover:scale-110 active:scale-95`}
                                     title={link.name}
                                 >
                                     <Icon size={20} className="relative z-10" />
                                     {/* Tooltip for side state */}
                                     {scrolled && (
-                                        <span className="absolute right-full mr-4 px-2 py-1 rounded bg-black/80 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                        <span className="absolute right-full mr-4 px-2 py-1 rounded bg-[var(--bg-elevated)] text-[var(--text)] text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                                             {link.name}
                                         </span>
                                     )}
@@ -118,20 +118,20 @@ const Navbar = ({ theme, setTheme }) => {
                         })}
 
                         {/* Divider (only in side state) */}
-                        {scrolled && <div className="w-8 h-[1px] bg-white/10 my-2" />}
+                        {scrolled && <div className="w-8 h-[1px] bg-[var(--border)] my-2" />}
 
                         {/* Theme Toggle */}
                         <div className="relative" ref={themeMenuRef}>
                             <button
                                 onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
-                                className="p-3 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-all hover:scale-110"
+                                className="p-3 text-[var(--text-muted)] hover:text-[var(--primary)] transition-all hover:scale-110"
                                 title="Theme"
                             >
                                 <Palette size={20} />
                             </button>
 
                             {isThemeMenuOpen && (
-                                <div className={`absolute ${scrolled ? 'bottom-0 right-full mr-4' : 'bottom-full left-1/2 -translate-x-1/2 mb-4'} w-32 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-white/10 py-1 overflow-hidden transition-all duration-300`}>
+                                <div className={`absolute ${scrolled ? 'bottom-0 right-full mr-4' : 'bottom-full left-1/2 -translate-x-1/2 mb-4'} w-32 bg-[var(--bg-elevated)] rounded-xl shadow-2xl border border-[var(--border)] py-1 overflow-hidden transition-all duration-300`}>
                                     {themes.map((t) => (
                                         <button
                                             key={t.id}
@@ -139,7 +139,7 @@ const Navbar = ({ theme, setTheme }) => {
                                                 setTheme(t.id);
                                                 setIsThemeMenuOpen(false);
                                             }}
-                                            className={`w-full text-left px-4 py-2 text-xs transition-colors hover:bg-primary/10 ${theme === t.id ? 'text-primary font-bold bg-primary/5' : 'text-gray-600 dark:text-gray-400'}`}
+                                            className={`w-full text-left px-4 py-2 text-xs transition-colors hover:bg-primary/10 ${theme === t.id ? 'text-primary font-bold bg-primary/5' : 'text-[var(--text-muted)]'}`}
                                         >
                                             {t.name}
                                         </button>
@@ -151,7 +151,7 @@ const Navbar = ({ theme, setTheme }) => {
                         {/* Contact Button */}
                         <button
                             onClick={() => { scrollToSection('#contact'); setIsOpen(false); }}
-                            className={`${isOpen ? 'block' : 'hidden'} md:block p-3 text-white bg-primary rounded-full hover:bg-secondary transition-all hover:scale-110 shadow-lg shadow-primary/20 ${scrolled ? 'mt-0 md:mt-2' : ''}`}
+                            className={`${isOpen ? 'block' : 'hidden'} md:block p-3 text-[var(--text)] bg-[var(--bg-surface)] border border-[var(--border)] rounded-full hover:bg-[var(--bg-elevated)] hover:border-[var(--border-glow)] transition-all hover:scale-110 shadow-lg ${scrolled ? 'mt-0 md:mt-2' : ''}`}
                             title="Contact Me"
                         >
                             <Mail size={20} />
