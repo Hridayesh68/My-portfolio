@@ -1,4 +1,4 @@
-import { useEffect, useRef, useLayoutEffect } from 'react';
+import { useEffect, useRef, useLayoutEffect, memo } from 'react';
 import { MessageSquare, Users, Lightbulb, Clock, RefreshCw, Award, Target, Rocket, HeartHandshake } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -21,13 +21,13 @@ const skillCategories = [
     {
         id: 'cs-fundamentals',
         title: 'Operating Systems',
-        items: ['Linux', 'Ubuntu'],
+        items: ['Windows', 'Linux', 'Ubuntu', 'Android'],
         animationClass: 'cs-item'
     },
     {
         id: 'languages',
         title: 'Languages & Databases',
-        items: ['JavaScript', 'Python', 'C++', 'C#', 'Dart', 'HTML5', 'CSS3', 'MongoDB', 'MySQL', 'Android'],
+        items: ['JavaScript', 'Python', 'C++', 'C#', 'Dart', 'HTML5', 'CSS3', 'MongoDB', 'MySQL'],
         animationClass: 'lang-item'
     }
 ];
@@ -57,6 +57,7 @@ const techIcons = {
     'MongoDB': '/tech-stack/MongoDB.svg',
     'MySQL': '/tech-stack/MySQL.svg',
     'Android': '/tech-stack/Android.svg',
+    'Windows': '/tech-stack/Windows.svg',
 };
 
 const platforms = [
@@ -76,8 +77,7 @@ const softSkills = [
     { name: 'Adaptability', icon: <RefreshCw size={32} /> }
 ];
 
-const TechStack = () => {
-    const marqueeRef = useRef(null);
+const TechStack = memo(() => {
     const sectionRef = useRef(null);
     const platformsRef = useRef(null);
 
@@ -238,6 +238,6 @@ const TechStack = () => {
             </div>
         </section>
     );
-};
+});
 
 export default TechStack;

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, memo } from 'react';
 import { Mail, Github, Linkedin, User, Code, Sparkles, GraduationCap } from 'lucide-react';
 import Card from './ui/Card';
 import gsap from 'gsap';
@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const About = () => {
+const About = memo(() => {
     const sectionRef = useRef(null);
 
     useLayoutEffect(() => {
@@ -190,6 +190,6 @@ const About = () => {
             </div>
         </section>
     );
-};
+});
 
 export default About;

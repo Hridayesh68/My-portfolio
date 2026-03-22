@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect, memo } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Projects from './Projects';
@@ -7,7 +7,7 @@ import Models from './Models';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Portfolio = () => {
+const Portfolio = memo(() => {
     const [activeTab, setActiveTab] = useState('All');
     const tabs = ['All', '3D Models', 'Projects', 'Certificates'];
     const containerRef = useRef(null);
@@ -30,7 +30,7 @@ const Portfolio = () => {
     return (
         <div ref={containerRef} className="pt-24 pb-12 w-full">
             <div className="max-w-7xl mx-auto px-4 relative z-20 mb-12 flex flex-col items-center">
-                <div className="flex flex-wrapjustify-center gap-2 md:gap-4 p-2 bg-gray-100 dark:bg-white/5 backdrop-blur-md rounded-2xl border border-gray-200 dark:border-white/10 shadow-lg">
+                <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-2 bg-gray-100 dark:bg-white/5 backdrop-blur-md rounded-2xl border border-gray-200 dark:border-white/10 shadow-lg">
                     {tabs.map(tab => (
                         <button
                             key={tab}
@@ -67,6 +67,6 @@ const Portfolio = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Portfolio;

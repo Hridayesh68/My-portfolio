@@ -1,4 +1,4 @@
-import { useRef, useEffect, useLayoutEffect } from 'react';
+import { useRef, useEffect, useLayoutEffect, memo } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -6,7 +6,7 @@ import Card from './ui/Card';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = memo(({ project }) => {
     const cardRef = useRef(null);
 
     useEffect(() => {
@@ -85,9 +85,9 @@ const ProjectCard = ({ project }) => {
             </div>
         </div>
     );
-};
+});
 
-const Projects = () => {
+const Projects = memo(() => {
     const sectionRef = useRef(null);
     const scrollContainerRef = useRef(null);
     const titleRef = useRef(null);
@@ -158,7 +158,7 @@ const Projects = () => {
             animation = gsap.to('.marquee-track', {
                 xPercent: -50, // scroll half of the track (which is duplicated)
                 ease: 'none',
-                duration: 30, // adjust speed here
+                duration: 15, // halved duration to double the speed
                 repeat: -1
             });
         }, sectionRef);
@@ -216,6 +216,6 @@ const Projects = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Projects;

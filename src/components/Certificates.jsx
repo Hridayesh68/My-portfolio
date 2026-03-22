@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, memo } from 'react';
 import { ExternalLink } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -33,7 +33,7 @@ const certificates = [
     }
 ];
 
-const CertCard = ({ cert }) => {
+const CertCard = memo(({ cert }) => {
     return (
         <a href={cert.link} target="_blank" rel="noopener noreferrer" className="group cursor-pointer h-full animate-float block" style={{ animationDelay: `${cert.id * 0.2}s` }}>
             <Card className="h-full border-2 border-transparent group-hover:border-primary/50 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_10px_30px_rgba(138,43,226,0.3)]">
@@ -56,9 +56,9 @@ const CertCard = ({ cert }) => {
             </Card>
         </a>
     );
-};
+});
 
-const Certificates = () => {
+const Certificates = memo(() => {
     const sectionRef = useRef(null);
 
     useLayoutEffect(() => {
@@ -95,6 +95,6 @@ const Certificates = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Certificates;

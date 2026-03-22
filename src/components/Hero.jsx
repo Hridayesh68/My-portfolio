@@ -7,32 +7,30 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 // ── Sparkles background ───────────────────────────────────────
+// ── Sparkles background (CSS-based for performance) ────────────────
 const Sparkles = () => {
-    const [sparkles, setSparkles] = useState([]);
-
-    useEffect(() => {
-        const generateSparkle = () => {
-            const id = Math.random();
-            const style = {
-                top: Math.random() * 100 + '%',
-                left: Math.random() * 100 + '%',
-                animationDelay: Math.random() * 2 + 's',
-                transform: `scale(${Math.random()})`,
-            };
-            setSparkles(prev => [...prev.slice(-15), { id, style }]);
-        };
-
-        const interval = setInterval(generateSparkle, 300);
-        return () => clearInterval(interval);
-    }, []);
+    // Render a static set of sparkles once. CSS keyframes handle the pulse.
+    // This avoids setInterval and state updates every 300ms.
+    const staticSparkles = useRef([...Array(20)].map(() => ({
+        id: Math.random(),
+        top: Math.random() * 100 + '%',
+        left: Math.random() * 100 + '%',
+        delay: Math.random() * 5 + 's',
+        scale: 0.5 + Math.random() * 0.5,
+    }))).current;
 
     return (
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-            {sparkles.map(s => (
+            {staticSparkles.map(s => (
                 <div
                     key={s.id}
-                    className="absolute w-5 h-5 text-yellow-500 animate-pulse opacity-70"
-                    style={s.style}
+                    className="absolute w-5 h-5 text-yellow-500 animate-pulse opacity-40 shrink-0"
+                    style={{
+                        top: s.top,
+                        left: s.left,
+                        animationDelay: s.delay,
+                        transform: `scale(${s.scale})`
+                    }}
                 >
                     <SparklesIcon size={18} />
                 </div>
@@ -41,16 +39,56 @@ const Sparkles = () => {
     );
 };
 
-// ── Cycling roles config ──────────────────────────────────────
 const ROLES = [
-    { text: 'Data thinker.', color: 'text-primary' },
-    { text: '3D Developer.', color: 'text-purple-500' },
-    { text: 'Web Developer.', color: 'text-emerald-500' },
-    { text: 'ML Engineer.', color: 'text-rose-500' },
+    { text: "Full Stack Developer", color: "text-blue-500" },
+    { text: "ML Enthusiast", color: "text-purple-500" },
+    { text: "UI/UX Designer", color: "text-pink-500" },
+    { text: "Problem Solver", color: "text-green-500" }
 ];
 
-const CYCLE_INTERVAL = 2800;   // ms between each role change
-const ANIM_DURATION = 0.45;   // seconds for gsap transitions
+// ── Role Cycler Component (Isolates state) ───────────────────────────
+const RoleCycler = () => {
+    const roleRef = useRef(null);
+    const [roleIndex, setRoleIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const el = roleRef.current;
+            if (!el) return;
+
+            gsap.to(el, {
+                y: -30,
+                opacity: 0,
+                duration: 0.45,
+                ease: 'power2.in',
+                onComplete: () => {
+                    setRoleIndex(prev => (prev + 1) % ROLES.length);
+                    gsap.fromTo(el,
+                        { y: 30, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out' }
+                    );
+                },
+            });
+        }, 2800);
+        return () => clearInterval(timer);
+    }, []);
+
+    const currentRole = ROLES[roleIndex];
+
+    return (
+        <span
+            className="inline-block overflow-hidden align-bottom"
+            style={{ minWidth: '14rem' }}
+        >
+            <span
+                ref={roleRef}
+                className={`inline-block ${currentRole.color} transition-colors duration-300`}
+            >
+                {currentRole.text}
+            </span>
+        </span>
+    );
+};
 
 // ── Hero ──────────────────────────────────────────────────────
 const Hero = ({ theme }) => {
@@ -60,12 +98,6 @@ const Hero = ({ theme }) => {
     const badgeRef = useRef(null);
     const sectionRef = useRef(null);
 
-    // The animated role word sits in its own span so we can
-    // tween it independently without reflowing the whole heading
-    const roleRef = useRef(null);
-
-    const [roleIndex, setRoleIndex] = useState(0);
-    const [displayRole, setDisplayRole] = useState(ROLES[0]);
     const [showGlow, setShowGlow] = useState(false);
     const [isShaking, setIsShaking] = useState(false);
 
@@ -96,38 +128,6 @@ const Hero = ({ theme }) => {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, []);
-
-    // ── Role cycling with GSAP clip + slide animation ─────────
-    useEffect(() => {
-        const timer = setInterval(() => {
-            const el = roleRef.current;
-            if (!el) return;
-
-            // Slide current text UP and out
-            gsap.to(el, {
-                y: -30,
-                opacity: 0,
-                duration: ANIM_DURATION,
-                ease: 'power2.in',
-                onComplete: () => {
-                    // Swap text while invisible
-                    setRoleIndex(prev => {
-                        const next = (prev + 1) % ROLES.length;
-                        setDisplayRole(ROLES[next]);
-                        return next;
-                    });
-
-                    // Slide new text in FROM below
-                    gsap.fromTo(el,
-                        { y: 30, opacity: 0 },
-                        { y: 0, opacity: 1, duration: ANIM_DURATION, ease: 'power2.out' }
-                    );
-                },
-            });
-        }, CYCLE_INTERVAL);
-
-        return () => clearInterval(timer);
     }, []);
 
     const scrollToProjects = () => {
@@ -184,17 +184,7 @@ const Hero = ({ theme }) => {
                               outgoing/incoming text doesn't bleed outside the line.
                               inline-block + min-w keeps the heading width stable.
                             */}
-                                <span
-                                    className="inline-block overflow-hidden align-bottom"
-                                    style={{ minWidth: '14rem' }}
-                                >
-                                    <span
-                                        ref={roleRef}
-                                        className={`inline-block ${displayRole.color} transition-colors duration-300`}
-                                    >
-                                        {displayRole.text}
-                                    </span>
-                                </span>
+                                <RoleCycler />
 
                                 <br />
                                 <span className="text-primary">Problem solver.</span>

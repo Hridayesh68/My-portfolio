@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, memo } from 'react';
 import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -40,7 +40,7 @@ const models = [
     }
 ];
 
-const ModelCarouselImage = ({ model, isHovered }) => {
+const ModelCarouselImage = memo(({ model, isHovered }) => {
     const [currentFrame, setCurrentFrame] = useState(0);
     const intervalRef = useRef(null);
 
@@ -51,10 +51,11 @@ const ModelCarouselImage = ({ model, isHovered }) => {
                 setCurrentFrame(prev => (prev + 1) % model.frames);
             }, 100); // 10fps
         } else {
-            clearInterval(intervalRef.current);
-            setTimeout(() => setCurrentFrame(0), 150);
+            if (intervalRef.current) clearInterval(intervalRef.current);
+            const timer = setTimeout(() => setCurrentFrame(0), 150);
+            return () => clearTimeout(timer);
         }
-        return () => clearInterval(intervalRef.current);
+        return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
     }, [isHovered, model.frames]);
 
     const getFrameSrc = () => {
@@ -71,9 +72,9 @@ const ModelCarouselImage = ({ model, isHovered }) => {
             onError={(e) => { e.target.src = `https://via.placeholder.com/800x600?text=${encodeURIComponent(model.name)}`; }}
         />
     );
-};
+});
 
-const Models = () => {
+const Models = memo(() => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [selectedModel, setSelectedModel] = useState(null);
@@ -100,11 +101,11 @@ const Models = () => {
     useEffect(() => {
         if (!isHovered && !selectedModel) {
             autoplayRef.current = setInterval(() => {
-                handleNext();
+                setCurrentIndex((prev) => (prev === models.length - 1 ? 0 : prev + 1));
             }, 4000); // Slide every 4 seconds
         }
-        return () => clearInterval(autoplayRef.current);
-    }, [currentIndex, isHovered, selectedModel]);
+        return () => { if (autoplayRef.current) clearInterval(autoplayRef.current); };
+    }, [isHovered, selectedModel]);
 
     const handlePrev = () => {
         setCurrentIndex((prev) => (prev === 0 ? models.length - 1 : prev - 1));
@@ -219,6 +220,6 @@ const Models = () => {
             )}
         </section>
     );
-};
+});
 
 export default Models;

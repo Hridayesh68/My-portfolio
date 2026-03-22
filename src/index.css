@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 
+@font-face {
+  font-family: 'SpaceNova';
+  src: url('/fonts/HeadCapitalBoldGrunge-KV9RA.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,7 +42,7 @@ body {
   width: 100dvw;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  font-family: "Mona Sans", sans-serif;
+  font-family: "SpaceNova", sans-serif;
   transition: background-color 0.5s ease, color 0.5s ease;
   background-color: var(--bg);
   color: var(--text);
@@ -516,12 +523,12 @@ section {
 
   @keyframes shake {
     0%  { transform: translateX(0); }
-    15% { transform: translateX(-8px) rotate(-3deg); }
-    30% { transform: translateX(8px) rotate(3deg); }
-    45% { transform: translateX(-6px) rotate(-2deg); }
-    60% { transform: translateX(6px) rotate(2deg); }
-    75% { transform: translateX(-3px) rotate(-1deg); }
-    90% { transform: translateX(3px) rotate(1deg); }
+    15% { transform: translateX(-2px) rotate(-0.75deg); }
+    30% { transform: translateX(2px) rotate(0.75deg); }
+    45% { transform: translateX(-1.5px) rotate(-0.5deg); }
+    60% { transform: translateX(1.5px) rotate(0.5deg); }
+    75% { transform: translateX(-0.75px) rotate(-0.25deg); }
+    90% { transform: translateX(0.75px) rotate(0.25deg); }
     100% { transform: translateX(0); }
   }
 

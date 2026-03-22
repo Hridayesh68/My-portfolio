@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState } from 'react';
+import { useRef, useLayoutEffect, useState, memo } from 'react';
 import { Rocket, Terminal, Database, Layout, ExternalLink, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -178,7 +178,7 @@ const TECH_DOTS = [
 ];
 
 // ── Component ─────────────────────────────────────────────────
-const Experience = () => {
+const Experience = memo(() => {
     const sectionRef = useRef(null);
     const timelineRef = useRef(null);
     const rgbLineRef = useRef(null);
@@ -533,6 +533,6 @@ const Experience = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Experience;

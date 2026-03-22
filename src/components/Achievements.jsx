@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, memo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Github, Code, Trophy, TrendingUp } from 'lucide-react';
 import gsap from 'gsap';
@@ -10,7 +10,7 @@ import { GitHubCalendar } from 'react-github-calendar';
 gsap.registerPlugin(ScrollTrigger);
 
 /* ───── Animated stat number helper ───── */
-const AnimatedCount = ({ target, prefix = '', suffix = '', className = '' }) => {
+const AnimatedCount = memo(({ target, prefix = '', suffix = '', className = '' }) => {
     const elRef = useRef(null);
     const triggered = useRef(false);
 
@@ -46,19 +46,19 @@ const AnimatedCount = ({ target, prefix = '', suffix = '', className = '' }) => 
             {prefix}0{suffix}
         </span>
     );
-};
+});
 
 /* ───── Difficulty badge ───── */
-const DiffBadge = ({ label, count, color, bg }) => (
+const DiffBadge = memo(({ label, count, color, bg }) => (
     <div className={`flex flex-col items-center px-4 py-3 rounded-xl ${bg}`}>
         <span className={`text-2xl font-bold ${color}`}>{count ?? '—'}</span>
         <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">{label}</span>
     </div>
-);
+));
 
 /* ──────────────────────────────────────────────────────────────── */
 
-const Achievements = () => {
+const Achievements = memo(() => {
     const sectionRef = useRef(null);
 
     /* ── GitHub Stats ── */
@@ -177,10 +177,8 @@ const Achievements = () => {
                     const weeks = json.data.user.contributionsCollection.contributionCalendar.weeks;
 
                     // Flatten and format to react-github-calendar explicitly expected structure
-                    // The v5 `data` prop expects: Array<{ date: string, count: number, level: 0|1|2|3|4 }>
                     const formattedData = weeks.flatMap(week =>
                         week.contributionDays.map(day => {
-                            // Map GitHub GraphQL contributionLevel to numeric level 0-4
                             let level = 0;
                             if (day.contributionLevel === 'FIRST_QUARTILE') level = 1;
                             if (day.contributionLevel === 'SECOND_QUARTILE') level = 2;
@@ -237,7 +235,6 @@ const Achievements = () => {
 
     /* ── Refresh ScrollTrigger when dynamic data loads ── */
     useEffect(() => {
-        // Allow DOM to update sizes after state change before refreshing calculations
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();
         }, 200);
@@ -339,7 +336,6 @@ const Achievements = () => {
                                     </div>
                                 ) : (
                                     <div className="flex-1 flex flex-col justify-center gap-6">
-                                        {/* Total count - animated */}
                                         <div className="flex items-center gap-4">
                                             <div className="flex-1">
                                                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Total Solved</p>
@@ -347,13 +343,11 @@ const Achievements = () => {
                                                     {typeof lc.total === 'number' ? <AnimatedCount target={lc.total} /> : lc.total}
                                                 </div>
                                             </div>
-                                            {/* Progress ring visual */}
                                             <div className="flex-shrink-0 w-20 h-20 rounded-full border-4 border-primary flex items-center justify-center">
                                                 <TrendingUp size={28} className="text-primary" />
                                             </div>
                                         </div>
 
-                                        {/* Easy / Medium / Hard Breakdown (Only if not fallback) */}
                                         {!lc.isFallback && (
                                             <div className="grid grid-cols-3 gap-3">
                                                 <DiffBadge label="Easy" count={lc.easy} color="text-emerald-500" bg="bg-emerald-500/10 dark:bg-emerald-500/10" />
@@ -362,7 +356,6 @@ const Achievements = () => {
                                             </div>
                                         )}
 
-                                        {/* Additional Milestones */}
                                         <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-white/10 mt-auto">
                                             <div className="flex flex-col">
                                                 <span className="text-xl font-bold text-gray-900 dark:text-white">5+</span>
@@ -437,6 +430,6 @@ const Achievements = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Achievements;

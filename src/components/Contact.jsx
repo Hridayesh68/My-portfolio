@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect, memo } from 'react';
 import emailjs from '@emailjs/browser';
 import { CheckCircle2, Loader2, Send } from 'lucide-react';
 import gsap from 'gsap';
@@ -7,7 +7,7 @@ import Card from './ui/Card';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Contact = () => {
+const Contact = memo(() => {
     const formRef = useRef(null);
     const sectionRef = useRef(null);
     const [status, setStatus] = useState('idle'); // idle | submitting | success | error
@@ -201,6 +201,6 @@ const Contact = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Contact;

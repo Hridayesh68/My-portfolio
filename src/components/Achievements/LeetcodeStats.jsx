@@ -29,9 +29,50 @@ const LeetcodeStats = () => {
     const [stats, setStats] = useState({ loading: true, total: 0, easy: 0, medium: 0, hard: 0, error: false });
 
     useEffect(() => {
-        fetchLeetcodeStats().then(data => {
-            setStats({ ...data, loading: false });
-        });
+        let isMounted = true;
+        let timeoutId;
+
+        const dummyStats = {
+            total: 250,
+            easy: 100,
+            medium: 100,
+            hard: 50,
+            error: false,
+            loading: false
+        };
+
+        const fetchStats = async () => {
+            // Start the 2-second fallback timer
+            timeoutId = setTimeout(() => {
+                if (isMounted) {
+                    setStats(dummyStats);
+                }
+            }, 2000);
+
+            try {
+                const data = await fetchLeetcodeStats();
+                if (isMounted) {
+                    clearTimeout(timeoutId);
+                    if (data.error) {
+                        setStats(dummyStats); // Fallback to dummy data on error
+                    } else {
+                        setStats({ ...data, loading: false });
+                    }
+                }
+            } catch (err) {
+                if (isMounted) {
+                    clearTimeout(timeoutId);
+                    setStats(dummyStats); // Fallback to dummy data on exception
+                }
+            }
+        };
+
+        fetchStats();
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     if (stats.loading) {
