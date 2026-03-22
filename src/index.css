@@ -3,9 +3,10 @@
 /* ── Custom Fonts ──────────────────────────────────── */
 @font-face {
   font-family: 'SpaceNova';
-  src: url('/fonts/KnightWarrior-w16n8.otf') format('opentype');
+  src: url('/fonts/SpaceNova-6Rpd1.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -13,6 +14,15 @@
   src: url('/fonts/HeadCapitalBoldGrunge-KV9RA.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'VeniteAdoremus';
+  src: url('/fonts/VeniteAdoremusStraight-Yzo6v.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @tailwind base;
@@ -25,6 +35,10 @@
    ══════════════════════════════════════════════════════ */
 
 :root {
+  --font-display: 'HeadCapital', serif;
+  --font-accent: 'VeniteAdoremus', serif;
+  --font-ui: 'SpaceNova', sans-serif;
+
   /* Core palette (default: dark forge) */
   --bg: #0a0804;
   --bg-mid: #0f0a05;
@@ -99,7 +113,7 @@ body {
   min-height: 100dvh;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  font-family: "SpaceNova", "Mona Sans", sans-serif;
+  font-family: var(--font-ui);
   transition: background-color 0.5s ease, color 0.5s ease;
   background-color: var(--bg);
   background-image:
@@ -153,16 +167,37 @@ body::after {
    TYPOGRAPHY
    ══════════════════════════════════════════════════════ */
 
-h1,
-h2,
-h3 {
-  font-family: 'HeadCapital', 'SpaceNova', serif;
+h1 {
+  font-family: var(--font-display);
   letter-spacing: 0.04em;
   color: var(--text);
 }
 
+h2 {
+  font-family: var(--font-accent);
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+h3 {
+  font-family: var(--font-ui);
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+h4, h5, h6 {
+  font-family: var(--font-accent);
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+p, span, li, input, textarea {
+  font-family: var(--font-ui);
+}
+
 /* Gold gradient heading — add class="heading-gold" */
 .heading-gold {
+  font-family: var(--font-display);
   background: var(--gradient-gold);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -171,6 +206,7 @@ h3 {
 }
 
 .heading-glow {
+  font-family: var(--font-display);
   text-shadow:
     0 0 12px rgba(251, 191, 36, 0.6),
     0 0 40px rgba(217, 119, 6, 0.3),
@@ -179,7 +215,7 @@ h3 {
 
 /* Monospace label utility */
 .mono-label {
-  font-family: monospace;
+  font-family: var(--font-ui);
   font-size: 0.65rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
@@ -600,7 +636,7 @@ h3 {
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem 1.4rem;
-    font-family: monospace;
+    font-family: var(--font-ui);
     font-size: 0.75rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
@@ -640,7 +676,7 @@ h3 {
     align-items: center;
     gap: 0.5rem;
     padding: 0.55rem 1.3rem;
-    font-family: monospace;
+    font-family: var(--font-ui);
     font-size: 0.7rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
@@ -684,7 +720,7 @@ h3 {
   }
 
   .navbar .logo {
-    font-family: 'HeadCapital', serif;
+    font-family: var(--font-display);
     font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     letter-spacing: 0.06em;
     background: var(--gradient-gold);
@@ -710,7 +746,7 @@ h3 {
   nav.desktop ul li {
     position: relative;
     color: var(--text-muted);
-    font-family: monospace;
+    font-family: var(--font-ui);
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -764,7 +800,7 @@ h3 {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: monospace;
+    font-family: var(--font-ui);
     font-size: 0.6rem;
     letter-spacing: 0.4em;
     text-transform: uppercase;
@@ -790,7 +826,7 @@ h3 {
     display: inline-flex;
     align-items: center;
     padding: 0.2rem 0.6rem;
-    font-family: monospace;
+    font-family: var(--font-ui);
     font-size: 0.6rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -1116,3 +1152,29 @@ h3 {
 }
 
 /* end @layer components */
+
+/* ════════════════════════════════════════════════
+   STACKING COMPONENT MECHANISM
+   ════════════════════════════════════════════════ */
+.stack-container {
+  position: relative;
+}
+
+.stack-section {
+  position: sticky;
+  top: 0;
+  min-height: 100dvh;
+  will-change: transform;
+  overflow-x: hidden;
+  /* Allows inner scrolling if section exceeds 100vh */
+  overflow-y: auto;
+}
+
+/* Hide scrollbar for stack sections to keep UI clean */
+.stack-section::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+.stack-section {
+  scrollbar-width: none;
+}

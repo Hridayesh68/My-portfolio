@@ -109,7 +109,7 @@ const Navbar = ({ theme, setTheme }) => {
                                     <Icon size={20} className="relative z-10" />
                                     {/* Tooltip for side state */}
                                     {scrolled && (
-                                        <span className="absolute right-full mr-4 px-2 py-1 rounded bg-[var(--bg-elevated)] text-[var(--text)] text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                        <span className="absolute right-full mr-4 px-2 py-1 rounded bg-[var(--bg-elevated)] text-[var(--text)] text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none" style={{ fontFamily: 'var(--font-ui)' }}>
                                             {link.name}
                                         </span>
                                     )}

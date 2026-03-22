@@ -33,22 +33,22 @@ function randomEmber() {
 }
 
 const LoadingScreen = ({ onComplete }) => {
-    const containerRef   = useRef(null);
-    const titleRef       = useRef(null);
-    const scanRef        = useRef(null);
-    const hudTLRef       = useRef(null);
-    const hudBRRef       = useRef(null);
-    const barRowRef      = useRef(null);
-    const pctRef         = useRef(null);
-    const logRef         = useRef(null);
-    const glitchARef     = useRef(null);
-    const glitchBRef     = useRef(null);
-    const overlayRef     = useRef(null);
+    const containerRef = useRef(null);
+    const titleRef = useRef(null);
+    const scanRef = useRef(null);
+    const hudTLRef = useRef(null);
+    const hudBRRef = useRef(null);
+    const barRowRef = useRef(null);
+    const pctRef = useRef(null);
+    const logRef = useRef(null);
+    const glitchARef = useRef(null);
+    const glitchBRef = useRef(null);
+    const overlayRef = useRef(null);
 
     const [filledCells, setFilledCells] = useState(0);
-    const [pct, setPct]                 = useState(0);
-    const [logLine, setLogLine]         = useState(BOOT_LINES[0]);
-    const [embersArr]                   = useState(() => Array.from({ length: 22 }, randomEmber));
+    const [pct, setPct] = useState(0);
+    const [logLine, setLogLine] = useState(BOOT_LINES[0]);
+    const [embersArr] = useState(() => Array.from({ length: 22 }, randomEmber));
 
     useEffect(() => {
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -227,7 +227,7 @@ const LoadingScreen = ({ onComplete }) => {
                 <div style={{
                     position: 'absolute', inset: 0, pointerEvents: 'none',
                     background: 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, #000000cc 100%)',
-                }}/>
+                }} />
 
                 {/* ── Scanlines ─────────────────────────────────────────── */}
                 <div
@@ -245,7 +245,7 @@ const LoadingScreen = ({ onComplete }) => {
                     position: 'absolute', inset: 0, pointerEvents: 'none',
                     backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'200\' height=\'200\' filter=\'url(%23n)\' opacity=\'0.04\'/%3E%3C/svg%3E")',
                     opacity: 0.35,
-                }}/>
+                }} />
 
                 {/* ── Ember particles ───────────────────────────────────── */}
                 <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
@@ -276,14 +276,14 @@ const LoadingScreen = ({ onComplete }) => {
                     borderRadius: '50%',
                     background: 'radial-gradient(ellipse, #92400e44 0%, transparent 70%)',
                     pointerEvents: 'none',
-                }}/>
+                }} />
 
                 {/* ── HUD corners ───────────────────────────────────────── */}
                 <div ref={hudTLRef} style={{ position: 'absolute', opacity: 0 }}>
-                    <div className="hud-corner hud-corner-tl" style={{ position: 'absolute' }}/>
-                    <div className="hud-corner hud-corner-tr" style={{ position: 'absolute' }}/>
-                    <div className="hud-corner hud-corner-bl" style={{ position: 'absolute' }}/>
-                    <div className="hud-corner hud-corner-br" style={{ position: 'absolute' }}/>
+                    <div className="hud-corner hud-corner-tl" style={{ position: 'absolute' }} />
+                    <div className="hud-corner hud-corner-tr" style={{ position: 'absolute' }} />
+                    <div className="hud-corner hud-corner-bl" style={{ position: 'absolute' }} />
+                    <div className="hud-corner hud-corner-br" style={{ position: 'absolute' }} />
                 </div>
                 {/* Duplicate set for BR cluster */}
                 <div ref={hudBRRef} style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0 }}>
@@ -291,11 +291,11 @@ const LoadingScreen = ({ onComplete }) => {
                     <div style={{
                         position: 'absolute', top: 44, left: 80, right: 80,
                         height: 1, background: 'linear-gradient(90deg, #c07a1a44, transparent 30%, transparent 70%, #c07a1a44)',
-                    }}/>
+                    }} />
                     <div style={{
                         position: 'absolute', bottom: 44, left: 80, right: 80,
                         height: 1, background: 'linear-gradient(90deg, #c07a1a44, transparent 30%, transparent 70%, #c07a1a44)',
-                    }}/>
+                    }} />
                 </div>
 
                 {/* ── Main content ──────────────────────────────────────── */}
@@ -325,7 +325,7 @@ const LoadingScreen = ({ onComplete }) => {
                                 letterSpacing: '0.04em',
                             }}
                         >
-                            HIDRAYES
+                            HRIDAYESH
                         </div>
                         {/* Chromatic B layer (cyan) */}
                         <div
@@ -343,7 +343,7 @@ const LoadingScreen = ({ onComplete }) => {
                                 letterSpacing: '0.04em',
                             }}
                         >
-                            HIDRAYES
+                            HRIDAYESH
                         </div>
                         {/* Main title */}
                         <h1
@@ -365,14 +365,14 @@ const LoadingScreen = ({ onComplete }) => {
                                 userSelect: 'none',
                             }}
                         >
-                            HIDRAYES
+                            HRIDAYESH
                         </h1>
 
                         {/* Subtitle rule */}
                         <div style={{
                             display: 'flex', alignItems: 'center', gap: 10, marginTop: 10, justifyContent: 'center',
                         }}>
-                            <div style={{ flex: 1, height: 1, maxWidth: 80, background: 'linear-gradient(90deg, transparent, #c07a1a)' }}/>
+                            <div style={{ flex: 1, height: 1, maxWidth: 80, background: 'linear-gradient(90deg, transparent, #c07a1a)' }} />
                             <span style={{
                                 fontFamily: 'monospace',
                                 fontSize: 10,
@@ -380,9 +380,9 @@ const LoadingScreen = ({ onComplete }) => {
                                 color: '#a16207',
                                 textTransform: 'uppercase',
                             }}>
-                                Portfolio · 2025
+                                Portfolio · 2026
                             </span>
-                            <div style={{ flex: 1, height: 1, maxWidth: 80, background: 'linear-gradient(90deg, #c07a1a, transparent)' }}/>
+                            <div style={{ flex: 1, height: 1, maxWidth: 80, background: 'linear-gradient(90deg, #c07a1a, transparent)' }} />
                         </div>
                     </div>
 
@@ -464,7 +464,7 @@ const LoadingScreen = ({ onComplete }) => {
                             width: 6, height: 12,
                             background: '#d97706',
                             animation: 'cursorBlink 0.8s step-end infinite',
-                        }}/>
+                        }} />
                         {logLine}
                     </div>
 

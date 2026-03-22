@@ -47,32 +47,20 @@ function App() {
 
     const ctx = gsap.context(() => {
       const panels = gsap.utils.toArray('.stacked-panel');
-
+      // CSS Sticky replaces `pin: true`. We only use GSAP to scale down the panel underneath.
       panels.forEach((panel, i) => {
-        const isTall = () => panel.offsetHeight > window.innerHeight + 50;
-
-        // Pin the panel
-        ScrollTrigger.create({
-          trigger: panel,
-          start: () => (isTall() ? "bottom bottom" : "top top"),
-          pin: true,
-          pinSpacing: false,
-          invalidateOnRefresh: true,
-        });
-
-        // Scale down and fade effect when the next panel comes over
         if (i < panels.length - 1) {
           gsap.to(panel, {
-            scale: 0.95,
-            opacity: 0.5,
+            scale: 0.9,
+            opacity: 0,
             ease: "none",
             scrollTrigger: {
               trigger: panels[i + 1],
               start: "top bottom",
               end: "top top",
               scrub: true,
-              onEnter: () => gsap.set(panel, { transformOrigin: isTall() ? "center bottom" : "center top" }),
-              onEnterBack: () => gsap.set(panel, { transformOrigin: isTall() ? "center bottom" : "center top" }),
+              onEnter: () => gsap.set(panel, { transformOrigin: "center top" }),
+              onEnterBack: () => gsap.set(panel, { transformOrigin: "center top" }),
             }
           });
         }
@@ -105,35 +93,35 @@ function App() {
 
           <Navbar theme={theme} setTheme={setTheme} />
 
-          <main ref={mainRef}>
-            <div className="stacked-panel w-full min-h-screen bg-transparent flex flex-col justify-center border-b border-[var(--border)] shadow-2xl origin-top">
+          <main ref={mainRef} className="stack-container">
+            <div className="stacked-panel stack-section w-full min-h-[100dvh] flex flex-col justify-center border-b border-[var(--border)] shadow-2xl origin-top bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 1 }}>
               <Hero theme={theme} />
             </div>
-            <div className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 2 }}>
               <TechStack />
             </div>
-            <div id="experience" className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div id="experience" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 3 }}>
               <Experience />
             </div>
-            <div id="achievements" className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div id="achievements" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 4 }}>
               <Achievements />
             </div>
-            <div id="projects" className="stacked-panel w-full min-h-screen bg-transparent border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div id="projects" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 5 }}>
               <Portfolio />
             </div>
-            <div className="stacked-panel w-full min-h-screen bg-transparent shadow-2xl origin-top flex flex-col justify-center pt-16">
+            <div className="stacked-panel stack-section w-full min-h-[100dvh] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 6 }}>
               <Contact />
             </div>
-            <div className="stacked-panel w-full min-h-screen bg-transparent shadow-2xl origin-top flex flex-col justify-center pt-16 z-10 pb-24">
+            <div className="stacked-panel stack-section w-full min-h-[100dvh] shadow-2xl origin-top flex flex-col justify-center pt-16 pb-24 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 7 }}>
               <About />
             </div>
           </main>
 
-          <footer className="py-12 text-center border-t border-[var(--border)]">
+          <footer className="py-12 text-center border-t border-[var(--border)]" style={{ fontFamily: 'var(--font-ui)' }}>
             <p className="text-[var(--text-muted)] text-sm tracking-widest uppercase mb-2">
               Designed and developed by
             </p>
-            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-hi mb-6">
+            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-hi mb-6" style={{ fontFamily: 'var(--font-display)' }}>
               Hridayesh
             </h3>
             <p className="text-xs text-gray-400 dark:text-gray-600 mb-4">

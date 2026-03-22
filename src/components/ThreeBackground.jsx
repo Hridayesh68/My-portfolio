@@ -38,6 +38,16 @@ const ThreeBackground = () => {
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
+        scene.background = null;
+
+        // ── BACKGROUND POLICY ────────────────────────────────────────────
+        // scene.background is intentionally null. The CSS body background
+        // (--bg: #0a0804) shows through the transparent canvas.
+        // DO NOT set scene.background here or inside animate() — it will
+        // override the global CSS colour and break the design system.
+        // Theme colours are applied ONLY to starMaterial.color below.
+        // ─────────────────────────────────────────────────────────────────
         camera.position.setZ(30);
         camera.position.setX(-3);
 
@@ -64,18 +74,6 @@ const ThreeBackground = () => {
         scene.add(stars);
 
         // ── Background Texture ───────────────────────────────────────
-        let spaceTexture = null;
-        const loader = new THREE.TextureLoader();
-        loader.load(
-            '/space.jpg',
-            (texture) => {
-                spaceTexture = texture;
-            },
-            undefined,
-            () => {
-                // Ignore fallback
-            }
-        );
 
         // ── Avatar Card (Removed for Static Image) ────────────────────
 
@@ -94,14 +92,10 @@ const ThreeBackground = () => {
         let scrollTimeout;
 
         const moveCamera = () => {
-            const t = document.body.getBoundingClientRect().top;
-
-            scrollRotation.y = t * -0.01;
-            scrollRotation.z = t * -0.01;
-
-            camera.position.z = t * -0.01;
-            camera.position.x = t * -0.0002;
-            camera.rotation.y = t * -0.0002;
+            const t = window.scrollY * -1;
+            camera.position.z = 30 + t * 0.005;
+            camera.position.x = t * -0.0001;
+            camera.rotation.y = t * -0.0001;
 
             isScrolling = true;
             clearTimeout(scrollTimeout);
@@ -171,6 +165,8 @@ const ThreeBackground = () => {
         window.addEventListener('touchend', onTouchEnd);
 
         // ── Animation Loop ────────────────────────────────────────────
+        // NOTE: scene.background is NOT set here. Only star colours change.
+        // Adding scene.background inside animate() breaks the CSS background.
         let animationId;
         const clock = new THREE.Clock();
 
@@ -181,13 +177,10 @@ const ThreeBackground = () => {
             const isMobile = window.innerWidth < 768;
             stars.visible = true;
             if (currentTheme === 'matrix') {
-                scene.background = new THREE.Color(0x0a0f0a);
                 starMaterial.color.setHex(0x00ff41);
             } else if (currentTheme === 'neon-pink') {
-                scene.background = new THREE.Color(0x1a0b2e);
                 starMaterial.color.setHex(0xff2a85);
             } else {
-                scene.background = spaceTexture || new THREE.Color(0x000000);
                 starMaterial.color.setHex(0xffffff);
             }
 

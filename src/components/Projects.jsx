@@ -33,7 +33,7 @@ const ProjectCard = memo(({ project }) => {
                     />
                     {/* Always-visible project name at bottom when not hovering */}
                     <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10">
-                        <h3 className="text-2xl font-bold text-[var(--text)] drop-shadow-md">{project.name}</h3>
+                        <h3 className="text-2xl font-bold text-[var(--text)] drop-shadow-md" style={{ fontFamily: 'var(--font-accent)' }}>{project.name}</h3>
                     </div>
                 </div>
 
@@ -42,10 +42,10 @@ const ProjectCard = memo(({ project }) => {
                     opacity-0 group-hover:opacity-100
                     transition-all duration-500 ease-out z-20">
 
-                    <h3 className="text-3xl font-bold text-[var(--text)] mb-6 drop-shadow-md">{project.name}</h3>
+                    <h3 className="text-3xl font-bold text-[var(--text)] mb-6 drop-shadow-md" style={{ fontFamily: 'var(--font-accent)' }}>{project.name}</h3>
 
                     {/* Description */}
-                    <p className="text-gray-300 text-lg font-medium mb-6 leading-relaxed max-w-sm">
+                    <p className="text-gray-300 text-lg font-medium mb-6 leading-relaxed max-w-sm" style={{ fontFamily: 'var(--font-ui)' }}>
                         {project.description}
                     </p>
 
@@ -55,6 +55,7 @@ const ProjectCard = memo(({ project }) => {
                             <span
                                 key={tag}
                                 className="px-3 py-1 bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--border)] text-sm font-medium rounded-full"
+                                style={{ fontFamily: 'var(--font-ui)' }}
                             >
                                 {tag}
                             </span>
@@ -187,7 +188,7 @@ const Projects = memo(() => {
     return (
         <section id="projects" ref={sectionRef} className="py-24 overflow-hidden relative">
             <div className="max-w-7xl mx-auto px-4 mb-16 relative z-10">
-                <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-[var(--text)] tracking-tight">
+                <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-[var(--text)] tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
                     Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Works</span>
                 </h2>
                 <div className="w-20 h-1.5 bg-primary mt-6 rounded-full" />

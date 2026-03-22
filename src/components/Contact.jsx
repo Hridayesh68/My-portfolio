@@ -55,8 +55,8 @@ const Contact = memo(() => {
             <div className="max-w-7xl mx-auto px-4 z-10 relative">
 
                 <div className="text-center mb-16 contact-reveal">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--text)]">Let&apos;s Connect</h2>
-                    <p className="text-[var(--text-muted)]">Have a project in mind? I&apos;d love to hear from you.</p>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--text)]" style={{ fontFamily: 'var(--font-display)' }}>Let&apos;s Connect</h2>
+                    <p className="text-[var(--text-muted)]" style={{ fontFamily: 'var(--font-ui)' }}>Have a project in mind? I&apos;d love to hear from you.</p>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-stretch max-w-5xl mx-auto">
@@ -80,6 +80,7 @@ const Contact = memo(() => {
                                                     if (emailInput) emailInput.focus();
                                                 }}
                                                 className="font-medium text-[var(--text)] hover:text-[var(--primary)] transition-colors"
+                                                style={{ fontFamily: 'var(--font-accent)' }}
                                             >
                                                 hridayeshdebsarm6@gmail.com
                                             </a>
@@ -92,7 +93,7 @@ const Contact = memo(() => {
                                         </div>
                                         <div>
                                             <p className="text-sm text-[var(--text-muted)]">LinkedIn</p>
-                                            <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noopener noreferrer" className="font-medium text-[var(--text)] hover:text-[var(--primary)] transition-colors">/in/hridayesh-debsarma</a>
+                                            <a href="https://www.linkedin.com/in/hridayesh-debsarma/" target="_blank" rel="noopener noreferrer" className="font-medium text-[var(--text)] hover:text-[var(--primary)] transition-colors" style={{ fontFamily: 'var(--font-accent)' }}>/in/hridayesh-debsarma</a>
                                         </div>
                                     </div>
 
@@ -102,7 +103,7 @@ const Contact = memo(() => {
                                         </div>
                                         <div>
                                             <p className="text-sm text-[var(--text-muted)]">Phone</p>
-                                            <a href="tel:+919064048182" className="font-medium text-[var(--text)] hover:text-[var(--primary)] transition-colors">+91 9064048182</a>
+                                            <a href="tel:+919064048182" className="font-medium text-[var(--text)] hover:text-[var(--primary)] transition-colors" style={{ fontFamily: 'var(--font-accent)' }}>+91 9064048182</a>
                                         </div>
                                     </div>
 
@@ -112,7 +113,7 @@ const Contact = memo(() => {
                                         </div>
                                         <div>
                                             <p className="text-sm text-[var(--text-muted)]">Location</p>
-                                            <span className="font-medium text-[var(--text)]">India</span>
+                                            <span className="font-medium text-[var(--text)]" style={{ fontFamily: 'var(--font-accent)' }}>India</span>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +128,7 @@ const Contact = memo(() => {
                                 <form ref={formRef} onSubmit={sendEmail} className="space-y-6 h-full flex flex-col justify-between">
                                     <div className="space-y-6">
                                         <div>
-                                            <label className="block text-sm font-medium text-[var(--text-muted)] mb-2">Name</label>
+                                            <label className="block text-sm font-medium text-[var(--text-muted)] mb-2" style={{ fontFamily: 'var(--font-ui)' }}>Name</label>
                                             <input
                                                 name="name"
                                                 type="text"
@@ -137,7 +138,7 @@ const Contact = memo(() => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-[var(--text-muted)] mb-2">Email</label>
+                                            <label className="block text-sm font-medium text-[var(--text-muted)] mb-2" style={{ fontFamily: 'var(--font-ui)' }}>Email</label>
                                             <input
                                                 name="email"
                                                 type="email"
@@ -147,7 +148,7 @@ const Contact = memo(() => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-[var(--text-muted)] mb-2">Message</label>
+                                            <label className="block text-sm font-medium text-[var(--text-muted)] mb-2" style={{ fontFamily: 'var(--font-ui)' }}>Message</label>
                                             <textarea
                                                 name="message"
                                                 rows="5"

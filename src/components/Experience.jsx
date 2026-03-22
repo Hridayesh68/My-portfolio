@@ -265,7 +265,7 @@ const Experience = memo(() => {
                     <span className="text-xs font-semibold tracking-[0.3em] uppercase text-primary/70 mb-4">
                         Journey &amp; Expertise
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[var(--text)] tracking-tight">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[var(--text)] tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
                         Experience &amp;{' '}
                         <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
                             Tech Stack
@@ -351,10 +351,10 @@ const Experience = memo(() => {
                                             </div>
 
                                             {/* Title */}
-                                            <h3 className="font-bold text-[var(--text)] text-lg leading-tight">
+                                            <h3 className="font-bold text-[var(--text)] text-lg leading-tight" style={{ fontFamily: 'var(--font-ui)' }}>
                                                 {card.title}
                                             </h3>
-                                            <p className={`text-xs font-medium mt-0.5 mb-3 ${card.accentColor}`}>
+                                            <p className={`text-xs font-medium mt-0.5 mb-3 ${card.accentColor}`} style={{ fontFamily: 'var(--font-ui)' }}>
                                                 {card.subtitle}
                                             </p>
                                             <div
@@ -363,6 +363,7 @@ const Experience = memo(() => {
                                                     overflow-hidden transition-all duration-500
                                                     ${activeCard === card.id ? 'max-h-40 opacity-100 mb-5' : 'max-h-0 opacity-0 mb-0'}
                                                 `}
+                                                style={{ fontFamily: 'var(--font-accent)' }}
                                             >
                                                 {card.desc}
                                             </div>
@@ -426,7 +427,7 @@ const Experience = memo(() => {
                                                         <span className={`
                                                             text-xs font-bold tracking-widest px-3 py-1 rounded-full
                                                             bg-gradient-to-r ${card.color} text-[var(--bg-surface)]
-                                                        `}>
+                                                        `} style={{ fontFamily: 'var(--font-ui)' }}>
                                                             {card.label}
                                                         </span>
                                                     </div>
@@ -436,10 +437,10 @@ const Experience = memo(() => {
                                                 </div>
 
                                                 {/* Title + subtitle */}
-                                                <h3 className="text-xl font-bold text-[var(--text)] leading-tight">
+                                                <h3 className="text-xl font-bold text-[var(--text)] leading-tight" style={{ fontFamily: 'var(--font-ui)' }}>
                                                     {card.title}
                                                 </h3>
-                                                <p className={`text-sm mt-1 mb-3 ${card.accentColor} font-medium`}>
+                                                <p className={`text-sm mt-1 mb-3 ${card.accentColor} font-medium`} style={{ fontFamily: 'var(--font-ui)' }}>
                                                     {card.subtitle}
                                                 </p>
 
@@ -450,6 +451,7 @@ const Experience = memo(() => {
                                                         overflow-hidden transition-all duration-500
                                                         ${activeCard === card.id ? 'max-h-56 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}
                                                     `}
+                                                    style={{ fontFamily: 'var(--font-accent)' }}
                                                 >
                                                     {card.desc}
                                                 </div>

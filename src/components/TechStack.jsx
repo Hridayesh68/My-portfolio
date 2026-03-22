@@ -34,7 +34,7 @@ const skillCategories = [
 
 const techIcons = {
     'React': '/tech-stack/React.svg',
-    'Three.js': '/pngs/threejs.png', 
+    'Three.js': '/pngs/threejs.jpg',
     'Flutter': '/tech-stack/Flutter.svg',
     'PyTorch': '/tech-stack/PyTorch.svg',
     'Unity': '/tech-stack/Unity.svg',
@@ -146,7 +146,7 @@ const TechStack = memo(() => {
     return (
         <section id="tech-stack" ref={sectionRef} className="py-20 bg-transparent overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
-                <h2 className="tech-heading text-3xl md:text-4xl font-bold mb-4 text-[var(--text)]">
+                <h2 className="tech-heading text-3xl md:text-4xl font-bold mb-4 text-[var(--text)]" style={{ fontFamily: 'var(--font-accent)' }}>
                     Tech Arsenal
                 </h2>
                 <p className="tech-heading text-[var(--text-muted)]">
@@ -157,7 +157,7 @@ const TechStack = memo(() => {
             <div className="max-w-4xl mx-auto px-4 space-y-16">
                 {skillCategories.map((category) => (
                     <div key={category.id} id={category.id} className="skill-category">
-                        <h3 className="text-xl font-bold mb-6 text-[var(--text-muted)] uppercase tracking-widest text-center md:text-left">
+                        <h3 className="text-xl font-bold mb-6 text-[var(--text-muted)] uppercase tracking-widest text-center md:text-left" style={{ fontFamily: 'var(--font-display)' }}>
                             {category.title}
                         </h3>
                         <div className="flex flex-wrap justify-center md:justify-start gap-3">
@@ -176,7 +176,7 @@ const TechStack = memo(() => {
                                             />
                                         </div>
                                     )}
-                                    <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10">
+                                    <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10" style={{ fontFamily: 'var(--font-ui)' }}>
                                         {item}
                                     </span>
                                 </div>
@@ -191,16 +191,16 @@ const TechStack = memo(() => {
                 <h3 className="text-xl font-bold mb-8 text-[var(--text-muted)] uppercase tracking-widest text-center md:text-left">
                     Soft Skills
                 </h3>
-                <div className="flex flex-wrap justify-center md:justify-start gap-12 md:gap-16 mt-4">
+                <div className="flex flex-wrap justify-center md:justify-start gap-16 md:gap-24 lg:gap-28 mt-8">
                     {softSkills.map((skill) => (
                         <div
                             key={skill.name}
-                            className="soft-skill-item group relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 hover:scale-110 transition-all cursor-default"
+                            className="soft-skill-item group relative flex items-center justify-center w-20 h-20 md:w-24 md:h-24 hover:scale-110 transition-all cursor-default"
                         >
                             <div className="icon-float text-[var(--text-dim)] group-hover:text-[var(--primary)] transition-colors duration-300">
                                 {skill.icon}
                             </div>
-                            <span className="absolute -bottom-6 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10">
+                            <span className="absolute -bottom-8 text-sm md:text-base font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10" style={{ fontFamily: 'var(--font-ui)' }}>
                                 {skill.name}
                             </span>
                         </div>

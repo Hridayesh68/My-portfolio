@@ -52,10 +52,10 @@ const About = memo(() => {
             <div className="max-w-7xl mx-auto px-4 relative z-10">
 
                 <div className="flex flex-col items-center mb-16 about-reveal">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center text-[var(--text)]">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center text-[var(--text)]" style={{ fontFamily: 'var(--font-accent)' }}>
                         About Me
                     </h2>
-                    <p className="text-[var(--text-muted)] mt-4 text-center max-w-2xl">
+                    <p className="text-[var(--text-muted)] mt-4 text-center max-w-2xl" style={{ fontFamily: 'var(--font-ui)' }}>
                         A glimpse into who I am and what drives me.
                     </p>
                 </div>
@@ -93,9 +93,9 @@ const About = memo(() => {
                             {/* Bio & Details */}
                             <div className="w-full xl:w-2/3 space-y-8">
                                 <div>
-                                    <div className="text-[var(--text-muted)] space-y-4 leading-relaxed">
+                                    <div className="text-[var(--text-muted)] space-y-4 leading-relaxed" style={{ fontFamily: 'var(--font-ui)' }}>
                                         <ul className="list-disc list-inside space-y-3">
-                                            <li><strong className="text-[var(--text)]">CS Undergrad:</strong> Student at Lovely Professional University with a passion for building practical, impact-driven software.</li>
+                                            <li><strong className="text-[var(--text)]" style={{ fontFamily: 'var(--font-accent)' }}>CS Undergrad:</strong> Student at Lovely Professional University with a passion for building practical, impact-driven software.</li>
                                             <li><strong className="text-[var(--text)]">Full-Stack & ML:</strong> Building AI-powered web apps, interactive Power BI dashboards, and ML inference pipelines from scratch.</li>
                                             <li><strong className="text-[var(--text)]">Algorithm Enthusiast:</strong> Solved 200+ coding problems across LeetCode, CodeChef, and HackerRank to sharpen core engineering foundations.</li>
                                             <li><strong className="text-[var(--text)]">Always Exploring:</strong> Currently diving into generative AI workflows and always open to ambitious collaborations.</li>
