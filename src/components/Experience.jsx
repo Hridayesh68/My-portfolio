@@ -352,7 +352,7 @@ const Experience = memo(() => {
                                             </div>
 
                                             {/* Title */}
-                                            <h3 className="font-bold text-[var(--text)] text-lg leading-tight" style={{ fontFamily: 'var(--font-ui)' }}>
+                                            <h3 className="font-bold text-[var(--text)] text-lg leading-tight" style={{ fontFamily: 'var(--font-accent)' }}>
                                                 {card.title}
                                             </h3>
                                             <p className={`text-xs font-medium mt-0.5 mb-3 ${card.accentColor}`} style={{ fontFamily: 'var(--font-ui)' }}>
@@ -364,7 +364,7 @@ const Experience = memo(() => {
                                                     overflow-hidden transition-all duration-500
                                                     ${activeCard === card.id ? 'max-h-40 opacity-100 mb-5' : 'max-h-0 opacity-0 mb-0'}
                                                 `}
-                                                style={{ fontFamily: 'var(--font-accent)' }}
+                                                style={{ fontFamily: 'var(--font-ui)' }}
                                             >
                                                 {card.desc}
                                             </div>
@@ -438,7 +438,7 @@ const Experience = memo(() => {
                                                 </div>
 
                                                 {/* Title + subtitle */}
-                                                <h3 className="text-xl font-bold text-[var(--text)] leading-tight" style={{ fontFamily: 'var(--font-ui)' }}>
+                                                <h3 className="text-xl font-bold text-[var(--text)] leading-tight" style={{ fontFamily: 'var(--font-accent)' }}>
                                                     {card.title}
                                                 </h3>
                                                 <p className={`text-sm mt-1 mb-3 ${card.accentColor} font-medium`} style={{ fontFamily: 'var(--font-ui)' }}>
@@ -452,7 +452,7 @@ const Experience = memo(() => {
                                                         overflow-hidden transition-all duration-500
                                                         ${activeCard === card.id ? 'max-h-56 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}
                                                     `}
-                                                    style={{ fontFamily: 'var(--font-accent)' }}
+                                                    style={{ fontFamily: 'var(--font-ui)' }}
                                                 >
                                                     {card.desc}
                                                 </div>

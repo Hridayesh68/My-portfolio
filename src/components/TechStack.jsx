@@ -173,7 +173,7 @@ const TechStack = memo(() => {
             <div className="max-w-4xl mx-auto px-4 space-y-16">
                 {skillCategories.map((category) => (
                     <div key={category.id} id={category.id} className="skill-category">
-                        <h3 className="text-xl font-bold mb-6 text-[var(--text-muted)] uppercase tracking-widest text-center md:text-left" style={{ fontFamily: 'var(--font-display)' }}>
+                        <h3 className="text-xl font-bold mb-6 text-[var(--text-muted)] uppercase tracking-widest text-center md:text-left" style={{ fontFamily: 'var(--font-ui)' }}>
                             {category.title}
                         </h3>
                         <div className="flex flex-wrap justify-center md:justify-start gap-3">
@@ -196,7 +196,7 @@ const TechStack = memo(() => {
                                             <span className="font-bold text-2xl md:text-3xl text-[var(--text-muted)] group-hover:text-[var(--primary)] transition-colors duration-300">{item[0]}</span>
                                         </div>
                                     )}
-                                    <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10" style={{ fontFamily: 'var(--font-ui)' }}>
+                                    <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10" style={{ fontFamily: 'var(--font-display)' }}>
                                         {item}
                                     </span>
                                 </div>
@@ -220,7 +220,7 @@ const TechStack = memo(() => {
                             <div className="icon-float text-[var(--text-dim)] group-hover:text-[var(--primary)] transition-colors duration-300">
                                 {skill.icon}
                             </div>
-                            <span className="absolute -bottom-8 text-sm md:text-base font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10" style={{ fontFamily: 'var(--font-ui)' }}>
+                            <span className="absolute -bottom-8 text-sm md:text-base font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10" style={{ fontFamily: 'var(--font-display)' }}>
                                 {skill.name}
                             </span>
                         </div>

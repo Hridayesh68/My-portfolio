@@ -3,7 +3,7 @@
 /* ── Custom Fonts ──────────────────────────────────── */
 @font-face {
   font-family: 'SpaceNova';
-  src: url('/fonts/SpaceNova-6Rpd1.otf') format('opentype');
+  src: url('/fonts/OrbitronBold-10M0.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -18,9 +18,17 @@
 }
 
 @font-face {
-  font-family: 'VeniteAdoremus';
-  src: url('/fonts/VeniteAdoremusStraight-Yzo6v.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Kruela';
+  src: url('/fonts/KruelaRegular-2vA8o.otf') format('opentype');
+  font-weight: normal;  
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('/fonts/BebasNeueBold-w1w42.otf') format('opentype');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -35,9 +43,9 @@
    ══════════════════════════════════════════════════════ */
 
 :root {
-  --font-display: 'HeadCapital', serif;
-  --font-accent: 'VeniteAdoremus', serif;
-  --font-ui: 'SpaceNova', sans-serif;
+  --font-display: 'HeadCapital', sans-serif;
+  --font-accent: 'Kruela', sans-serif;
+  --font-ui: 'BebasNeue', sans-serif;
 
   /* Core palette (default: dark forge) */
   --bg: #0a0804;
@@ -167,20 +175,14 @@ body::after {
    TYPOGRAPHY
    ══════════════════════════════════════════════════════ */
 
-h1 {
+h1, .hero-title {
   font-family: var(--font-display);
   letter-spacing: 0.04em;
   color: var(--text);
 }
 
-h2 {
+h2, h3, .section-title {
   font-family: var(--font-accent);
-  letter-spacing: 0.04em;
-  color: var(--text);
-}
-
-h3 {
-  font-family: var(--font-ui);
   letter-spacing: 0.04em;
   color: var(--text);
 }
@@ -191,8 +193,9 @@ h4, h5, h6 {
   color: var(--text);
 }
 
-p, span, li, input, textarea {
+p, span, li, input, textarea, button, .card-text, .stat-text {
   font-family: var(--font-ui);
+  letter-spacing: 0.05em; /* Bebas Neue is somewhat condensed, giving it slight letter spacing */
 }
 
 /* Gold gradient heading — add class="heading-gold" */

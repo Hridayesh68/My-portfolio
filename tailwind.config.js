@@ -18,7 +18,9 @@ export default {
         'blue100': '#2d2d38',
       },
       fontFamily: {
-        sans: ['"Mona Sans"', 'sans-serif'],
+        sans: ['var(--font-ui)', 'sans-serif'],
+        display: ['var(--font-display)', 'sans-serif'],
+        accent: ['var(--font-accent)', 'sans-serif'],
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
