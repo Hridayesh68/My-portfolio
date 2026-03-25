@@ -9,13 +9,13 @@ const skillCategories = [
     {
         id: 'frameworks',
         title: 'Frameworks & Libraries',
-        items: ['React', 'Three.js', 'Flutter', 'PyTorch', 'Unity', 'Unreal Engine', 'Vite'],
+        items: ['HTML', 'CSS', 'React.js', 'FastApi', 'Node.js', 'PyTorch', 'NumPy', 'Pandas', 'Scikit-Learn', 'Seaborn', 'Three.js', 'Vite'],
         animationClass: 'framework-item'
     },
     {
         id: 'tools',
         title: 'Tools & Platforms',
-        items: ['Android Studio', 'Blender', 'Docker', 'Firebase', 'Vercel'],
+        items: ['Unity', 'Android Studio', 'Blender', 'Docker', 'Firebase', 'Vercel'],
         animationClass: 'tool-item'
     },
     {
@@ -26,19 +26,24 @@ const skillCategories = [
     },
     {
         id: 'languages',
-        title: 'Languages & Databases',
-        items: ['JavaScript', 'Python', 'C++', 'C#', 'Dart', 'HTML5', 'CSS3', 'MongoDB', 'MySQL'],
+        title: 'Languages',
+        items: ['JavaScript', 'Python', 'C++', 'Java', 'C#'],
         animationClass: 'lang-item'
+    },
+    {
+        id: 'databases',
+        title: 'Databases',
+        items: ['MongoDB', 'MySQL', 'PostgreSQL'],
+        animationClass: 'db-item'
     }
 ];
 
 const techIcons = {
     'React': '/tech-stack/React.svg',
+    'React.js': '/tech-stack/React.svg',
     'Three.js': '/pngs/threejs.jpg',
-    'Flutter': '/tech-stack/Flutter.svg',
     'PyTorch': '/tech-stack/PyTorch.svg',
     'Unity': '/tech-stack/Unity.svg',
-    'Unreal Engine': '/pngs/unreal.png',
     'Vite': '/tech-stack/Vite.svg',
     'Docker': '/tech-stack/Docker.svg',
     'Android Studio': '/tech-stack/Android-Studio.svg',
@@ -51,13 +56,19 @@ const techIcons = {
     'Python': '/tech-stack/Python.svg',
     'C++': '/tech-stack/Cpp.svg',
     'C#': '/tech-stack/CSharp.svg',
-    'Dart': '/tech-stack/Dart.svg',
-    'HTML5': '/tech-stack/HTML5.svg',
-    'CSS3': '/tech-stack/CSS3.svg',
+    'Java': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg',
+    'HTML': '/tech-stack/HTML5.svg',
+    'CSS': '/tech-stack/CSS3.svg',
     'MongoDB': '/tech-stack/MongoDB.svg',
     'MySQL': '/tech-stack/MySQL.svg',
+    'PostgreSQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg',
     'Android': '/tech-stack/Android.svg',
     'Windows': '/tech-stack/Windows.svg',
+    'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg',
+    'FastApi': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg',
+    'NumPy': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg',
+    'Pandas': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg',
+    'Scikit-Learn': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg',
 };
 
 const platforms = [
@@ -87,7 +98,7 @@ const TechStack = memo(() => {
 
         const ctx = gsap.context(() => {
             // Instantly hide the elements before the observer plays the timeline
-            gsap.set('.tech-heading, .framework-item, .tool-item, .cs-item, .lang-item, .soft-skill-item, .platform-card', { opacity: 0 });
+            gsap.set('.tech-heading, .framework-item, .tool-item, .cs-item, .lang-item, .db-item, .soft-skill-item, .platform-card', { opacity: 0 });
         }, sectionRef);
 
         const observer = new IntersectionObserver((entries) => {
@@ -117,6 +128,11 @@ const TechStack = memo(() => {
                         // 4. Programming Languages — drop from top with bounce
                         .fromTo('.lang-item',
                             { y: -80, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'bounce.out' },
+                            '-=0.2')
+                        // 4.5. Databases — drop from bottom with bounce
+                        .fromTo('.db-item',
+                            { y: 80, opacity: 0 },
                             { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'bounce.out' },
                             '-=0.2')
                         // 5. Soft Skills — slide up and fade
@@ -166,7 +182,7 @@ const TechStack = memo(() => {
                                     key={item}
                                     className={`${category.animationClass} group relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 hover:scale-110 transition-all cursor-default`}
                                 >
-                                    {techIcons[item] && (
+                                    {techIcons[item] ? (
                                         <div className="icon-float" style={{ animationDelay: `${Math.random() * 2}s` }}>
                                             <img
                                                 src={techIcons[item]}
@@ -174,6 +190,10 @@ const TechStack = memo(() => {
                                                 className="w-10 h-10 md:w-12 md:h-12 object-contain filter brightness-110 transition-transform duration-300 group-hover:scale-110"
                                                 onError={(e) => { e.target.style.display = 'none'; }}
                                             />
+                                        </div>
+                                    ) : (
+                                        <div className="icon-float flex items-center justify-center w-10 h-10 md:w-12 md:h-12" style={{ animationDelay: `${Math.random() * 2}s` }}>
+                                            <span className="font-bold text-2xl md:text-3xl text-[var(--text-muted)] group-hover:text-[var(--primary)] transition-colors duration-300">{item[0]}</span>
                                         </div>
                                     )}
                                     <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs md:text-sm font-medium text-[var(--text-muted)] whitespace-nowrap pointer-events-none z-10" style={{ fontFamily: 'var(--font-ui)' }}>

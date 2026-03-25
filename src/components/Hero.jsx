@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Sparkles as SparklesIcon } from 'lucide-react';
+import { ArrowRight, Sparkles as SparklesIcon, Github, Linkedin } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -41,9 +41,9 @@ const Sparkles = () => {
 
 const ROLES = [
     { text: "Full Stack Developer", color: "text-blue-500" },
-    { text: "ML Enthusiast", color: "text-purple-500" },
-    { text: "UI/UX Designer", color: "text-pink-500" },
-    { text: "Problem Solver", color: "text-green-500" }
+    { text: "ML Enthusiast", color: "text-green-500" },
+    { text: "Game Developer", color: "text-pink-500" },
+    { text: "Data Analyst", color: "text-red-500" }
 ];
 
 // ── Role Cycler Component (Isolates state) ───────────────────────────
@@ -162,7 +162,7 @@ const Hero = ({ theme }) => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
                     {/* ── Left: text content ── */}
-                    <div className="flex-1 flex flex-col text-center md:text-left relative z-10 max-w-2xl mt-0 md:mt-24 min-h-[70dvh] md:min-h-0 pt-10 md:pt-0">
+                    <div className="flex-1 flex flex-col text-center md:text-left relative z-10 max-w-2xl mt-0 md:-mt-16 min-h-[60dvh] md:min-h-0 pt-0">
 
                         <div className="space-y-6 md:space-y-8">
                             {/* Badge */}
@@ -234,22 +234,48 @@ const Hero = ({ theme }) => {
 
                     {/* ── Right: avatar image ── */}
                     <div className="flex-1 flex justify-center md:justify-end items-center relative z-10 w-full mt-4 md:mt-0">
-                        <div className="relative group">
-                            {/* The glowing themed border */}
-                            <div className="absolute inset-[-4px] rounded-full bg-primary opacity-50 blur-lg group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="flex flex-col items-center gap-6">
+                            <div className="relative group">
+                                {/* The glowing themed border */}
+                                <div className="absolute inset-[-4px] rounded-full bg-primary opacity-50 blur-lg group-hover:opacity-100 transition-opacity duration-500"></div>
+                                
+                                {/* The static circular image constraint */}
+                                <div
+                                    className={`relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary transition-all duration-500 shadow-2xl group-hover:scale-[1.02] cursor-pointer ${isShaking ? 'animate-shake' : ''}`}
+                                    onClick={handleImageClick}
+                                    style={isShaking ? { animation: 'shake 0.6s ease-in-out' } : {}}
+                                >
+                                    <img 
+                                        src="/assets/hridayesh-formal.jpeg" 
+                                        alt="Hridayesh Pandey" 
+                                        className="w-full h-full object-cover object-top"
+                                        draggable="false"
+                                    />
+                                </div>
+                            </div>
                             
-                            {/* The static circular image constraint */}
-                            <div
-                                className={`relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary transition-all duration-500 shadow-2xl group-hover:scale-[1.02] cursor-pointer ${isShaking ? 'animate-shake' : ''}`}
-                                onClick={handleImageClick}
-                                style={isShaking ? { animation: 'shake 0.6s ease-in-out' } : {}}
-                            >
-                                <img 
-                                    src="/assets/hridayesh-formal.jpeg" 
-                                    alt="Hridayesh Pandey" 
-                                    className="w-full h-full object-cover object-top"
-                                    draggable="false"
-                                />
+                            {/* Social Icons Below Profile Picture */}
+                            <div className="flex gap-6 mt-4">
+                                <a
+                                    href="https://github.com/Hridayesh68"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-3 bg-[var(--bg-surface)] border-2 border-[var(--border-glow)] text-[var(--text-muted)] hover:text-[var(--primary)] hover:border-[var(--primary)] rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)]"
+                                    aria-label="GitHub"
+                                    title="GitHub"
+                                >
+                                    <Github size={24} />
+                                </a>
+                                <a
+                                    href="https://www.linkedin.com/in/hridayesh-debsarma/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-3 bg-[var(--bg-surface)] border-2 border-[var(--border-glow)] text-[var(--text-muted)] hover:text-[var(--primary)] hover:border-[var(--primary)] rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)]"
+                                    aria-label="LinkedIn"
+                                    title="LinkedIn"
+                                >
+                                    <Linkedin size={24} />
+                                </a>
                             </div>
                         </div>
                     </div>

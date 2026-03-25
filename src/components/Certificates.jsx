@@ -30,6 +30,18 @@ const certificates = [
         title: 'MBA Certificate',
         image: '/assets/certificates/certificate mba.png',
         link: 'https://drive.google.com/file/d/1TFcQsbhKjdjcG_l7bREtfajAwh41_Itw/view?usp=sharing'
+    },
+    {
+        id: 5,
+        title: 'IBM Certificate',
+        image: '/assets/certificates/ibm.jpg',
+        link: 'https://www.coursera.org/account/accomplishments/certificate/4N0LTGVYRUHT'
+    },
+    {
+        id: 6,
+        title: 'Google - The Bits and Bytes of Computer Networking',
+        image: '/assets/certificates/bits and bytes google.jpg',
+        link: 'https://www.coursera.org/account/accomplishments/certificate/DW2JYIVN4YKJ'
     }
 ];
 

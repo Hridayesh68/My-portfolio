@@ -53,7 +53,7 @@ const Navbar = ({ theme, setTheme }) => {
         { name: 'Home', id: '#hero', icon: Home },
         { name: 'Tech', id: '#tech-stack', icon: Code2 },
         { name: 'Exp', id: '#experience', icon: Briefcase },
-        { name: 'Awards', id: '#achievements', icon: Award },
+        { name: 'Acheivements', id: '#achievements', icon: Award },
         { name: 'Work', id: '#projects', icon: Folder },
         { name: 'About', id: '#about', icon: User },
     ];
@@ -65,7 +65,7 @@ const Navbar = ({ theme, setTheme }) => {
                 className={`pointer-events-auto fixed transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
                 ${scrolled
                         ? `right-4 top-1/2 -translate-y-1/2 flex-col rounded-2xl md:right-8 ${isMinimized ? 'hidden md:flex md:w-12 md:h-12 overflow-hidden' : `w-16 ${isOpen ? 'h-auto py-4' : 'h-16 md:h-auto'}`}`
-                        : `bottom-6 right-4 flex-row rounded-full h-16 md:bottom-8 md:right-8 ${isOpen ? 'flex-wrap justify-center h-auto py-2 w-[90%] max-w-[20rem] right-1/2 translate-x-1/2 md:right-8 md:translate-x-0 md:w-auto' : 'w-16 md:w-auto md:px-2'}`
+                        : `bottom-2 right-4 flex-row rounded-full h-16 md:bottom-4 md:right-8 ${isOpen ? 'flex-wrap justify-center h-auto py-2 w-[90%] max-w-[20rem] right-1/2 translate-x-1/2 md:right-8 md:translate-x-0 md:w-auto' : 'w-16 md:w-auto md:px-2'}`
                     } 
                 bg-[var(--bg-surface)] backdrop-blur-md border border-[var(--border)] shadow-2xl flex items-center justify-around md:justify-center p-2 md:gap-4`}
             >

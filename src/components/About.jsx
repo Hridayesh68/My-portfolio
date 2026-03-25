@@ -75,7 +75,7 @@ const About = memo(() => {
                                     />
                                 </div>
                                 <h3 className="text-2xl font-bold text-[var(--text)] text-center">Hridayesh</h3>
-                                <p className="text-primary font-medium text-center mb-6">Full Stack Developer</p>
+                                <p className="text-primary font-medium text-center mb-6">Software Developer</p>
 
                                 <div className="flex gap-4 border-t border-[var(--border)] pt-6 w-full justify-center">
                                     <a href="https://github.com/Hridayesh68" target="_blank" rel="noreferrer" className="p-3 bg-[var(--bg-surface)] border border-[var(--border)] rounded-xl hover:bg-[var(--primary)] hover:text-[var(--bg-surface)] text-[var(--text-muted)] transition-colors">
@@ -95,7 +95,7 @@ const About = memo(() => {
                                 <div>
                                     <div className="text-[var(--text-muted)] space-y-4 leading-relaxed" style={{ fontFamily: 'var(--font-ui)' }}>
                                         <ul className="list-disc list-inside space-y-3">
-                                            <li><strong className="text-[var(--text)]" style={{ fontFamily: 'var(--font-accent)' }}>CS Undergrad:</strong> Student at Lovely Professional University with a passion for building practical, impact-driven software.</li>
+                                            <li><strong className="text-[var(--text)]" style={{ fontFamily: 'var(--font-accent)' }}>CS Undergrad:</strong> Student at Lovely Professional University with a passion for building practical, impact-driven software. Currently maintaining a CGPA of 7.5.</li>
                                             <li><strong className="text-[var(--text)]">Full-Stack & ML:</strong> Building AI-powered web apps, interactive Power BI dashboards, and ML inference pipelines from scratch.</li>
                                             <li><strong className="text-[var(--text)]">Algorithm Enthusiast:</strong> Solved 200+ coding problems across LeetCode, CodeChef, and HackerRank to sharpen core engineering foundations.</li>
                                             <li><strong className="text-[var(--text)]">Always Exploring:</strong> Currently diving into generative AI workflows and always open to ambitious collaborations.</li>
