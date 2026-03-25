@@ -148,7 +148,7 @@ const Hero = ({ theme }) => {
         <section
             id="hero"
             ref={sectionRef}
-            className="min-h-[100dvh] flex items-start md:items-center justify-center pt-28 md:pt-20 relative overflow-hidden"
+            className="relative bg-transparent"
         >
             <Sparkles />
 

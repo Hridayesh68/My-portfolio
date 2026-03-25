@@ -9,16 +9,25 @@ import Contact from './components/Contact';
 import About from './components/About';
 import LoadingScreen from './components/LoadingScreen';
 import SpaceshipAnimation from './components/SpaceshipAnimation';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useStackAnimation } from './hooks/useStackAnimation';
 
 // Lazy load heavy 3D background
 const ThreeBackground = lazy(() => import('./components/ThreeBackground'));
 
+// Core sections ordered exactly as they should stack
+const SECTIONS = [
+  { id: 'hero', Component: Hero },
+  { id: 'tech-stack', Component: TechStack },
+  { id: 'experience', Component: Experience },
+  { id: 'achievements', Component: Achievements },
+  { id: 'projects', Component: Portfolio }, // maps to id="projects" inside
+  { id: 'contact', Component: Contact },
+  { id: 'about', Component: About }
+];
+
 function App() {
   const [loading, setLoading] = useState(true);
+  const sectionRefs = useRef([]);
 
   // Default to dark mode or saved preference
   const [theme, setTheme] = useState(() => {
@@ -33,48 +42,12 @@ function App() {
     const root = document.documentElement;
     root.classList.remove('light', 'dark', 'neon', 'neon-pink', 'matrix', 'light-mode');
     root.classList.add(theme);
-
-    // Ensure tailwind sees them all as dark mode
     root.classList.add('dark');
-
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const mainRef = useRef(null);
-
-  useLayoutEffect(() => {
-    if (loading) return; // wait for load
-
-    const ctx = gsap.context(() => {
-      const panels = gsap.utils.toArray('.stacked-panel');
-      // CSS Sticky replaces `pin: true`. We only use GSAP to scale down the panel underneath.
-      panels.forEach((panel, i) => {
-        if (i < panels.length - 1) {
-          gsap.to(panel, {
-            scale: 0.9,
-            opacity: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: panels[i + 1],
-              start: "top bottom",
-              end: "top top",
-              scrub: true,
-              onEnter: () => gsap.set(panel, { transformOrigin: "center top" }),
-              onEnterBack: () => gsap.set(panel, { transformOrigin: "center top" }),
-            }
-          });
-        }
-      });
-      ScrollTrigger.refresh();
-    }, mainRef);
-
-    // Give images a moment to load before refreshing scroll triggers
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
-
-    return () => ctx.revert();
-  }, [loading]);
+  // Initialise stacking animation with refs to all sections
+  useStackAnimation(sectionRefs);
 
   return (
     <>
@@ -84,7 +57,7 @@ function App() {
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       {!loading && (
-        <div className="relative z-10 min-h-screen text-[var(--text)] transition-colors duration-300 overflow-hidden bg-transparent">
+        <div className="relative min-h-screen text-[var(--text)] transition-colors duration-300 bg-transparent">
 
           {/* 🌌 Three.js 3D Background — lazy loaded */}
           <Suspense fallback={null}>
@@ -93,31 +66,19 @@ function App() {
 
           <Navbar theme={theme} setTheme={setTheme} />
 
-          <main ref={mainRef} className="stack-container">
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] flex flex-col justify-center border-b border-[var(--border)] shadow-2xl origin-top bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 1 }}>
-              <Hero theme={theme} />
-            </div>
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 2 }}>
-              <TechStack />
-            </div>
-            <div id="experience" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 3 }}>
-              <Experience />
-            </div>
-            <div id="achievements" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 4 }}>
-              <Achievements />
-            </div>
-            <div id="projects" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 5 }}>
-              <Portfolio />
-            </div>
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 6 }}>
-              <Contact />
-            </div>
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] shadow-2xl origin-top flex flex-col justify-center pt-16 pb-24 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 7 }}>
-              <About />
-            </div>
+          <main className="stack-container w-full">
+            {SECTIONS.map(({ Component, id }, i) => (
+              <div
+                key={id}
+                ref={el => (sectionRefs.current[i] = el)}
+                className="stack-section bg-[var(--bg)]/90 backdrop-blur-2xl flex flex-col justify-center border-b border-[var(--border)] shadow-2xl"
+              >
+                <Component theme={id === 'hero' ? theme : undefined} />
+              </div>
+            ))}
           </main>
 
-          <footer className="py-12 text-center border-t border-[var(--border)]" style={{ fontFamily: 'var(--font-ui)' }}>
+          <footer className="py-12 text-center border-t border-[var(--border)] relative z-[100] bg-[var(--bg)]" style={{ fontFamily: 'var(--font-ui)' }}>
             <p className="text-[var(--text-muted)] text-sm tracking-widest uppercase mb-2">
               Designed and developed by
             </p>

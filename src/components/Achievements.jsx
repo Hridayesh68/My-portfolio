@@ -244,7 +244,7 @@ const Achievements = memo(() => {
     const COLORS = ['#646cff', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
     return (
-        <section id="achievements" ref={sectionRef} className="py-20 relative bg-transparent overflow-hidden">
+        <section id="achievements" ref={sectionRef} className="relative bg-transparent">
             <div className="max-w-7xl mx-auto px-4">
 
                 {/* Header */}
