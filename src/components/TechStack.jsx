@@ -144,7 +144,7 @@ const TechStack = memo(() => {
     }, []);
 
     return (
-        <section id="tech-stack" ref={sectionRef} className="bg-transparent">
+        <section id="tech-stack" ref={sectionRef} className="py-20 bg-transparent overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
                 <h2 className="tech-heading text-3xl md:text-4xl font-bold mb-4 text-[var(--text)]" style={{ fontFamily: 'var(--font-accent)' }}>
                     Tech Arsenal

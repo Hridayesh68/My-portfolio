@@ -250,7 +250,7 @@ const Experience = memo(() => {
         <section
             id="experience"
             ref={sectionRef}
-            className="relative bg-transparent"
+            className="py-28 relative bg-transparent overflow-hidden"
         >
             {/* ── Subtle ambient glow blobs ── */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden z-0">

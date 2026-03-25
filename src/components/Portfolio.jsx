@@ -28,7 +28,7 @@ const Portfolio = memo(() => {
     }, [activeTab]);
 
     return (
-        <div ref={containerRef} className="w-full">
+        <div ref={containerRef} className="pt-24 pb-12 w-full">
             <div className="max-w-7xl mx-auto px-4 relative z-20 mb-12 flex flex-col items-center">
                 <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-2 bg-[var(--bg-surface)] backdrop-blur-md rounded-2xl border border-[var(--border)] shadow-lg">
                     {tabs.map(tab => (

@@ -111,7 +111,7 @@ html,
 body {
   width: 100dvw;
   min-height: 100dvh;
-  overflow-x: clip;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   font-family: var(--font-ui);
   transition: background-color 0.5s ease, color 0.5s ease;
@@ -1163,10 +1163,11 @@ p, span, li, input, textarea {
 .stack-section {
   position: sticky;
   top: 0;
-  height: 100vh;
-  width: 100%;
-  will-change: transform, opacity, filter;
-  overflow: hidden;
+  min-height: 100dvh;
+  will-change: transform;
+  overflow-x: hidden;
+  /* Allows inner scrolling if section exceeds 100vh */
+  overflow-y: auto;
 }
 
 /* Hide scrollbar for stack sections to keep UI clean */

@@ -51,7 +51,7 @@ const Contact = memo(() => {
     };
 
     return (
-        <section id="contact" ref={sectionRef} className="relative">
+        <section id="contact" ref={sectionRef} className="py-20 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 z-10 relative">
 
                 <div className="text-center mb-16 contact-reveal">
