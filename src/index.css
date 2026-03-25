@@ -109,7 +109,7 @@ html.matrix {
 
 html,
 body {
-  width: 100dvw;
+  width: 100%;
   min-height: 100dvh;
   overflow-x: hidden;
   scroll-behavior: smooth;

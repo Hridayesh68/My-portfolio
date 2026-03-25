@@ -28,7 +28,11 @@ const About = memo(() => {
 
     const education = [
         {
-            institution: "Lovely Professional University",
+            institution: (
+                <>
+                    Lovely Professional University <span className="text-emerald-400 font-extrabold ml-1 bg-emerald-400/10 px-1.5 py-0.5 rounded">CGPA: 7.5</span>
+                </>
+            ),
             location: "Punjab, India",
             degree: "Bachelor of technology – Computer Science and Engineering",
             date: "Aug’ 23 - Present"

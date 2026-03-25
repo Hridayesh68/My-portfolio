@@ -1,4 +1,5 @@
 import { useState, useEffect, useLayoutEffect, useRef, memo } from 'react';
+import AnimatedCount from './ui/AnimatedCount';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Github, Code, Trophy, TrendingUp } from 'lucide-react';
 import gsap from 'gsap';
@@ -9,44 +10,6 @@ import { GitHubCalendar } from 'react-github-calendar';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ───── Animated stat number helper ───── */
-const AnimatedCount = memo(({ target, prefix = '', suffix = '', className = '' }) => {
-    const elRef = useRef(null);
-    const triggered = useRef(false);
-
-    useEffect(() => {
-        if (!elRef.current || triggered.current || target === 0) return;
-        const ctx = gsap.context(() => {
-            const counter = { val: 0 };
-            ScrollTrigger.create({
-                trigger: elRef.current,
-                start: 'top 85%',
-                once: true,
-                onEnter: () => {
-                    if (triggered.current) return;
-                    triggered.current = true;
-                    gsap.to(counter, {
-                        val: target,
-                        duration: 2,
-                        ease: 'power2.out',
-                        onUpdate: () => {
-                            if (elRef.current) {
-                                elRef.current.textContent = prefix + Math.round(counter.val) + suffix;
-                            }
-                        },
-                    });
-                },
-            });
-        });
-        return () => ctx.revert();
-    }, [target, prefix, suffix]);
-
-    return (
-        <span ref={elRef} className={className}>
-            {prefix}0{suffix}
-        </span>
-    );
-});
 
 /* ───── Difficulty badge ───── */
 const DiffBadge = memo(({ label, count, color, bg }) => (

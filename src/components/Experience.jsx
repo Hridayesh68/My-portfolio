@@ -1,4 +1,5 @@
 import { useRef, useLayoutEffect, useState, memo } from 'react';
+import AnimatedCount from './ui/AnimatedCount';
 import { Rocket, Terminal, Database, Layout, ExternalLink, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -37,7 +38,7 @@ const MILESTONES = [
         desc: 'Designing and deploying production-grade full-stack applications with Next.js, Node.js, and cloud infrastructure. Focus on performance, scalability, and clean architecture.',
         tags: ['Next.js', 'Node.js', 'AWS', 'Microservices'],
         icon: <Rocket size={18} />,
-        stat: { value: '3+', label: 'Apps Deployed' },
+        stat: { value: 3, suffix: '+', label: 'Apps Deployed' },
         color: 'from-blue-500 to-cyan-500',
         accentColor: 'text-cyan-400',
         borderColor: 'border-cyan-500/30',
@@ -52,7 +53,7 @@ const MILESTONES = [
         desc: 'Mastered WebGL rendering pipelines, Three.js 3D scenes, and GSAP scroll-driven animations. Built interactive portfolio-grade experiences with cinematic transitions.',
         tags: ['Three.js', 'GSAP', 'WebGL', 'React'],
         icon: <Layout size={18} />,
-        stat: { value: '5+', label: 'Animations Built' },
+        stat: { value: 5, suffix: '+', label: 'Animations Built' },
         color: 'from-violet-500 to-purple-500',
         accentColor: 'text-violet-400',
         borderColor: 'border-violet-500/30',
@@ -67,7 +68,7 @@ const MILESTONES = [
         desc: 'Built robust REST APIs with Express.js, designed relational database schemas with MySQL, and developed ML inference pipelines with Python and scikit-learn. Worked as a backend developer delivering scalable server-side solutions.',
         tags: ['Express', 'MySQL', 'Python', 'scikit-learn', 'REST APIs'],
         icon: <Database size={18} />,
-        stat: { value: '200+', label: 'Problems Solved' },
+        stat: { value: 200, suffix: '+', label: 'Problems Solved' },
         color: 'from-emerald-500 to-green-500',
         accentColor: 'text-emerald-400',
         borderColor: 'border-emerald-500/30',
@@ -82,7 +83,7 @@ const MILESTONES = [
         desc: 'Built interactive Power BI dashboards with DAX measures, KPI cards, drill-through reports, and Power Query pipelines. Analysed EV adoption trends across 50+ data points. Developed ML models using scikit-learn for predictive analytics.',
         tags: ['Power BI', 'DAX', 'Python', 'scikit-learn', 'Excel'],
         icon: <ChartIcon />,
-        stat: { value: '50+', label: 'Data Points' },
+        stat: { value: 50, suffix: '+', label: 'Data Points' },
         color: 'from-yellow-500 to-amber-500',
         accentColor: 'text-yellow-400',
         borderColor: 'border-yellow-500/30',
@@ -98,7 +99,7 @@ const MILESTONES = [
         desc: 'Built strong foundations in Data Structures, Algorithms, OOP principles, and core web technologies. Solved 200+ LeetCode and HackerRank problems. Earned 5-star ratings in Python and C++.',
         tags: ['C++', 'Java', 'DSA', 'HTML/CSS'],
         icon: <Terminal size={18} />,
-        stat: { value: '5⭐', label: 'HackerRank' },
+        stat: { value: 5, suffix: '⭐', label: 'HackerRank' },
         color: 'from-rose-500 to-pink-500',
         accentColor: 'text-rose-400',
         borderColor: 'border-rose-500/30',
@@ -485,7 +486,7 @@ const Experience = memo(() => {
                                                 `}>
                                                     <div>
                                                         <span className={`text-2xl font-black ${card.accentColor}`}>
-                                                            {card.stat.value}
+                                                            <AnimatedCount target={card.stat.value} suffix={card.stat.suffix} />
                                                         </span>
                                                         <span className="text-xs text-[var(--text-dim)] ml-2">
                                                             {card.stat.label}
@@ -511,10 +512,10 @@ const Experience = memo(() => {
                 {/* ── Bottom stats bar ── */}
                 <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                        { value: '200+', label: 'Problems Solved', color: 'text-cyan-400' },
-                        { value: '5⭐', label: 'HackerRank Rating', color: 'text-yellow-400' },
-                        { value: '6+', label: 'Projects Shipped', color: 'text-violet-400' },
-                        { value: '3+', label: 'Certifications', color: 'text-emerald-400' },
+                        { value: 200, suffix: '+', label: 'Problems Solved', color: 'text-cyan-400' },
+                        { value: 5, suffix: '⭐', label: 'HackerRank Rating', color: 'text-yellow-400' },
+                        { value: 6, suffix: '+', label: 'Projects Shipped', color: 'text-violet-400' },
+                        { value: 3, suffix: '+', label: 'Certifications', color: 'text-emerald-400' },
                     ].map((stat, i) => (
                         <div
                             key={i}
@@ -524,7 +525,9 @@ const Experience = memo(() => {
                                 backdrop-blur-sm hover:border-primary/30 transition-colors
                             "
                         >
-                            <span className={`text-3xl font-black ${stat.color}`}>{stat.value}</span>
+                            <span className={`text-3xl font-black ${stat.color}`}>
+                                <AnimatedCount target={stat.value} suffix={stat.suffix} />
+                            </span>
                             <span className="text-xs text-[var(--text-dim)] mt-1 text-center">
                                 {stat.label}
                             </span>

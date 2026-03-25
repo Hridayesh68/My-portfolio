@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, lazy, Suspense, useRef } from 'react';
+import { useState, useLayoutEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TechStack from './components/TechStack';
@@ -14,8 +14,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Lazy load heavy 3D background
-const ThreeBackground = lazy(() => import('./components/ThreeBackground'));
+// Eagerly load 3D background to prevent hydration white-flash
+import ThreeBackground from './components/ThreeBackground';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -46,34 +46,37 @@ function App() {
     if (loading) return; // wait for load
 
     const ctx = gsap.context(() => {
-      const panels = gsap.utils.toArray('.stacked-panel');
-      // CSS Sticky replaces `pin: true`. We only use GSAP to scale down the panel underneath.
-      panels.forEach((panel, i) => {
-        if (i < panels.length - 1) {
-          gsap.to(panel, {
-            scale: 0.9,
-            opacity: 0,
-            ease: "none",
+      // ── Animate panels fading in on scroll ──
+      const panels = gsap.utils.toArray('.stack-section');
+      panels.forEach((panel) => {
+        gsap.fromTo(panel, 
+          { opacity: 0, y: 30 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.8,
+            ease: "power2.out",
             scrollTrigger: {
-              trigger: panels[i + 1],
-              start: "top bottom",
-              end: "top top",
-              scrub: true,
-              onEnter: () => gsap.set(panel, { transformOrigin: "center top" }),
-              onEnterBack: () => gsap.set(panel, { transformOrigin: "center top" }),
+              trigger: panel,
+              start: "top 85%",
+              toggleActions: "play reverse play reverse"
             }
-          });
-        }
+          }
+        );
       });
+
       ScrollTrigger.refresh();
     }, mainRef);
 
     // Give images a moment to load before refreshing scroll triggers
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 500);
 
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(timeout);
+      ctx.revert();
+    };
   }, [loading]);
 
   return (
@@ -84,35 +87,33 @@ function App() {
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       {!loading && (
-        <div className="relative z-10 min-h-screen text-[var(--text)] transition-colors duration-300 overflow-hidden bg-transparent">
+        <div className="relative z-10 min-h-screen text-[var(--text)] transition-colors duration-300 overflow-x-hidden bg-transparent">
 
-          {/* 🌌 Three.js 3D Background — lazy loaded */}
-          <Suspense fallback={null}>
-            <ThreeBackground />
-          </Suspense>
+          {/* 🌌 Three.js 3D Background */}
+          <ThreeBackground />
 
           <Navbar theme={theme} setTheme={setTheme} />
 
-          <main ref={mainRef} className="stack-container">
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] flex flex-col justify-center border-b border-[var(--border)] shadow-2xl origin-top bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 1 }}>
+          <main ref={mainRef} className="relative z-10 flex flex-col">
+            <div className="stack-section w-full">
               <Hero theme={theme} />
             </div>
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 2 }}>
+            <div className="stack-section w-full">
               <TechStack />
             </div>
-            <div id="experience" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 3 }}>
+            <div id="experience" className="stack-section w-full">
               <Experience />
             </div>
-            <div id="achievements" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 4 }}>
+            <div id="achievements" className="stack-section w-full">
               <Achievements />
             </div>
-            <div id="projects" className="stacked-panel stack-section w-full min-h-[100dvh] border-b border-[var(--border)] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 5 }}>
+            <div id="projects" className="stack-section w-full">
               <Portfolio />
             </div>
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] shadow-2xl origin-top flex flex-col justify-center pt-16 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 6 }}>
+            <div className="stack-section w-full">
               <Contact />
             </div>
-            <div className="stacked-panel stack-section w-full min-h-[100dvh] shadow-2xl origin-top flex flex-col justify-center pt-16 pb-24 bg-[var(--bg)]/90 backdrop-blur-2xl" style={{ zIndex: 7 }}>
+            <div className="stack-section w-full pb-24">
               <About />
             </div>
           </main>
