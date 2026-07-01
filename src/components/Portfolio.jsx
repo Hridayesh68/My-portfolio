@@ -4,12 +4,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Projects from './Projects';
 import Certificates from './Certificates';
 import Models from './Models';
+import Games from './Games';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Portfolio = memo(() => {
     const [activeTab, setActiveTab] = useState('All');
-    const tabs = ['All', '3D Models', 'Projects', 'Certificates'];
+    const tabs = ['All', '3D Models', 'Games', 'Projects', 'Certificates'];
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -62,6 +63,12 @@ const Portfolio = memo(() => {
                 {(activeTab === 'All' || activeTab === '3D Models') && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
                         <Models />
+                    </div>
+                )}
+
+                {(activeTab === 'All' || activeTab === 'Games') && (
+                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
+                        <Games />
                     </div>
                 )}
             </div>
